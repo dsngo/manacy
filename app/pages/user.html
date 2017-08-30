@@ -1,0 +1,21 @@
+<app-header title="'まなびシート'" flex="none">
+    <md-button aria-label="Worksheet" ui-sref="auth.wslist" ng-class="$ctrl.$mdMedia('gt-sm') ? '' : 'md-icon-button'" md-colors="('auth.wslist'|includedByState) ? {background: 'primary-400'} : {}">
+        <md-icon md-menu-origin>view_list</md-icon>
+        <span class="md-caption" hide show-gt-sm>ワークシート一覧</span>
+        <md-tooltip md-direction="bottom">ワークシート一覧</md-tooltip>
+    </md-button>
+    <md-button aria-label="Worksheet" ui-sref="auth.entries" ng-class="$ctrl.$mdMedia('gt-sm') ? '' : 'md-icon-button'" md-colors="('auth.entries'|includedByState) ? {background: 'primary-400'} : {}">
+        <md-icon md-menu-origin>search</md-icon>
+        <span class="md-caption" hide show-gt-sm>カキコミ検索</span>
+        <md-tooltip md-direction="bottom">カキコミ検索</md-tooltip>
+    </md-button>
+    <md-button aria-label="Worksheet" ui-sref="auth.albums" ng-class="$ctrl.$mdMedia('gt-sm') ? '' : 'md-icon-button'" md-colors="('auth.albums'|includedByState) ? {background: 'primary-400'} : {}">
+        <md-icon md-menu-origin>album</md-icon>
+        <span class="md-caption" hide show-gt-sm>アルバム一覧</span>
+        <md-tooltip md-direction="bottom">アルバム一覧</md-tooltip>
+    </md-button>
+</app-header>
+
+<div layout="column" layout-align="start center">
+    <app-user-settings user="$ctrl.identityService.currentUser"></app-user-settings>
+</div>

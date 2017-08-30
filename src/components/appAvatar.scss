@@ -1,0 +1,57 @@
+/*
+avatar
+*/
+app-avatar {
+    margin-right: 1em;
+    margin-left: 1em;
+    height: 40px;
+    width: 40px;
+    min-width: 40px;
+    overflow: hidden;
+    border-radius: 50%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+     > .avatar {
+        position: absolute;
+        height: 40px;
+        display: block;
+        border-radius: 50%;
+
+        &.small {
+            height: 20px;
+        }
+    }
+
+    &:first-child {
+        margin-left: 0;
+    }
+    &:nth-last-child {
+        margin-right: 0;
+    }
+
+}
+
+app-avatar[small] {
+    margin-right: 0.5em;
+    margin-left: 0.5em;
+    height: 20px;
+    width: 20px;
+    min-width: 20px;
+}
+
+
+/* IE10以降のみ適応
+https://nelog.jp/ie11-css-hack
+*/
+@media all and (-ms-high-contrast:none){
+    app-avatar > .avatar {
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: 0;
+    }
+}

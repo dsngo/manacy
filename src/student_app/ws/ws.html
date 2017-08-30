@@ -1,0 +1,19 @@
+<app-header title="$ctrl.wsAssignmentService.ws.title" back-to="'auth.wslist'" flex="none">
+    <md-button hide-xs aria-label="Worksheet" ui-sref=".myws" ng-class="$ctrl.$mdMedia('gt-sm') ? '' : 'md-icon-button'">
+        <span class="md-caption" hide show-gt-sm>自分のん</span>
+        <md-tooltip md-direction="bottom">自分のワークシート</md-tooltip>
+        <md-icon md-menu-origin>view_list</md-icon>
+    </md-button>
+    <md-button hide-xs aria-label="Students" ui-sref=".peerws" ng-class="$ctrl.$mdMedia('gt-sm') ? '' : 'md-icon-button'">
+        <span class="md-caption" hide show-gt-sm>みんなのん</span>
+        <md-tooltip md-direction="bottom">みんなのワークシート</md-tooltip>
+        <md-icon md-menu-origin>people</md-icon>
+    </md-button>
+</app-header>
+<md-content flex="100" class="height100">
+    <md-nav-bar hide-gt-xs md-border-bottom md-selected-nav-item="$ctrl.currentNav">
+        <md-nav-item md-nav-sref=".myws" name="auth.ws.myws">自分のワークシート</md-nav-item>
+        <md-nav-item md-nav-sref=".peerws" name="auth.ws.peerws">友だちのワークシート</md-nav-item>
+    </md-nav-bar>
+    <ui-view></ui-view>
+</md-content>

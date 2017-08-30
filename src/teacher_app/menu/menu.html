@@ -1,0 +1,19 @@
+<div class="menu-content" ng-class="{'device-mode': $ctrl.isDeviceMode(), 'desktop-mode': !$ctrl.isDeviceMode()}" layout="column" layout-align="space-around stretch">
+    <div layout="column" layout-align="center strech">
+
+        <md-button class="md-raised md-primary" md-colors="{background: 'primary-900'}" layout="row" layout-align="center center" ui-sref="auth.menu.menu1" ng-click="$ctrl.menu.next()">
+            <md-icon class="md-primary md-icon">note_add</md-icon>
+            <span class="menu-button-content">ワークシートを準備する</span>
+        </md-button>
+
+        <md-button class="md-raised md-primary" md-colors="{background: 'primary-900'}" layout="row" layout-align="center center" ui-sref="auth.menu.menu2" ng-click="$ctrl.menu.next()">
+            <md-icon class="md-primary md-icon">record_voice_over</md-icon>
+            <span class="menu-button-content">授業をする</span>
+        </md-button>
+
+        <md-button class="md-raised md-primary" md-colors="{background: 'primary-900'}" layout="row" layout-align="center center" ui-sref="auth.menu.menu3" ng-click="$ctrl.menu.next()">
+            <md-icon class="md-primary md-icon">search</md-icon>
+            <span class="menu-button-content">ワークシートを見る</span>
+        </md-button>
+    </div>
+</div>

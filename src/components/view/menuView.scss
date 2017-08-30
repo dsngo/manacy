@@ -1,0 +1,21 @@
+app-menu-view {
+    app-view-inner {
+        .app-view-header-menu {
+            position: relative;
+            height: 40px;
+
+            > md-menu {
+                position: absolute;
+                right: 0;
+
+                > .md-button {
+                    min-width: 0;
+
+                    .app-view-user-info > span {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}

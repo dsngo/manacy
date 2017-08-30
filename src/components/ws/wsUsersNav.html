@@ -1,0 +1,32 @@
+<md-sidenav class="md-sidenav-left height100" md-component-id="left" md-is-open="$ctrl.isSidenavOpen" md-is-locked-open="$mdMedia('gt-sm')"
+    md-disable-backdrop md-whiteframe="4">
+    <md-list ng-repeat="group in $ctrl.groups | orderBy:'name'" ng-if="$ctrl.containsStudents(group.users)">
+        <v-accordion class="v-accordion-arrow">
+            <v-pane style="border:solid 1px #A0A0A0; margin: 2px" expanded="true">
+                <v-pane-header md-ink-ripple="true">
+                    <md-list-item class="md-2-line">
+                        <div class="md-list-item-text">
+                            <p class="md-caption" style="font-size: 80%">グループ名</p>
+                            <h3 class="md-body-2" style="font-weight: bolder">{{group.name}}</h3>
+                        </div>
+                    </md-list-item>
+                </v-pane-header>
+                <v-pane-content>
+                    <md-list-item class="md-2-line" ng-repeat="user in group.users" md-colors="user.id == $ctrl.selectedUserId ? {background: 'accent-200'} : {}"
+                        ng-click="$ctrl.onClick({ userId: user.id })" ng-if="user.student && user.id !== $ctrl.currentUser.id">
+                        <img ng-src="../images/avatars/default.jpg" class="md-avatar" alt="who" />
+                        <div class="md-list-item-text">
+                            <h3>{{user.displayName}}</h3>
+                            <!--
+                        <p>{{student.username}}
+                            <span class="md-caption" md-colors="{backgroundColor: 'primary'}" ng-if="student.actionCount===student.itemCount" style="width:40px">&nbsp;完了&nbsp;</span>
+                            <span class="md-caption" md-colors="{backgroundColor: 'accent'}" ng-if="student.actionCount!=student.itemCount" style="width:40px">&nbsp;未完了({{student.itemCount-student.actionCount}})&nbsp;</span>
+                        </p>
+                        -->
+                        </div>
+                    </md-list-item>
+                </v-pane-content>
+            </v-pane>
+        </v-accordion>
+    </md-list>
+</md-sidenav>

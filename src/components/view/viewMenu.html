@@ -1,0 +1,37 @@
+<md-menu>
+    <md-button aria-label="Menu" ng-click="$mdOpenMenu($event)" ng-class="{'md-icon-button': $ctrl.isDeviceMode()}">
+        <md-icon ng-if="$ctrl.isDeviceMode()" md-menu-origin>menu</md-icon>
+        <div ng-if="!$ctrl.isDeviceMode()" class="app-view-user-info">
+            <app-avatar user-id="$ctrl.identityService.currentUser.id" class="nomargin"></app-avatar>
+            <span>{{$ctrl.identityService.currentUser.displayName}}</span>
+        </div>
+    </md-button>
+
+    <md-menu-content class="app-view-menu-content" width="4">
+        <md-menu-item>
+            <md-button ng-if="$ctrl.isDeviceMode()" ng-click="$ctrl.toggleBasicMenu()" md-prevent-menu-close>
+                <div class="app-view-user-info">
+                    <app-avatar user-id="$ctrl.identityService.currentUser.id" class="nomargin"></app-avatar>
+                    <span flex="grow">{{$ctrl.identityService.currentUser.displayName}}</span>
+                </div>
+            </md-button>
+
+            <div ng-if="!$ctrl.isDeviceMode()" class="app-view-user-info">
+                <app-avatar user-id="$ctrl.identityService.currentUser.id" class="nomargin"></app-avatar>
+                <span flex="grow">{{$ctrl.identityService.currentUser.displayName}}</span>
+            </div>
+        </md-menu-item>
+
+        <div ng-show="$ctrl.hasOpenBasicMenu()" class="app-view-basic-menu">
+            <md-menu-item>
+                <md-button ng-href="/app2/student/user_detail.php">個人設定</md-button>
+            </md-menu-item>
+
+            <md-menu-item>
+                <md-button ng-click="$ctrl.logoff()">ログアウト</md-button>
+            </md-menu-item>
+        </div>
+
+        <ng-transclude style="transition: initial;"></ng-transclude>
+    </md-menu-content>
+</md-menu>

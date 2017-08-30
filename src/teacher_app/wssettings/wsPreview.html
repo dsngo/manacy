@@ -1,0 +1,27 @@
+<div layout="row" class="height100">
+    <md-content flex="100" class="height100" layout="column">
+        <app-ws-owner-view owner-user-id="$ctrl.selected" current-user="$ctrl.dummyStudentOwner" edit-mode="true"></app-ws-owner-view>
+    </md-content>
+    <md-sidenav flex="none" class="md-sidenav-right" md-component-id="settings" md-is-locked-open="$mdMedia('gt-sm')" md-disable-backdrop
+        md-whiteframe="4">
+        <md-radio-group ng-model="$ctrl.selected">
+            <div class="row">
+                <div flex layout='row' layout-padding layout-align="start center">
+                    <md-radio-button flex ng-value="$ctrl.dummyStudentOwner.id" class="md-primary">
+                        本人が見たとき
+                    </md-radio-button>
+                </div>
+                <div flex layout='row' layout-padding layout-align="start center">
+                    <md-radio-button flex ng-value="$ctrl.dummyStudentSameGroup.id" class="md-primary">
+                         同じグループの生徒が見たとき
+                    </md-radio-button>
+                </div>
+                <div flex layout='row' layout-padding layout-align="start center">
+                    <md-radio-button flex ng-value="$ctrl.dummyStudentSameCourse.id" class="md-primary">
+                        他のグループの生徒が見たとき
+                    </md-radio-button>
+                </div>
+            </div>
+        </md-radio-group>
+    </md-sidenav>
+</div>

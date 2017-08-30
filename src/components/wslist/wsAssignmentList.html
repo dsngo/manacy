@@ -1,0 +1,37 @@
+<div class="delivery-list-item-wrapper" ng-repeat="assignment in $ctrl.assignmentList">
+    <md-content class="delivery-list-item" layout="row" layout-padding style="padding:0" ng-click="$ctrl.clickDetailOrEdit($event)">
+        <div layout="row" flex="40" layout-align="start center">
+            <span md-colors="::{background: 'default-primary-100'}" class="delivery-title">5-1</span>
+                <span style="font-size:10px" class="delivery-status" md-colors="::{background: 'red-A400'}">未配信</span>
+                <span style="font-size:10px" class="delivery-status" md-colors="::{background: 'blue-A400'}">配信済み</span>
+                <span style="font-size:10px" class="delivery-status" md-colors="::{background: 'primary-700'}">配信予定</span>
+            <p><span style="padding-left:10px; font-size:10px">配付日 {{assignment.assignedDate | date:'short'}}</span><br>
+                先生：<span ng-repeat="teacher in assignment.teachers">{{teacher.displayName}}</span>
+            </p>
+        </div>
+        <div class="button-wrapper" layout="row" layout-align="end center" flex="60">
+            <div layout="column" class="edit">
+                <md-button md-colors="::{color:'blue-A700'}" md-no-ink ng-click="$ctrl.todayAssignment(assignment)">今日の授業へ</md-button>
+            </div>
+            <div layout="column" class="delivery">
+                <md-button class="md-raised md-primary" ui-sref="auth.assginment.settings.properties({assignmentId: assignment.id })">表示・編集</md-button>
+            </div>
+            <div layout="column" class="more_menu">
+                <md-menu class="md-secondary">
+                    <md-button class="md-icon-button" aria-label="More" ng-click="$mdOpenMenu($event);">
+                        <md-icon md-menu-origin style="background: none;" class="md-48">more_vert</md-icon>
+                    </md-button>
+                    <md-menu-content>
+                        <md-menu-item>
+                            <md-button ng-click="$ctrl.cancelAssignment(assignment)"><span>配付を中止する</span></md-button>
+                        </md-menu-item>
+                        <md-menu-item>
+                            <md-button ng-click="$ctrl.deleteAssignment($index)"><span>削除</span></md-button>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
+            </div>
+        </div>
+    </md-content>
+    <md-divider ng-if="!$last"></md-divider>
+</div>

@@ -1,0 +1,67 @@
+<md-card class="user-settings" layout-align="center">
+    <md-card-title md-colors="{background: 'primary'}" layout-align="center">
+        <span class="md-title">個人情報設定</span>
+    </md-card-title>
+    <form name="userSettingsForm">
+        <md-card-content layout="row" layout-padding>
+
+            <div flex="none">
+                <div class="user-image-settings md-media-xl">
+                    <app-avatar user-id="$ctrl.user.id" ng-if="!$ctrl.imageUrl" class="nomargin"></app-avatar>
+                    <img src="{{$ctrl.imageUrl}}" ng-if="$ctrl.imageUrl" class="nomargin img">
+                    <label for="camera" class="md-fab md-button">
+                        <md-icon for="camera" md-colors="{'color': 'background-900'}">photo_camera</md-icon>
+                    </label>
+                    <input type="file" id="camera" class="hide" accept="image/*" ngf-select="$ctrl.changeAvatar($file)" ngf-capture="camera"
+                        ngf-fix-orientation="true" ngf-multiple="false">
+                </div>
+            </div>
+            <div flex="grow">
+                <span style="font-size:10px; color:rgba(0,0,0,0.54);margin-bottom:8px;">名前</span>
+                <div layout="row">
+                    {{$ctrl.userInfo.name}}
+                    <!-- <md-input-container>
+                        <label>名前</label>
+                        <input name="name" ng-model="$ctrl.userInfo.name" required aria-label="表示名">
+                        <div ng-messages="userSettingsForm.name.$error">
+                            <div ng-message="required">名前の入力は必須です。</div>
+                        </div>
+                        </md-input-container> -->
+                </div>
+                <span style="font-size:10px; color:rgba(0,0,0,0.54);margin-bottom:8px;">メールアドレス</span>
+                <div layout="row">
+                    {{$ctrl.userInfo.mail}}
+                    <!-- <md-input-container>
+                        <label>メールアドレス</label>
+                        <input name="mail" ng-model="$ctrl.userInfo.mail" required aria-label="メールアドレス">
+                        <div ng-messages="userSettingsForm.mail.$error">
+                            <div ng-message="required">メールアドレスの入力は必須です。</div>
+                        </div>
+                    </md-input-container> -->
+                </div>
+                <!-- <div layout="row">
+                    <md-input-container flex="grow">
+                        <label>パスワード</label>
+                        <input name="password" type="password" ng-model="$ctrl.userInfo.password">
+                    </md-input-container>
+                    <md-input-container flex="grow">
+                        <label>パスワード（確認用）</label>
+                    </md-input-container>
+                </div> -->
+                <!-- <div layout="row">
+                    <md-input-container>
+                        <label>カラー設定</label>
+                        <md-select ng-model="$ctrl.userInfo.color">
+                            <md-option ng-repeat="color in $ctrl.colors" ng-value="color.key">{{color.name}}</md-option>
+                        </md-select>
+                    </md-input-container>
+                </div> -->
+                <div layout="row">
+                    <md-button class="cancel-button nomargin md-raised" md-colors="{background: 'grey-400'}" aria-label="キャンセル" ng-click="$ctrl.cancel()">キャンセル</md-button>
+                    <md-button class="edit-button nomargin md-primary md-raised" aria-label="変更" ng-click="$ctrl.edit()">変更</md-button>
+                </div>
+            </div>
+
+        </md-card-content>
+    </form>
+</md-card>

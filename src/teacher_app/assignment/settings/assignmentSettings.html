@@ -1,0 +1,15 @@
+<app-view>
+    <app-view-back-to></app-view-back-to>
+
+    <app-view-headline>わーくしーと名</app-view-headline>
+
+    <app-view-content>
+        <md-nav-bar md-selected-nav-item="$ctrl.page">
+            <md-nav-item md-nav-sref=".properties" name="properties">１．設定</md-nav-item>
+            <md-nav-item md-nav-sref=".users" name="users">２．配布</md-nav-item>
+            <md-nav-item md-nav-sref=".groups" name="groups">３．グループ</md-nav-item>
+        </md-nav-bar>
+
+        <ui-view></ui-view>
+    </app-view-content>
+</app-view>

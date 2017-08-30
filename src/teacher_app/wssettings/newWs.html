@@ -1,0 +1,23 @@
+<app-view>
+    <app-view-back-to></app-view-back-to>
+
+    <app-view-headline>新規ワークシート作成</app-view-headline>
+
+    <app-view-content>
+        <md-nav-bar md-selected-nav-item="$ctrl.page">
+            <md-nav-item md-nav-click="" name="settings">１．設定</md-nav-item>
+            <li class="md-nav-item">
+                <a class="_md-nav-button md-accent md-button" disabled>
+                    ２．編集
+                </a>
+            </li>
+            <li class="md-nav-item">
+                <a class="_md-nav-button md-accent md-button" disabled>
+                    ３．プレビュー
+                </a>
+            </li>
+        </md-nav-bar>
+
+        <ui-view></ui-view>
+    </app-view-content>
+</app-view>

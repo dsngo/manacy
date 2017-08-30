@@ -1,0 +1,39 @@
+<md-toolbar flex="none">
+    <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+        <md-button class="md-icon-button" aria-label="戻る" ui-sref="{{$ctrl.backTo}}" ng-if="$ctrl.backTo" flex="none">
+            <md-tooltip md-direction="bottom">戻る</md-tooltip>
+            <md-icon md-menu-origin>arrow_back</md-icon>
+        </md-button>
+
+        <div layout="row" layout-align="space-between stretch" flex="grow">
+            <h3 flex="grow">{{$ctrl.title}}</h3>
+            <div flex="none">
+                <ng-transclude></ng-transclude>
+            </div>
+        </div>
+
+        <md-menu flex="none" style="margin-left: 32px;">
+            <md-button aria-label="Menu" ng-click="$mdOpenMenu($event)" style="min-width:0px; padding:0 0; margin:0 0">
+                <div layout="row" layout-align="start center">
+                    <!--<img class="avatar" src="../images/avatars/default.jpg">-->
+                    <app-avatar user-id="$ctrl.identityService.currentUser.id" class="nomargin"></app-avatar>
+                    <span hide show-gt-sm style="margin-left:8px">{{$ctrl.identityService.currentUser.displayName}}</span>
+                </div>
+            </md-button>
+            <md-menu-content width="4">
+                <md-menu-item>
+                    <!--<img class="avatar" style="margin-left:16px;width:32px;height:32px;padding:0 0px" src="../images/avatars/default.jpg">-->
+                    <app-avatar user-id="$ctrl.identityService.currentUser.id" class="nomargin" style="margin-left:16px;padding:0 0px"></app-avatar>
+                    <span flex="grow" style="padding:0 12px;font-weight: bolder">{{$ctrl.identityService.currentUser.displayName}}</span>
+                </md-menu-item>
+                <md-menu-item>
+                    <md-button ui-sref="auth.user">個人設定</md-button>
+                </md-menu-item>
+                <md-menu-item>
+                    <md-button ng-click="$ctrl.logoff()">ログアウト</md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
+    </div>
+</md-toolbar>
+<md-progress-linear md-mode="indeterminate" ng-disabled="!$ctrl.identityService.isBusy" style="position: absolute; top:0; left:0; z-index: 9999"></md-progress-linear>

@@ -1,0 +1,33 @@
+<div style="column-count: 2">
+    <div ng-repeat="origin in $ctrl.origins | filter: $ctrl.originFilter" style="break-inside: avoid-column; padding-top: 8px; padding-bottom: 8px">
+        <md-card>
+            <md-card-header>
+                <!--<md-card-avatar>
+            <img class="md-user-avatar" src="img/100-2.jpeg" />
+        </md-card-avatar>-->
+                <md-card-header-text>
+                    <span class="md-title">{{ origin.name }}</span>
+                    <span class="md-subhead">{{ $ctrl.getOriginCategory(origin).name }}</span>
+                </md-card-header-text>
+            </md-card-header>
+
+            <!--<md-card-content ng-if="origin.rules.length > 0">
+                <md-list>
+                    <md-list-item ng-repeat="rule in origin.rules" style="border:solid 1px #A0A0A0;height: 48px;" md-colors="{background: 'primary-50'}">
+                        <h4 class="nomargin">{{ $ctrl.getOrigin(rule.optionalOriginId).name }}</h4>
+                        <p class="md-secondary md-caption nomargin">{{ $ctrl.getOriginCategory($ctrl.getOrigin(rule.optionalOriginId)).name }}</p>
+                    </md-list-item>
+                </md-list>
+            </md-card-content>-->
+
+            <md-card-content ng-if="origin.description">
+                {{ origin.description }}
+            </md-card-content>
+
+            <md-card-actions layout="column" layout-align="start">
+                <md-button class="md-raised md-primary" ng-click="$ctrl.onClick({ origin: origin })">追加する</md-button>
+            </md-card-actions>
+        </md-card>
+
+    </div>
+</div>

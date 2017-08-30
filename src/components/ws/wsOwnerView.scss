@@ -1,0 +1,19 @@
+app-ws-owner-view {
+    .ws-owner-view-element {
+        &.ng-enter {
+            transition: all 1s linear;
+            opacity: 0;
+
+            &.ng-enter-active {
+                opacity: 1;
+            }
+        }
+    }
+
+    body.device-mode & {
+        app-ws-element {
+            margin: 0;
+            padding: 0;
+        }
+    }
+}

@@ -1,0 +1,52 @@
+<div class="ws-properties">
+    <div layout="column" layout-align="start center">
+        <md-card class="width100 properties-wrapper" flex="none" layout-padding>
+            <form name="settingForm" novalidate class="properties-wrapper">
+                <md-card-title md-colors="{background: 'primary'}">
+                    <span class="md-title">
+                        ワークシート情報の入力
+                    </span>
+                </md-card-title>
+                <div layout="row" layout-align="center center">
+                    <div class="input-title" flex>ワークシート名</div>
+                    <md-input-container flex>
+                        <input name="title" ng-model="$ctrl.wsDto.title" md-maxlength="$ctrl.titleMaxLength" required>
+                        <div ng-messages="settingForm.title.$error">
+                            <div ng-message="md-maxlength">{{$ctrl.titleMaxLength}}文字以内で入力してください。</div>
+                            <div ng-message="required">ワークシート名は必須です。</div>
+                        </div>
+                    </md-input-container>
+                </div>
+                <div layout="row" layout-align="center center">
+                    <div class="input-title" flex >メモ</div>
+                    <md-input-container flex>
+                        <textarea ng-model="$ctrl.wsDto.memo" md-maxlength="$ctrl.memoMaxLength" rows="3" class="input-memo" name="memo"></textarea>
+                        <div ng-messages="settingForm.memo.$error">
+                            <div ng-message="md-maxlength">{{$ctrl.memoMaxLength}}文字以内で入力してください。</div>
+                            <div ng-message="required">ワークシート名は必須です。</div>
+                        </div>
+                    </md-input-container>
+                </div>
+                <div layout="row" layout-align="center center">
+                    <div class="input-title" flex >公開範囲</div>
+                    <md-input-container flex>
+                        <md-select ng-model="$ctrl.wsDto.accessLevel" required name="accessLevel">
+                            <md-option ng-value="accessLevel.id" ng-repeat="accessLevel in $ctrl.accessLevels">{{ accessLevel.label }}</md-option>
+                        </md-select>
+                        <div ng-messages="settingForm.accessLevel.$error">
+                            <div ng-message="required"> 公開範囲の選択は必須です。</div>
+                        </div>
+                    </md-input-container>
+                </div>
+            </form>
+        </md-card>
+        <div ng-if="$ctrl.isEdit">
+            <md-button class="md-primary" ng-click="$ctrl.onCancel()">キャンセル</md-button>
+            <md-button class="md-raised md-primary" ng-if="!$ctrl.isSaved" ng-disabled="settingForm.$invalid" ng-click="$ctrl.onSave()">保存</md-button>
+        </div>
+        <div ng-if="!$ctrl.isEdit">
+            <md-button class="md-primary" ui-sref="auth.menu.menu">保存せずメインメニューへ戻る</md-button>
+            <md-button class="md-raised md-primary" ng-if="!$ctrl.isSaved" ng-disabled="settingForm.$invalid" ng-click="$ctrl.onSave()">保存して編集へ</md-button>
+        </div>
+    </div>
+</div>

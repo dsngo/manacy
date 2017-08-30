@@ -1,0 +1,50 @@
+<div ng-if="$ctrl.property.elementTypeId == 1">
+    <md-list-item>
+        <p>テキスト</p>
+        <md-switch class="md-secondary" ng-model="$ctrl.textEnabled"></md-switch>
+    </md-list-item>
+    <md-list-item ng-if="$ctrl.textEnabled" class="animated">
+        <div flex="100" layout="column" class="offset">
+            <md-input-container class="nomargin">
+                <label>ラベル</label>
+                <input ng-model="$ctrl.settings.text.label">
+            </md-input-container>
+            <md-input-container class="nomargin">
+                <label>最大文字数</label>
+                <input ng-model="$ctrl.settings.text.maxLength" type="number">
+            </md-input-container>
+            <md-input-container class="nomargin">
+                <label>最小文字数</label>
+                <input ng-model="$ctrl.settings.text.minLength" type="number">
+            </md-input-container>
+            <md-input-container class="nomargin">
+                <label>初期行数</label>
+                <input ng-model="$ctrl.settings.text.rows" type="number">
+            </md-input-container>
+            <md-input-container class="nomargin">
+                <label>デフォルトテキスト</label>
+                <textarea ng-model="$ctrl.settings.text.defaultText" md-maxlength="$ctrl.settings.text.maxLength" rows="4" md-select-on-focus></textarea>
+            </md-input-container>
+        </div>
+    </md-list-item>
+    <md-list-item>
+        <p>手書き</p>
+        <md-switch class="md-secondary" ng-model="$ctrl.freeHandEnabled"></md-switch>
+    </md-list-item>
+    <md-list-item>
+        <p>写真</p>
+        <md-switch class="md-secondary" ng-model="$ctrl.imageEnabled"></md-switch>
+    </md-list-item>
+    <md-list-item>
+        <p>動画</p>
+        <md-switch class="md-secondary" ng-model="$ctrl.videoEnabled"></md-switch>
+    </md-list-item>
+    <md-list-item>
+        <p>音声</p>
+        <md-switch class="md-secondary" ng-model="$ctrl.audioEnabled"></md-switch>
+    </md-list-item>
+    <md-list-item>
+        <p>添付ファイル</p>
+        <md-switch class="md-secondary" ng-model="$ctrl.fileEnabled"></md-switch>
+    </md-list-item>
+</div>

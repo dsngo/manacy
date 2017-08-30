@@ -1,0 +1,117 @@
+app-ws-owner-view,
+app-ws-editor-view {
+    display: block;
+    width: 100%;
+    max-width: 980px;
+    align-self: center;
+}
+
+
+/*
+app-ws-item-block
+*/
+
+app-ws-element,
+app-ws-element-editor {
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    /*border-top: solid lightgray 1px;
+    border-bottom: solid lightgray 1px;*/
+    padding: 0 1em;
+    /*background-color: white*/
+    margin-top: 3em;
+    margin-bottom: 3em;
+}
+
+app-ws-element .description p {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+app-ws-item-block ng-transclude,
+app-ws-element>div>ng-transclude,
+app-ws-element-editor>div>ng-transclude,
+app-ws-element-editor>div>.transclude {
+    margin: 0 0 0 2em;
+    padding-left: 1em;
+    display: block;
+    border-left: solid 4px #f0f0f0;
+}
+
+
+/*
+app-ws-item-single-entry
+*/
+
+app-ws-item-single-entry>md-card>div,
+app-ws-entry md-card>div,
+app-ws-element-editor md-card>div,
+.padding {
+    padding: 1em 0.5em 0 1em;
+    margin: 0 0;
+}
+
+.padding-left {
+    padding: 0 0.5em 0 1em;
+    margin: 0 0;
+}
+
+
+/*
+app-ws-item-discussion
+*/
+
+app-ws-item-discussion>md-card>div {
+    padding: 1em 0.5em 0 1em;
+    margin: 0 0;
+}
+
+app-ws-item-discussion .avatar {
+    margin-top: 0.5em;
+}
+
+app-ws-item-discussion .username {
+    font-size: 80%;
+}
+
+app-ws-item-discussion .arrow-box {
+    max-width: 66%;
+}
+
+
+/*
+app-ws-item-comment
+*/
+
+app-ws-item-comment>div {
+    padding: 1em 0.5em 0 2em;
+    font-size: 90%;
+}
+
+
+/*app-ws-item-comment md-input-container {
+    margin-bottom: 0px;
+}
+app-ws-item-comment md-input-container .md-errors-spacer {
+    min-height: 0px;
+}*/
+
+app-ws-item-comment .md-caption {
+    font-size: 90%;
+}
+
+
+/*
+app-ws-item-annotation
+*/
+
+app-ws-item-annotation>div {
+    padding: 1em 0em 0.5em 1.5em;
+    margin: 0 0 1em 0;
+    font-size: 90%;
+}
+
+app-ws-item-annotation .md-caption {
+    font-size: 90%;
+}

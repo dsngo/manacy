@@ -1,0 +1,11 @@
+<md-card ng-repeat="entry in $ctrl.getEntries(8) | filter: $ctrl.entryFilter">
+    <app-ws-entry-header author-id="entry.createUserId" owner-id="$ctrl.ownerUserId">
+        <div ng-repeat="item in entry.jsonData.selectedIndex">
+            <h4>{{ $ctrl.selections[item].label }}</h4>
+            <p class="md-caption">{{ $ctrl.selections[item].text }}</p>
+        </div>
+    </app-ws-entry-header>
+</md-card>
+<md-card>
+    <app-ws-entry-selection-input params="$ctrl.params" ng-if="$ctrl.accessLevel === 2 || $ctrl.editMode"></app-ws-entry-selection-input>
+</md-card>

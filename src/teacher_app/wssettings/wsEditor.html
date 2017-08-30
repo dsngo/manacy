@@ -1,0 +1,12 @@
+<div layout="row" class="height100">
+    <md-sidenav flex="none" class="md-sidenav-left" md-is-locked-open="$mdMedia('gt-xs')" md-whiteframe="4">
+        <app-ws-element-placement></app-ws-element-placement>
+    </md-sidenav>
+    <md-content flex="100" class="height100" layout="column">
+        <app-ws-editor-view></app-ws-editor-view>
+    </md-content>
+    <md-sidenav flex="none" class="md-sidenav-right" md-component-id="settings" md-is-locked-open="$mdMedia('gt-sm')" md-disable-backdrop
+        md-whiteframe="4">
+        <app-ws-element-settings></app-ws-element-settings>
+    </md-sidenav>
+</div>

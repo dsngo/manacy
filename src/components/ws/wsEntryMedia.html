@@ -1,0 +1,73 @@
+<!--<div layout="row">-->
+<div ng-repeat="entry in $ctrl.entries | filter: $ctrl.entryFilter track by entry.id" ng-click="$ctrl.showDialog($event, $index)">
+    <app-ws-entry-media-image ng-if="$ctrl.helper.isImage(entry)" entry="entry"></app-ws-entry-media-image>
+    <app-ws-entry-media-video ng-if="$ctrl.helper.isVideo(entry)" entry="entry" layout-type="mini"></app-ws-entry-media-video>
+    <app-ws-entry-media-audio ng-if="$ctrl.helper.isAudio(entry)" entry="entry"></app-ws-entry-media-audio>
+    <app-ws-entry-media-file ng-if="$ctrl.helper.isFile(entry)" entry="entry"></app-ws-entry-media-file>
+</div>
+
+
+<!--
+<div ng-repeat="i in [0]">
+    <audio controls="" src="../uploaded/0002.mp3"></audio>
+    <div class="padding">
+        <md-input-container class="md-block notopmargin" style="margin:0 0">
+            <textarea placeholder="説明" name="text" ng-model="textEntry" md-select-on-focus md-resize-textarea ng-attr-rows="1" ng-disabled="$ctrl.editMode"
+                ng-change="$ctrl.validate()"></textarea>
+        </md-input-container>
+    </div>
+</div>
+<div ng-repeat="i in [0]">
+    <video controls="" src="../uploaded/0001.mp4"></video>
+    <div class="padding">
+        <md-input-container class="md-block notopmargin" style="margin:0 0">
+            <textarea placeholder="説明" name="text" ng-model="textEntry" md-select-on-focus md-resize-textarea ng-attr-rows="1" ng-disabled="$ctrl.editMode"
+                ng-change="$ctrl.validate()"></textarea>
+        </md-input-container>
+    </div>
+</div>
+<div ng-repeat="i in [0]">
+    <div class="padding" layout="row">
+        <md-button class="md-primary" flex="grow">
+            <div layout="row">
+                <div>
+                    <md-icon class="md-display-1" flex="none" style="width: 1em; color: inherit !important">description</md-icon>
+                </div>
+                <p>プレゼンテーション.pptx</p>
+            </div>
+        </md-button>
+    </div>
+    <div class="padding">
+        <md-input-container class="md-block notopmargin" style="margin:0 0">
+            <textarea placeholder="説明" name="text" ng-model="textEntry" md-select-on-focus md-resize-textarea ng-attr-rows="1" ng-disabled="$ctrl.editMode"
+                ng-change="$ctrl.validate()"></textarea>
+        </md-input-container>
+    </div>
+</div>-->
+
+<!--</div>-->
+
+<!--
+<md-grid-list md-cols="{{$ctrl.gridCols}}" md-row-height="8:3" md-gutter="2px" style="margin-top:0.5em">
+    <div ng-repeat="entry in entries" ng-if="entry.wsEntryTypeId !== 1">
+
+    </div>
+    <md-grid-tile class="image" md-colspan="2" md-rowspan="3" style="background-image: url(../uploaded/24612102723338260.jpg);"></md-grid-tile>
+    <md-grid-tile class="image" md-colspan="2" md-rowspan="3" style="background-image: url(../uploaded/24612102723338260.jpg);"></md-grid-tile>
+    <md-grid-tile md-colspan="2" md-rowspan="1" style="background: #b9f6ca;">
+        <md-icon class="md-display-1">description</md-icon>
+        <md-grid-tile-footer>
+            <p>プレゼンテーション.pptx</p>
+        </md-grid-tile-footer>
+    </md-grid-tile>
+    <md-grid-tile class="image" md-colspan="2" md-rowspan="3" style="background-image: url(../uploaded/24612102723338261.jpg);"></md-grid-tile>
+    <md-grid-tile class="image" md-colspan="2" md-rowspan="7" style="background-image: url(../uploaded/24612102723338262.jpg);"></md-grid-tile>
+    <md-grid-tile class="image" md-colspan="1" md-rowspan="3" style="background-image: url(../uploaded/24612102723338263.jpg);"></md-grid-tile>-->
+<!--<md-grid-tile class="image" md-colspan="1" md-rowspan="2" style="background: white;">
+        <div style="background: lightgray;border-radius: 10px; border: 4px solid white" class="width100 height100" layout="row" layout-align="center center">
+            <md-icon style="font-size: 60px; height:60px; width:60px">photo_camera</md-icon>
+        </div>
+    </md-grid-tile>
+
+</md-grid-list>
+-->

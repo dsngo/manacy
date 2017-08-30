@@ -1,0 +1,78 @@
+app-ws-element-placement {
+    .ws-element-placement-content {
+        padding: 2px;
+    }
+
+    .ws-element-placement-list {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+    }
+
+    .ws-element-placement-container {
+        position: relative;
+        margin-bottom: 4px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        &.active {
+            border: 2px solid #a2c4fb;
+        }
+    }
+
+    .ws-element-placement-element {
+        height: 44px;
+        padding: 8px;
+        border: 2px solid #f0f0f0;
+        box-sizing: border-box;
+        outline: none;
+        cursor: move;
+    }
+
+    .ws-element-placement-children {
+        padding-bottom: 12px;
+        margin-top: 4px;
+
+        .ws-element-placement-list {
+            padding-left: 8px;
+            border-left: 2px solid #f0f0f0;
+        }
+    }
+
+    .ws-element-placement-actions {
+        position: absolute;
+        top: 0;
+        right: 40px;
+        width: 40px;
+        height: 44px;
+        visibility: collapse;
+
+        button {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            margin: auto;
+            visibility: visible;
+
+            &.move-up {
+                transform: translateY(-35px);
+            }
+
+            &.move-left {
+                transform: translateX(-35px);
+            }
+
+            &.move-right {
+                transform: translateX(35px);
+            }
+
+            &.move-down {
+                transform: translateY(35px);
+            }
+        }
+    }
+}

@@ -1,0 +1,52 @@
+﻿.check-list {
+    &.show-border {
+        border: 0.5px solid rgba(0,0,0,0.54);
+        border-top-width: 0px;
+        margin:0px 15px;
+        top: 10px;
+
+        &:first-child {
+            border-top-width: 0.5px;
+        }
+    }
+
+    .radio {
+        margin-bottom: 0px;
+        &.show-border {
+            &.right {
+                margin-left: 44px;
+                margin-right: 23px;
+            }
+            &.left {
+                margin-left: 30px;
+                margin-right: 37px;
+            }
+        }
+    }
+
+    .checkbox{
+        &.show-border {
+            &.right {
+                margin-left: 47px;
+            }
+            &.left {
+                margin-left: 30px;
+                margin-right: 46px;
+            }
+        }
+
+    }
+
+    .show-border-left {
+        border-left: 0.5px solid rgba(0,0,0,0.54);
+        min-height: 90px;
+        padding-left: 10px;
+    }
+
+    .show-border-right {
+        border-right: 0.5px solid rgba(0,0,0,0.54);
+        min-height: 90px;
+        padding-right: 10px;
+    }
+}
+

@@ -1,0 +1,51 @@
+<md-card>
+    <div ng-repeat="entry in $ctrl.getEntries(6) | filter: $ctrl.entryFilter track by entry.id" ng-if="!$ctrl.editMode" class="ws-entry-chat-speech">
+        <div layout="row" ng-if="entry.createUserId !== $ctrl.ownerUserId">
+            <!--<img src="../images/avatars/5.jpg" class="avatar" alt="who" flex="none" />-->
+            <app-avatar user-id="entry.createUserId" style="margin-top:8px"></app-avatar>
+            <div layout="column" layout-align="start">
+                <p class="md-caption username">
+                    <span md-colors="{color: 'primary'}">{{ $ctrl.getDisplayName(entry.createUserId) }}</span>&nbsp;
+                </p>
+                <p class="arrow-box left md-body-1 nomargin" md-colors="{background: 'grey-200', 'border-color': 'grey-200'}">
+                    {{ entry.jsonData.text }}
+                </p>
+            </div>
+        </div>
+        <div layout="row" ng-if="entry.createUserId === $ctrl.ownerUserId">
+            <div layout="column" layout-align="start end" flex="grow">
+                <p class="md-caption username">
+                    <span md-colors="{color: 'primary'}">{{ $ctrl.getDisplayName(entry.createUserId) }}</span>&nbsp;
+                </p>
+                <p class="arrow-box right md-body-1 nomargin" md-colors="{background: 'primary', 'border-color': 'primary'}">
+                    {{ entry.jsonData.text }}
+                </p>
+            </div>
+            <!--<img src="../images/avatars/default.jpg" class="avatar" alt="who" flex="none" />-->
+            <app-avatar user-id="entry.createUserId" style="margin-top:8px"></app-avatar>
+        </div>
+    </div>
+    <div layout="row">
+        <!--<img src="../images/avatars/default.jpg" class="avatar" alt="who" flex="none" style="margin-top:8px" />-->
+        <app-avatar user-id="$ctrl.currentUser.id"></app-avatar>
+        <div flex="grow">
+            <p class="md-caption username">
+                <span md-colors="{color: 'primary'}">{{$ctrl.currentUser.displayName}}</span>&nbsp;
+            </p>
+            <form name="$ctrl.entryForm" novalidate>
+                <md-input-container class="md-block nomargin">
+                    <label>発言を記入</label>
+                    <textarea name="text" ng-model="$ctrl.textEntry" ng-required="true" md-select-on-focus md-resize-textarea rows="1"></textarea>
+                </md-input-container>
+            </form>
+            <div layout="row" layout-align="end center">
+                <div ng-click="$ctrl.onPostClick()">
+                    <!-- md-buttonのバグでng-clickが動かないため代替手段 -->
+                    <md-button class="md-primary md-raised" ng-disabled="$ctrl.entryForm.$invalid || $ctrl.editMode">
+                        <md-icon>chat</md-icon>
+                        発言する</md-button>
+                </div>
+            </div>
+        </div>
+    </div>
+</md-card>

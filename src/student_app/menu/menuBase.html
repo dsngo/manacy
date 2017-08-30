@@ -1,0 +1,12 @@
+<app-menu-view>
+    <app-view-back-to ng-if="$ctrl.canBackTo()" ng-click="$ctrl.prev()"></app-view-back-to>
+
+    <app-view-headline ng-if="$ctrl.headline">{{$ctrl.headline}}</app-view-headline>
+    <app-view-headline ng-if="!$ctrl.headline">
+        <img src="../images/logoWH.svg" aria-label="まなびシート" style="height: 65px; width: 220px; margin-left: 0;">
+    </app-view-headline>
+
+    <app-view-content ng-class="{'prev-page': $ctrl.arrow === 'prev', 'next-page': $ctrl.arrow === 'next'}">
+        <ui-view class="menu-page" md-colors="{'background': 'background'}"></ui-view>
+    </app-view-content>
+</app-menu-view>

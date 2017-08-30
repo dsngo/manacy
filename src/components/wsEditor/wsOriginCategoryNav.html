@@ -1,0 +1,24 @@
+<md-list>
+    <v-accordion class="v-accordion-arrow">
+        <div ng-repeat="category in $ctrl.rootCategories">
+            <div recurse="category">
+                <v-pane expanded="false" ng-if="$ctrl.hasChildren(category)">
+                    <v-pane-header md-ink-ripple="true">
+                        <md-list-item md-colors="category.id == $ctrl.selectedCategory.id ? {background: 'accent-200'} : {}" ng-click="$ctrl.onClick({ category: category })">
+                            <p>{{category.name}}</p>
+                        </md-list-item>
+                    </v-pane-header>
+                    <v-pane-content>
+                        <v-accordion class="v-accordion-arrow">
+                            <div ng-repeat="child in $ctrl.categories | filter: {parentId:category.id} : true" recurse-node="child" class="offset line"></div>
+                        </v-accordion>
+                    </v-pane-content>
+                </v-pane>
+                <md-list-item md-colors="category.id == $ctrl.selectedCategory.id ? {background: 'accent-200'} : {}" ng-click="$ctrl.onClick({ category: category })"
+                    ng-if="!$ctrl.hasChildren(category)">
+                    <p>{{category.name}}</p>
+                </md-list-item>
+            </div>
+        </div>
+    </v-accordion>
+</md-list>

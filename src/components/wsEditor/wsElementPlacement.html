@@ -1,0 +1,53 @@
+<div class="ws-element-placement-content" recurse="$ctrl.elementTree" recurse-var="parentTree">
+    <ul class="ws-element-placement-list"
+        dnd-list dnd-drop="$ctrl.move(item, parentTree, index) || true">
+        <div class="dndPlaceholder ws-element-placement-container">
+            <div class="ws-element-placement-element"></div>
+        </div>
+
+        <li ng-repeat="elementTree in parentTree.children track by elementTree.element.wsElementId"
+            class="ws-element-placement-container"
+            ng-class="{'active': $ctrl.hasActive(elementTree.element)}"
+            ng-hide="elementTree === $ctrl.dragging">
+            <div class="ws-element-placement-draggable"
+                 dnd-draggable="elementTree.element.wsElementId"
+                 dnd-dragstart="$ctrl.dragging = elementTree"
+                 dnd-dragend="$ctrl.dragging = null">
+                <div dnd-nodrag>
+                    <div class="ws-element-placement-element"
+                         dnd-handle tabindex="0" ng-focus="$ctrl.activeElement = elementTree.element">
+                        <span>{{elementTree.element.content.title}}</span>
+                    </div>
+
+                    <div ng-if="elementTree.children.length > 0" class="ws-element-placement-children" recurse-node="elementTree"></div>
+                </div>
+            </div>
+
+            <div ng-if="$ctrl.hasActive(elementTree.element)" class="ws-element-placement-actions">
+                <md-button ng-if="$ctrl.canMoveUp(elementTree)"
+                           class="move-up md-fab md-raised md-mini md-primary"
+                           ng-click="$ctrl.moveUp(elementTree)">
+                    <md-icon>keyboard_arrow_up</md-icon>
+                </md-button>
+
+                <md-button ng-if="$ctrl.canMoveLeft(elementTree)"
+                           class="move-left md-fab md-raised md-mini md-primary"
+                           ng-click="$ctrl.moveLeft(elementTree)">
+                    <md-icon>keyboard_arrow_left</md-icon>
+                </md-button>
+
+                <md-button ng-if="$ctrl.canMoveRight(elementTree)"
+                           class="move-right md-fab md-raised md-mini md-primary"
+                           ng-click="$ctrl.moveRight(elementTree)">
+                    <md-icon>keyboard_arrow_right</md-icon>
+                </md-button>
+
+                <md-button ng-if="$ctrl.canMoveDown(elementTree)"
+                           class="move-down md-fab md-raised md-mini md-primary"
+                           ng-click="$ctrl.moveDown(elementTree)">
+                    <md-icon>keyboard_arrow_down</md-icon>
+                </md-button>
+            </div>
+        </li>
+    </ul>
+</div>

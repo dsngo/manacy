@@ -1,0 +1,24 @@
+<div class="menu-content" ng-class="{'device-mode': $ctrl.isDeviceMode(), 'desktop-mode': !$ctrl.isDeviceMode()}" layout="column" layout-align="space-around stretch">
+    <div layout="column" layout-align="center strech">
+
+        <md-button class="md-raised md-primary" md-colors="{background: 'primary-900'}" layout="row" layout-align="center center" ui-sref="auth.menu.menu1and1" ng-click="$ctrl.menu.next()">
+            <md-icon class="md-primary md-icon">fiber_new</md-icon>
+            <span class="menu-button-content">新規作成</span>
+        </md-button>
+
+        <md-button class="md-raised md-primary" md-colors="{background: 'primary-900'}" layout="row" layout-align="center center" ui-sref="auth.wslist.draft" ng-click="$ctrl.menu.next()">
+            <md-icon class="md-primary md-icon">create</md-icon>
+            <span class="menu-button-content">下書き・編集</span>
+        </md-button>
+
+        <md-button class="md-raised md-primary" md-colors="{background: 'primary-900'}" layout="row" layout-align="center center" ui-sref="auth.templates.mine" ng-click="$ctrl.menu.next()">
+            <md-icon class="md-primary md-icon">person</md-icon>
+            <span class="menu-button-content">自分のワークシートを<br>再利用して新規作成</span>
+        </md-button>
+
+        <md-button class="md-raised md-primary" md-colors="{background: 'primary-900'}" layout="row" layout-align="center center" ui-sref="auth.templates.peer" ng-click="$ctrl.menu.next()">
+            <md-icon class="md-primary md-icon">people</md-icon>
+            <span class="menu-button-content">他のワークシートを<br>再利用して新規作成</span>
+        </md-button>
+    </div>
+</div>

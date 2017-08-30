@@ -1,0 +1,5 @@
+<div recurse="$ctrl.wsAssignmentService.rootElement" recurse-var="parent">
+    <app-ws-element params="$ctrl.getParams(parent)">
+        <div ng-repeat="child in $ctrl.wsAssignmentService.getChildElements(parent) | orderBy: 'property.sortOrder' track by child.wsElementId" recurse-node="child" class="ws-owner-view-element"></div>
+    </app-ws-element>
+</div>

@@ -1,0 +1,30 @@
+<app-ws-entry-header author-id="$ctrl.currentUser.id" owner-id="$ctrl.ownerUserId" ng-if="!$ctrl.hideHeader"></app-ws-entry-header>
+<md-list>
+    <md-radio-group ng-model="$ctrl.selectedIndex">
+        <md-list-item class="check-list" ng-class="{'md-2-line':!$ctrl.isShowBorder, 'md-3-line':$ctrl.isShowBorder, 'show-border':$ctrl.isShowBorder}" ng-repeat="item in $ctrl.selections" ng-click="$ctrl.onItemClick($index)" md-colors="$ctrl.isSelected($index) ? {background: 'accent-50'} : {}">
+            <div class="md-list-item-text width100" ng-if="$ctrl.isPositionRihght">
+                <h4 style="font-weight: bold">{{ item.label }}</h4>
+                <p style="padding-right: 10px;">{{ item.text }}</p>
+            </div>
+            <div ng-if="$ctrl.isPositionRihght && $ctrl.isShowBorder" class="show-border-right"></div>
+            <md-radio-button value="{{$index}}" ng-if="$ctrl.isSingleSelection" style="margin-bottom: 0" class="radio" ng-class="{'show-border': $ctrl.isShowBorder, 'right':$ctrl.isPositionRihght , 'left': !$ctrl.isPositionRihght}"></md-radio-button>
+            <md-checkbox ng-model="$ctrl.selectedItems[$index]" ng-if="!$ctrl.isSingleSelection" ng-click="$ctrl.onChkClick($index)" class="checkbox" ng-class="{'show-border': $ctrl.isShowBorder, 'right':$ctrl.isPositionRihght , 'left': !$ctrl.isPositionRihght}" ></md-checkbox>
+            <div ng-if="!$ctrl.isPositionRihght && $ctrl.isShowBorder" class="show-border-left"></div>
+            <div class="md-list-item-text width100" ng-if="!$ctrl.isPositionRihght">
+                <h4 style="font-weight: bold">{{ item.label }}</h4>
+                <p>{{ item.text }}</p>
+            </div>
+        </md-list-item>
+    </md-radio-group>
+</md-list>
+<div layout="row" ng-if="!$ctrl.hideSaveButton" class="padding">
+    <div flex="grow">
+        <form name="$ctrl.entryForm" novalidate>
+            <div layout="row" layout-align="end center">
+                <!--<div ng-click="$ctrl.saveElement()">
+                    <md-button class="md-raised md-primary" ng-disabled="!$ctrl.isReadyToSave">保存</md-button>
+                </div>-->
+            </div>
+        </form>
+    </div>
+</div>

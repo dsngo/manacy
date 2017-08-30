@@ -1,0 +1,35 @@
+<div class="ws-preparation-list">
+    <div md-whiteframe="3" ng-repeat="ws in $ctrl.wsList" flex="80" style="margin:20px auto;">
+        <md-toolbar md-colors="::{background: 'default-primary-100'}" layout="row" layout-padding class="" style="padding:0">
+            <div layout="column" flex="40">
+                <p style="margin: 0; padding-left:10px;">{{ws.title}}<span style="margin-left:10px; font-size:10px">更新日 {{ws.updateDate | date:'short'}}</span></p>
+            </div>
+            <div class="button-wrapper" layout="row" layout-align="end center" flex="60">
+                <div layout="column" class="delivery">
+                    <md-button class="md-raised md-accent" ui-sref="auth.newassignment.properties({wsId: ws.wsElementId})"><md-icon md-menu-origin>add</md-icon>新規配付</md-button>
+                </div>
+                <div layout="column" class="edit">
+                    <md-button class="md-raised md-primary" ui-sref="auth.wssettings.properties({wsId: ws.wsElementId })">編集</md-button>
+                </div>
+                <div layout="column" class="more_menu">
+                    <md-menu>
+                        <md-button class="md-icon-button" aria-label="More" ng-click="$mdOpenMenu($event);">
+                            <md-icon md-menu-origin class="md-primary">more_vert</md-icon>
+                        </md-button>
+                        <md-menu-content>
+                            <md-menu-item>
+                                <md-button ui-sref="auth.newws.properties({wsId: ws.wsElementId})"><span>再利用して新規作成</span></md-button>
+                            </md-menu-item>
+                            <md-menu-item>
+                                <md-button ng-click="$ctrl.deleteWs($index)"><span>削除</span></md-button>
+                            </md-menu-item>
+                        </md-menu-content>
+                    </md-menu>
+                </div>
+            </div>
+        </md-toolbar>
+        <md-content class="delivery-list-area">
+            <app-ws-assignment-list assignment-list="ws.assignments"></app-ws-assignment-list>
+        </md-content>
+    </div>
+</div>

@@ -1,0 +1,24 @@
+<md-content class="height100vh" md-colors="{background: 'grey-100'}" layout="column" layout-align="center center">
+	<div class="width100" layout="column" layout-align="center center">
+		<md-icon class="logo" md-svg-icon="../images/logo-side.svg" aria-label="まなびシート"></md-icon>
+		<br />
+
+		<div class="width100 login-form-width" flex="none">
+			<md-progress-linear md-mode="indeterminate" ng-disabled="!$ctrl.loginButtonIsDisabled"></md-progress-linear>
+			<form name="loginForm" novalidate>
+				<md-card-content layout="column">
+					<input class="input" name="username" ng-model="$ctrl.username" type="string" required ng-maxlength="64" placeholder="名前"> 
+					<input class="input" name="password" ng-model="$ctrl.password" type="password" required ng-maxlength="64" placeholder="パスワード">  
+					<a class="forgotten-password">パスワードを忘れた場合</a>
+				</md-card-content>
+				<md-card-actions layout="row">
+					<md-button flex="100" class="md-raised md-primary" ng-click="$ctrl.onLoginClick('auth.menu.menu')" ng-disabled="$ctrl.loginButtonIsDisabled || loginForm.$invalid">ログイン</md-button>
+				</md-card-actions>
+				<br />
+			</form>
+
+		</div>
+
+	</div>
+
+</md-content>

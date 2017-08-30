@@ -1,0 +1,6 @@
+<div ng-if="$ctrl.isVisible">
+    <h3 class="md-title">{{ $ctrl.content.title }}</h3>
+    <div class="md-body-1 description" ng-bind-html="$ctrl.description"></div>
+    <app-ws-entry params="$ctrl.params" ng-if="$ctrl.content.entryStatus"></app-ws-entry>
+    <ng-transclude></ng-transclude>
+</div>

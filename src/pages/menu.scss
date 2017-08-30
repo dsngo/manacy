@@ -1,0 +1,108 @@
+.menu-content {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    .md-button.md-primary.md-raised, .md-button.md-primary.md-raised:not([disabled]) md-icon {
+        color: rgb(255, 255, 255);
+    }
+
+    &.device-mode {
+        .md-button {
+            height: 20vh;
+        }
+
+        .md-icon {
+            margin: 0 5px 0 0;
+            font-size: 40px;
+            height: 40px;
+            width: 40px;
+        }
+
+        .menu-button-content {
+            font-size: 20px;
+            line-height: 1.3em;
+        }
+    }
+
+    &.desktop-mode {
+        .md-button {
+            height: 20vh;
+            min-height: 40px;
+        }
+
+        .md-icon {
+            margin: 0 20px 0 0;
+            font-size: 60px;
+            height: 60px;
+            width: 60px;
+        }
+
+        .menu-button-content {
+            font-size: 5vw;
+            line-height: 1.3em;
+        }
+    }
+}
+
+app-view-content {
+    overflow: hidden;
+    position: relative;
+    &.prev-page {
+        .menu-page {
+            height: 100%;
+            width: 100%;
+            &.ng-leave {
+                position:absolute;
+                top: 0;
+                z-index: 1;
+                transition: transform 0.3s ease;
+            }
+
+            &.ng-leave-active {
+                transform: translate(100%);
+            }
+
+            &.ng-enter {
+                position:absolute;
+                top: 0;
+                z-index: 0;
+                transform: translate(-20%);
+                transition: transform 0.3s ease;
+            }
+
+            &.ng-enter-active {
+                transform: translate(0);
+            }
+        }
+    }
+
+    &.next-page {
+        .menu-page {
+            height: 100%;
+            width: 100%;
+            &.ng-leave {
+                position:absolute;
+                top: 0;
+                z-index: 0;
+                transform: translate(0%);
+                transition: transform 0.3s ease;
+            }
+
+            &.ng-leave-active {
+                transform: translate(-20%);
+            }
+
+            &.ng-enter {
+                position:absolute;
+                top: 0;
+                z-index: 1;
+                transform: translate(100%);
+                transition: transform 0.3s ease;
+            }
+
+            &.ng-enter-active {
+                transform: translate(0%);
+            }
+        }
+    }
+}

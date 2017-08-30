@@ -1,0 +1,12 @@
+app-ws-entry-chat {
+    .ws-entry-chat-speech {
+        &.ng-enter {
+            transition: all 1s linear;
+            opacity: 0;
+
+            &.ng-enter-active {
+                opacity: 1;
+            }
+        }
+    }
+}

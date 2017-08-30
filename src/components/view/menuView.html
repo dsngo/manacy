@@ -1,0 +1,13 @@
+<app-view-inner class="device-mode">
+    <md-progress-linear class="app-view-busy-bar" md-mode="indeterminate" ng-disabled="!$ctrl.identityService.isBusy"></md-progress-linear>
+
+    <md-toolbar class="app-view-header">
+        <div class="md-toolbar-tools">
+            <ng-transclude class="app-view-header-back-to" ng-transclude-slot="backTo"></ng-transclude>
+            <ng-transclude class="app-view-header-headline" ng-transclude-slot="headline"></ng-transclude>
+            <app-view-menu class="app-view-header-menu"></app-view-menu>
+        </div>
+    </md-toolbar>
+
+    <md-content class="app-view-content-wrapper" ng-transclude="content"></md-content>
+</app-view-inner>

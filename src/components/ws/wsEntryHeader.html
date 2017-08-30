@@ -1,0 +1,12 @@
+<div layout="row" class="padding">
+    <!--<img src="../images/avatars/{{$ctrl.authorId}}.jpg" class="avatar" alt="who" flex="none" />-->
+    <app-avatar user-id="$ctrl.authorId"></app-avatar>
+    <div flex="grow">
+        <p class="md-caption username">
+            <span md-colors="{color: 'primary'}">{{ $ctrl.authorName }}</span>&nbsp;
+            <md-icon ng-if="!$ctrl.isSelfEntry">keyboard_arrow_right</md-icon>
+            <span md-colors="{color: 'primary'}" ng-if="!$ctrl.isSelfEntry">{{ $ctrl.ownerName }}</span>&nbsp;
+        </p>
+        <ng-transclude></ng-transclude>
+    </div>
+</div>

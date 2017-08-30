@@ -1,0 +1,67 @@
+<div layout="column" layout-align="start center">
+    <md-card class="width100" style="max-width: 600px" flex="none" layout-padding>
+        <md-card-title md-colors="{background: 'primary'}">
+            <span class="md-title" style="display: inline-block;width: 100%;text-align: center;" >
+                ワークシート情報設定入力フォーム
+            </span>
+        </md-card-title>
+        <div style="display: inline-block;width: 100%; padding: 20px 0;">
+            <div style="width: 200px; height: 200px; margin:0 auto; position:relative;">
+                <!--一時表示-->
+                <img style="width:100%;" src="../images/avatars/20.jpg" />
+                <md-menu style="right: 0px; bottom: 0px; position: absolute;">
+                    <md-button ng-click="$mdOpenMenu($event)" class="md-icon-button">
+                        <md-icon md-menu-origin>camera_alt</md-icon>
+                    </md-button>
+                    <md-menu-content>
+                        <md-menu-item>
+                            <md-button>デフォルトから選択</md-button>
+                        </md-menu-item>
+                        <md-menu-item>
+                            <md-button>ファイルから選択</md-button>
+                        </md-menu-item>
+                        <md-menu-item>
+                            <md-button>写真を撮影</md-button>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
+            </div>
+        </div>
+        <div layout="column">
+            <div flex style="min-height:60px">
+                <div style="width:30%; margin:0px; float:left; font-size:16px;">公開ステータス</div>
+                <md-switch style="width: 70%; margin: 0px;" ng-model="$ctrl.switchTest" aria-label="status">
+                    <div ng-if="$ctrl.switchTest">公開</div>
+                    <div ng-if="!$ctrl.switchTest">非公開</div>
+                </md-switch>
+            </div>
+            <div flex style="min-height:60px">
+                <div style="width:30%; margin:0px; float:left; font-size:16px;">ワークシート名</div>
+                <md-input-container class="input-space" style="width:70%; margin:0px; padding:0px; float:left; font-size:16px;">
+                    <input name="name" ng-model="">
+                </md-input-container>
+            </div>
+            <div flex style="min-height:60px">
+                <div style="width:30%; margin:0px; float:left; font-size:16px;">設定情報3</div>
+                <md-input-container class="input-space" style="width:70%; margin:0px; padding:0px; float:left; font-size:16px;">
+                    <md-select ng-model="setting3"></md-select> 
+                </md-input-container>
+            </div>
+            <div flex style="min-height:60px">
+                <div style="width:30%; margin:0px; float:left; font-size:16px;">設定情報4</div>
+                <md-input-container class="input-space" style="width:70%; margin:0px; padding:0px; float:left; font-size:16px;">
+                    <input name="setting4" ng-model="">
+                </md-input-container>
+            </div>
+            <div flex style="min-height:60px">
+                <div style="width:30%; margin:0px; float:left; font-size:16px;">設定情報5</div>
+                <md-input-container class="input-space" style="width:70%; margin:0px; padding:0px; float:left; font-size:16px;">
+                    <md-select ng-model="setting5"></md-select> 
+                </md-input-container>
+            </div>
+        </div>
+    </md-card>
+    <div>
+        <md-button md-colors="{background: 'primary'}">完了</md-button>
+    </div>
+</div>

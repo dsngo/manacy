@@ -1,0 +1,131 @@
+<md-tabs md-border-bottom md-stretch-tabs="always" class="height100" ng-if="$ctrl.element">
+    <md-tab label="基本設定">
+        <md-list ng-cloak class="height100">
+            <md-list-item>
+                <p>要素タイプ</p>
+                <p class="md-secondary">{{$ctrl.origin.name}}</p>
+            </md-list-item>
+            <md-list-item>
+                <p>入力タイプ</p>
+                <p class="md-secondary">{{$ctrl.wsEditorService.elementTypeArray[$ctrl.property.elementTypeId]}}</p>
+            </md-list-item>
+            <md-list-item ng-if="$ctrl.property.elementTypeId !== 0">
+                <p>入力可能</p>
+                <md-input-container>
+                    <md-select ng-model="$ctrl.content.entryStatus">
+                        <md-option ng-value="0">入力不可</md-option>
+                        <md-option ng-value="1">必須入力</md-option>
+                        <md-option ng-value="2">任意入力</md-option>
+                    </md-select>
+                </md-input-container>
+            </md-list-item>
+
+            <app-ws-element-settings-basic ng-if="$ctrl.content.entryStatus"></app-ws-element-settings-basic>
+            <app-ws-element-settings-selection ng-if="$ctrl.content.entryStatus"></app-ws-element-settings-selection>
+            <app-ws-element-settings-rubric ng-if="$ctrl.content.entryStatus"></app-ws-element-settings-rubric>
+        </md-list>
+    </md-tab>
+    <md-tab label="拡張設定">
+        <md-list ng-cloak>
+            <md-list-item>
+                <p>Element ID</p>
+                <p class="md-secondary">{{$ctrl.element.wsElementId}}</p>
+            </md-list-item>
+            <md-list-item>
+                <p>共有レベル</p>
+                <md-input-container class="offset">
+                    <md-select ng-model="$ctrl.element.property.shareLevel">
+                        <md-option ng-repeat="level in $ctrl.wsEditorService.elementShareLevelArray" ng-value="level.id">
+                            {{level.name}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+            </md-list-item>
+            <md-list-item>
+                <div flex="100" layout="column">
+                    <v-accordion class="v-accordion-arrow">
+                        <v-pane expanded="false">
+                            <v-pane-header md-ink-ripple="true">
+                                <p>アクセス権限</p>
+                            </v-pane-header>
+                            <v-pane-content class="offset">
+                                <p>Student</p>
+                                <div layout-wrap="row">
+                                    <md-input-container class="offset">
+                                        <label>Owner</label>
+                                        <md-select ng-model="$ctrl.property.accessLevel.studentOwner">
+                                            <md-option ng-repeat="level in $ctrl.wsEditorService.elementAccessLevelArray" ng-value="level.id">
+                                                {{level.name}}
+                                            </md-option>
+                                        </md-select>
+                                    </md-input-container>
+                                    <md-input-container class="offset">
+                                        <label>Group</label>
+                                        <md-select ng-model="$ctrl.property.accessLevel.studentGroup">
+                                            <md-option ng-repeat="level in $ctrl.wsEditorService.elementAccessLevelArray" ng-value="level.id">
+                                                {{level.name}}
+                                            </md-option>
+                                        </md-select>
+                                    </md-input-container>
+                                    <md-input-container class="offset">
+                                        <label>Course</label>
+                                        <md-select ng-model="$ctrl.property.accessLevel.studentCourse">
+                                            <md-option ng-repeat="level in $ctrl.wsEditorService.elementAccessLevelArray" ng-value="level.id">
+                                                {{level.name}}
+                                            </md-option>
+                                        </md-select>
+                                    </md-input-container>
+                                </div>
+                                <p>Teacher</p>
+                                <div layout-wrap="row">
+                                    <md-input-container class="offset">
+                                        <label>Owner</label>
+                                        <md-select ng-model="$ctrl.property.accessLevel.teacherOwner">
+                                            <md-option ng-repeat="level in $ctrl.wsEditorService.elementAccessLevelArray" ng-value="level.id">
+                                                {{level.name}}
+                                            </md-option>
+                                        </md-select>
+                                    </md-input-container>
+                                    <md-input-container class="offset">
+                                        <label>Group</label>
+                                        <md-select ng-model="$ctrl.property.accessLevel.teacherGroup">
+                                            <md-option ng-repeat="level in $ctrl.wsEditorService.elementAccessLevelArray" ng-value="level.id">
+                                                {{level.name}}
+                                            </md-option>
+                                        </md-select>
+                                    </md-input-container>
+                                    <md-input-container class="offset">
+                                        <label>Course</label>
+                                        <md-select ng-model="$ctrl.property.accessLevel.teacherCourse">
+                                            <md-option ng-repeat="level in $ctrl.wsEditorService.elementAccessLevelArray" ng-value="level.id">
+                                                {{level.name}}
+                                            </md-option>
+                                        </md-select>
+                                    </md-input-container>
+                                </div>
+                                <!--<md-input-container class="offset">
+                            <label>Everyone</label>
+                            <md-select ng-model="$ctrl.property.accessLevel.everyone">
+                                <md-option ng-repeat="level in $ctrl.wsEditorService.elementAccessLevelArray" ng-value="level.id">
+                                    {{level.name}}
+                                </md-option>
+                            </md-select>
+                        </md-input-container>-->
+                            </v-pane-content>
+                        </v-pane>
+                    </v-accordion>
+                </div>
+            </md-list-item>
+            <!--<md-list-item>
+        <p>entrySettings</p>
+        <p>{{$ctrl.element.origin.name}}</p>
+        <p>{{$ctrl.content.entrySettings}}</p>
+    </md-list-item>
+    <md-list-item>
+        <p>accessLevel</p>
+        <p class="md-secondary">{{$ctrl.property.accessLevel}}</p>
+    </md-list-item>-->
+
+        </md-list>
+    </md-tab>
+</md-tabs>

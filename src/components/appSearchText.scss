@@ -1,0 +1,11 @@
+app-search-text {
+    display: block;
+
+    md-input-container {
+        margin: 0;
+
+        .md-errors-spacer {
+            display: none;
+        }
+    }
+}

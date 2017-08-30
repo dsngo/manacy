@@ -1,0 +1,24 @@
+<div class="menu-content" ng-class="{'device-mode': $ctrl.isDeviceMode(), 'desktop-mode': !$ctrl.isDeviceMode()}" layout="column" layout-align="space-around stretch">
+    <div layout="column" layout-align="center strech">
+
+        <md-button class="md-raised md-primary" md-colors="{background: 'primary-900'}" layout="row" layout-align="center center" ui-sref="auth.newws.properties({wsId:0})" ng-click="$ctrl.menu.next()">
+            <md-icon class="md-primary md-icon">add_circle</md-icon>
+            <span class="menu-button-content">自由に新規作成する</span>
+        </md-button>
+
+        <md-button class="md-raised md-primary" ng-disabled="true" layout="row" layout-align="center center" ui-sref="auth.templates.standard" ng-click="$ctrl.menu.next()">
+            <md-icon class="md-primary md-icon">note_add</md-icon>
+            <span class="menu-button-content">まなびシートテンプレートから<br>新規作成する</span>
+        </md-button>
+
+        <md-button class="md-raised md-primary" md-colors="{background: 'primary-900'}" layout="row" layout-align="center center" ui-sref="auth.templates.mine" ng-click="$ctrl.menu.next()">
+            <md-icon class="md-primary md-icon">person</md-icon>
+            <span class="menu-button-content">自分のワークシートを<br>再利用して新規作成</span>
+        </md-button>
+
+        <md-button class="md-raised md-primary" md-colors="{background: 'primary-900'}" layout="row" layout-align="center center" ui-sref="auth.templates.peer" ng-click="$ctrl.menu.next()">
+            <md-icon class="md-primary md-icon">people</md-icon>
+            <span class="menu-button-content">他のワークシートを<br>再利用して新規作成</span>
+        </md-button>
+    </div>
+</div>

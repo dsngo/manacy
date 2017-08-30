@@ -1,0 +1,34 @@
+<app-view class="ws-settings">
+    <app-view-back-to></app-view-back-to>
+
+    <app-view-headline>わーくしーと名</app-view-headline>
+
+    <app-view-content>
+        
+        <div class="nav-bar-area">
+            <md-nav-bar md-selected-nav-item="$ctrl.currentNav">
+                <md-nav-item md-nav-sref=".properties" name="auth.wssettings.properties">１．設定</md-nav-item>
+                <md-nav-item md-nav-sref=".editor" name="auth.wssettings.editor">２．編集</md-nav-item>
+                <md-nav-item md-nav-sref=".preview" name="auth.wssettings.preview">３．プレビュー</md-nav-item>
+            </md-nav-bar>
+            <div class="more-menu">
+                <md-menu>
+                    <md-icon ng-click="$mdOpenMenu($event)" md-menu-origin  class="md-icon-button more-icon"  md-colors="{color: 'primary'}">more_vert</md-icon>
+                <md-menu-content>
+                    <md-menu-item>
+                        <md-button ui-sref="auth.newassignment.properties({wsId: $ctrl.wsService.ws.wsElementId})">新規配付する</md-button>
+                    </md-menu-item>
+                    <md-menu-item>
+                        <md-button ui-sref="auth.newws.properties({wsId: $ctrl.wsService.ws.wsElementId})">再利用して新規作成</md-button>
+                    </md-menu-item>
+                    <md-menu-item>
+                        <md-button ng-click="$ctrl.deleteWs()">削除する</md-button>
+                    </md-menu-item>
+                </md-menu-content>
+            </md-menu>
+            </div>
+        </div>
+
+        <ui-view></ui-view>
+    </app-view-content>
+</app-view>

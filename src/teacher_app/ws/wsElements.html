@@ -1,0 +1,4 @@
+<div layout="row">
+	<app-ws-element-nav flex="none" user-groups="$ctrl.userGroups" selected-element-id="$ctrl.selectedElementId" on-click="$ctrl.onElementSelected(elementId)"></app-ws-element-nav>
+	<app-ws-element-view flex="100" user-groups="$ctrl.userGroups" element="$ctrl.selectedElement" ng-if="$ctrl.selectedElement"></app-ws-element-view>
+</div>

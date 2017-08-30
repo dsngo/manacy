@@ -1,0 +1,51 @@
+<div ng-if="$ctrl.isVisible">
+    <app-ws-entry-media params="$ctrl.params" entries="$ctrl.entries" ng-if="$ctrl.hasMedia"></app-ws-entry-media>
+    
+    <div layout="row" class="upload-click">
+        <md-button aria-label="brush" ng-if="$ctrl.content.entrySettings.freeHand" class="sink" ng-class="{'md-raised': $ctrl.isTextEmpty()}" md-ink-ripple="true" ng-click="$ctrl.openDrawing($event)">        
+            <label>
+                <img src="../images/icons/brush.svg"></img>
+            </label>
+        </md-button>
+        
+        <md-button aria-label="photo_camera" ng-if="$ctrl.content.entrySettings.image" class="sink" ng-class="{'md-raised': $ctrl.isTextEmpty()}" md-ink-ripple="true">
+            <label>
+                <img src="../images/icons/photo_camera.svg"></img>
+                <input type="file" class="hide" ngf-select="$ctrl.onPictureUploadClick($files)" accept="image/*"
+                    ngf-capture="camera" ngf-multiple="true" ngf-fix-orientation="true" ng-disabled="$ctrl.editMode">
+            </label>
+        </md-button>
+        
+        <md-button aria-label="movie" ng-if="$ctrl.content.entrySettings.video" class="sink" ng-class="{'md-raised': $ctrl.isTextEmpty()}" md-ink-ripple="true">
+            <label>
+                <img src="../images/icons/movie.svg"></img>
+                <input type="file" class="hide" ngf-select="$ctrl.onVideoUploadClick($files)" accept="video/*"
+                    ngf-capture="camcorder" ngf-multiple="true" ng-disabled="$ctrl.editMode">
+            </label>
+        </md-button>
+
+        <md-button aria-label="keyboard_voice" ng-if="$ctrl.content.entrySettings.audio" class="sink" ng-class="{'md-raised': $ctrl.isTextEmpty()}" md-ink-ripple="true">
+            <label>
+                <img src="../images/icons/keyboard_voice.svg"></img>
+                <input type="file" class="hide" ngf-select="$ctrl.onAudioUploadClick($files)" accept="audio/*"
+                    ngf-capture="microphone" ngf-multiple="true" ng-disabled="$ctrl.editMode">
+            </label>
+        </md-button>
+
+        <md-button aria-label="attach_file" ng-if="$ctrl.content.entrySettings.file" class="sink" ng-class="{'md-raised': $ctrl.isTextEmpty()}" md-ink-ripple="true">
+            <label>
+                <img src="../images/icons/attach_file.svg"></img>
+                <input type="file" class="hide" ngf-select="$ctrl.onVideoUploadClick($files)" accept="video/*"
+                    ngf-capture="camcorder" ngf-multiple="true" ng-disabled="$ctrl.editMode">
+            </label>
+        </md-button>
+    </div>
+    <div class="padding-left">
+        <md-input-container class="md-block nobottommargin" ng-if="$ctrl.content.entrySettings.text">
+            <label>{{$ctrl.content.entrySettings.text.label || "記入欄"}}</label>
+            <textarea name="text" ng-model="$ctrl.textEntry" ngRequired="true" md-maxlength="$ctrl.content.entrySettings.text.maxLength"
+                md-select-on-focus md-resize-textarea ng-attr-rows="{{$ctrl.content.entrySettings.text.rows || 3}}" ng-disabled="$ctrl.editMode"
+                ng-if="$ctrl.refreshTextarea" ng-change="$ctrl.validate()"></textarea>
+        </md-input-container>
+    </div>
+</div>

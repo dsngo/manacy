@@ -1,0 +1,10 @@
+<div>
+    <app-ws-add-element-button base-element="$ctrl.wsService.rootElement" position="firstChild" ng-if="$ctrl.isBlank"></app-ws-add-element-button>
+    <div ng-repeat="topChild in $ctrl.wsService.getChildElements($ctrl.wsService.rootElement) | orderBy: 'property.sortOrder'">
+        <div recurse="topChild" recurse-var="parent" style="margin-top: 1em;">
+            <app-ws-element-editor element="parent">
+                <div ng-repeat="child in $ctrl.wsService.getChildElements(parent) | orderBy: 'property.sortOrder'" recurse-node="child"></div>
+            </app-ws-element-editor>
+        </div>
+    </div>
+</div>

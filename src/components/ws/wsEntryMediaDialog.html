@@ -1,0 +1,15 @@
+<md-dialog aria-label="要素を追加" class="app-ws-entry-media-dialog">
+    <md-button class="md-icon-button md-fab close" ng-click="$ctrl.cancel()">
+        <md-icon aria-label="Close dialog">close</md-icon>
+    </md-button>
+    <!--<md-button class="md-icon-button md-fab delete" ng-click="$ctrl.cancel()">
+        <md-icon aria-label="Close dialog">delete</md-icon>
+    </md-button>-->
+    <ul rn-carousel rn-carousel-controls rn-carousel-index="$ctrl.index">
+        <li ng-repeat="entry in $ctrl.entries | filter: $ctrl.entryFilter">
+            <app-ws-entry-media-image ng-if="$ctrl.helper.isImage(entry)" entry="entry"></app-ws-entry-media-image>
+            <app-ws-entry-media-video ng-if="$ctrl.helper.isVideo(entry)" entry="entry"></app-ws-entry-media-video>
+            <app-ws-entry-media-audio ng-if="$ctrl.helper.isAudio(entry)" entry="entry"></app-ws-entry-media-audio>
+        </li>
+    </ul>
+</md-dialog>

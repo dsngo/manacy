@@ -1,0 +1,79 @@
+<md-card>
+    <md-list ng-if="!$ctrl.editMode">
+        <v-accordion class="v-accordion-arrow">
+            <v-pane expanded="false" ng-repeat="entry in $ctrl.entries[0]">
+                <v-pane-header md-ink-ripple="true">
+                    <md-list-item class="md-2-line">
+                        <!--<img ng-src="../images/avatars/5.jpg" class="md-avatar" alt="{{todos[0].who}}" />-->
+                        <app-avatar user-id="entry.createUserId" style="margin-top:8px"></app-avatar>
+                        <div class="md-list-item-text">
+                            <span md-colors="{color: 'primary'}">{{ $ctrl.getDisplayName(entry.createUserId) }}</span>
+                            <h3>{{ entry.jsonData.title }}</h3>
+                            <p>{{ entry.jsonData.text }}</p>
+                        </div>
+                    </md-list-item>
+                </v-pane-header>
+                <v-pane-content md-colors="{background: 'grey-50', 'border-color': 'grey-200'}">
+                    <md-list class="md-dense offset">
+                        <md-list-item class="md-2-line" ng-repeat="comment in $ctrl.entries[entry.id]">
+                            <!--<img src=" ../images/avatars/default.jpg" class="md-avatar" alt="who" />-->
+                            <app-avatar user-id="comment.createUserId" style="margin-top:8px"></app-avatar>
+                            <div class="md-list-item-text">
+                                <h4 md-colors="{color: 'primary'}">{{ $ctrl.getDisplayName(comment.createUserId) }}</h4>
+                                <p>{{ comment.jsonData.text }}</p>
+                            </div>
+                        </md-list-item>
+                        <md-list-item class="md-2-line md-no-proxy">
+                            <!--<img src=" ../images/avatars/default.jpg" class="md-avatar" alt="who" style="margin-top:8px" />-->
+                            <app-avatar user-id="$ctrl.currentUser.id" style="margin-top:8px"></app-avatar>
+                            <div class="md-list-item-text">
+                                <form name="$ctrl.commentForm" novalidate>
+                                    <md-input-container class="md-block nomargin">
+                                        <label>発言を記入</label>
+                                        <textarea name="text" ng-model="$ctrl.commentText" ng-required="true" md-select-on-focus md-resize-textarea rows="1"></textarea>
+                                    </md-input-container>
+                                </form>
+                                <div layout="row" layout-align="end center">
+                                    <div ng-click="$ctrl.onCommentPost(entry.id)">
+                                        <!-- md-buttonのバグでng-clickが動かないため代替手段 -->
+                                        <md-button class="md-primary md-raised" ng-disabled="$ctrl.commentForm.$invalid">
+                                            <md-icon>chat</md-icon>
+                                            発言する</md-button>
+                                    </div>
+                                </div>
+                            </div>
+                        </md-list-item>
+                    </md-list>
+                </v-pane-content>
+                <md-divider></md-divider>
+            </v-pane>
+        </v-accordion>
+    </md-list>
+    <div layout="row">
+        <!--<img src="../images/avatars/default.jpg" class="avatar" alt="who" flex="none" style="margin-top:8px" />-->
+        <app-avatar user-id="$ctrl.currentUser.id"></app-avatar>
+        <div flex="grow">
+            <p class="md-caption username">
+                <span md-colors="{color: 'primary'}">{{$ctrl.currentUser.displayName}}</span>&nbsp;
+            </p>
+            <form name="$ctrl.topicForm" novalidate>
+                <md-input-container md-no-float class="md-block nomargin">
+                    <label>トピックタイトルを記入</label>
+                    <input ng-model="$ctrl.topicTitle" ng-required="true">
+                </md-input-container>
+                <md-input-container class="md-block nomargin">
+                    <label>本文を記入</label>
+                    <textarea name="text" ng-model="$ctrl.topicText" ng-required="true" md-select-on-focus md-resize-textarea rows="1"></textarea>
+                </md-input-container>
+            </form>
+            <div layout="row" layout-align="end center">
+                <div ng-click="$ctrl.onTopicPost()">
+                    <!-- md-buttonのバグでng-clickが動かないため代替手段 -->
+                    <md-button class="md-primary md-raised" ng-disabled="$ctrl.topicForm.$invalid || $ctrl.editMode">
+                        <md-icon>add</md-icon>
+                        トピックを追加する</md-button>
+                </div>
+            </div>
+        </div>
+    </div>
+</md-card>

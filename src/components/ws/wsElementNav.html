@@ -1,0 +1,14 @@
+<md-sidenav class="md-sidenav-left height100" md-component-id="left" md-is-open="$ctrl.isSidenavOpen" md-is-locked-open="$mdMedia('gt-sm')"
+    md-disable-backdrop md-whiteframe="4">
+    <md-list>
+        <div ng-repeat="topChild in $ctrl.wsAssignmentService.getChildElements($ctrl.wsAssignmentService.rootElement) | orderBy: 'property.sortOrder'">
+            <div recurse="topChild" recurse-var="parent">
+                <md-list-item ng-click="$ctrl.onClick({ elementId: parent.wsElementId })" md-colors="parent.wsElementId === $ctrl.selectedElementId ? {background: 'accent-200'} : {}">
+                    {{parent.content.title}}
+                </md-list-item>
+                <div ng-repeat="child in $ctrl.wsAssignmentService.getChildElements(parent) | orderBy: 'property.sortOrder'" recurse-node="child"
+                    style="margin-left:1em; border-left: 2px solid #f0f0f0"></div>
+            </div>
+        </div>
+    </md-list>
+</md-sidenav>

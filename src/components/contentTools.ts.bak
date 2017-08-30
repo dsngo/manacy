@@ -1,0 +1,55 @@
+import * as uiRouter from "angular-ui-router";
+import ComponentBase from './componentBase';
+import IdentityService from '../services/IdentityService';
+import ContentTools from 'ContentTools';
+
+export default class AppEditable extends ComponentBase {
+    /**
+     * 登録コンポーネント名
+     */
+    public static readonly IID: string = 'appEditable';
+
+    /**
+     * コンポーネントオプション
+     */
+    protected static setOptions(options: ng.IComponentOptions) {
+        options.bindings = {
+            regionId: '<',
+            onSave: '&',
+        }
+        options.template = '<ng-transclude></ng-transclude>';
+        options.transclude = true;
+    }
+
+    public static $inject = ['$element'];
+
+    public constructor(
+        public $element: ng.IRootElementService,
+    ) {
+        super();
+    }
+
+    private editor;
+    private onSave;
+
+    protected $onInit() {
+    }
+
+    protected $postLink() {
+        this.editor = new ContentTools.EditorApp.get();
+        this.editor.init('app-editable', 'region-id');
+        this.$element.bind('saved', (ev: any) => {
+            // Check that something changed
+            const regions = ev.detail().regions;
+            if (Object.keys(regions).length == 0) {
+                return;
+            }
+
+            // Set the editor as busy while we save our changes
+            //this.editor.busy(true);
+
+            this.onSave({ regions: regions });
+        })
+    }
+
+}

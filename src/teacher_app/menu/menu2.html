@@ -1,0 +1,14 @@
+<div class="menu-content" ng-class="{'device-mode': $ctrl.isDeviceMode(), 'desktop-mode': !$ctrl.isDeviceMode()}" layout="column" layout-align="space-around stretch">
+    <div layout="column" layout-align="center strech">
+
+        <md-button class="md-raised md-primary" md-colors="{background: 'primary-900'}" layout="row" layout-align="center center" ui-sref="auth.wslist.today" ng-click="$ctrl.menu.next()">
+            <md-icon class="md-primary md-icon">wb_sunny</md-icon>
+            <span class="menu-button-content">今日の授業</span>
+        </md-button>
+
+        <md-button class="md-raised md-primary" md-colors="{background: 'primary-900'}" layout="row" layout-align="center center" ui-sref="auth.wslist.mine" ng-click="$ctrl.menu.next()">
+            <md-icon class="md-primary md-icon">import_contacts</md-icon>
+            <span class="menu-button-content">ワークシート一覧</span>
+        </md-button>
+    </div>
+</div>

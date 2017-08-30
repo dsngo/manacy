@@ -1,0 +1,13 @@
+<app-view>
+    <app-view-back-to></app-view-back-to>
+    <app-view-headline>わーくしーと一覧</app-view-headline>
+    
+    <app-view-content>
+        <md-nav-bar md-selected-nav-item="$ctrl.page">
+            <md-nav-item md-nav-sref="auth.wslist.draft" name="auth.wslist.draft">下書き</md-nav-item>
+            <md-nav-item md-nav-sref="auth.wslist.mine" name="auth.wslist.mine">ワークシート一覧</md-nav-item>
+            <md-nav-item md-nav-sref="auth.wslist.today" name="auth.wslist.today">今日の授業</md-nav-item>
+        </md-nav-bar>
+        <ui-view></ui-view>
+    </app-view-content>
+</app-view>

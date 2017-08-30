@@ -1,0 +1,11 @@
+<div class="width100" layout="column">
+    <div flex="90" style="max-height:5%">
+        <md-slider-container style="max-width:600px; width:80%; float:right;">
+            <md-slider flex min="0" max="4" ng-model="$ctrl.columns" aria-label="columns" ng-change="$ctrl.sliderChange()"></md-slider>
+            <span>{{$ctrl.columns}}</span>
+        </md-slider-container>
+    </div>
+    <div flex="10"></div>
+</div>
+
+<div>条件に該当するカキコミ一覧を表示する。</div>

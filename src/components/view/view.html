@@ -1,0 +1,16 @@
+<app-view-inner ng-class="{'device-mode': $ctrl.isDeviceMode(), 'desktop-mode': !$ctrl.isDeviceMode()}">
+    <md-progress-linear md-mode="indeterminate" ng-disabled="!$ctrl.identityService.isBusy"></md-progress-linear>
+
+    <md-toolbar class="app-view-header" md-scroll-shrink>
+        <div class="md-toolbar-tools">
+            <ng-transclude class="app-view-header-back-to" ng-transclude-slot="backTo"></ng-transclude>
+            <ng-transclude class="app-view-header-headline" ng-transclude-slot="headline"></ng-transclude>
+            <ng-transclude ng-if="!$ctrl.isDeviceMode()" class="app-view-header-toolbar" ng-transclude-slot="toolbar"></ng-transclude>
+            <app-view-menu class="app-view-header-menu">
+                <ng-transclude ng-if="$ctrl.isDeviceMode()" ng-transclude-slot="menuNav"></ng-transclude>
+            </app-view-menu>
+        </div>
+    </md-toolbar>
+
+    <md-content class="app-view-content-wrapper" ng-transclude="content"></md-content>
+</app-view-inner>

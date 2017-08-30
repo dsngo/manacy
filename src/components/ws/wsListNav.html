@@ -1,0 +1,23 @@
+<app-box headline="ワークシート名検索">
+    <div layout-padding style="padding: 8px 24px;">
+        <app-search-text></app-search-text>
+    </div>
+</app-box>
+
+<app-box headline="ディレクトリから探す">
+    <div layout-padding style="padding: 8px 24px;">
+        <app-search-text></app-search-text>
+    </div>
+</app-box>
+
+<app-box headline="メタ情報検索">
+    <div layout-padding style="padding: 8px 24px;">
+        <app-search-text></app-search-text>
+
+        <div layout="column">
+            <md-checkbox ng-model="elem1" required>宿題</md-checkbox>
+            <md-checkbox ng-model="elem2" required>課題</md-checkbox>
+            <md-checkbox ng-model="elem3" required>研修</md-checkbox>
+        </div>
+    </div>
+</app-box>

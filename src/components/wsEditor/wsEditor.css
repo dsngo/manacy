@@ -1,0 +1,60 @@
+app-ws-element-settings {
+    height: 100%;
+}
+
+
+/*
+エレメント追加ボタン
+*/
+
+app-ws-add-element-button {
+    display: block;
+    border: 1px dashed #a0a0a0;
+    height: 2em;
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+app-ws-add-element-button>div {
+    height: 2em;
+    width: inherit;
+    position: relative;
+    -webkit-transition: all ease 0.4s;
+    -moz-transition: all ease 0.4s;
+    -o-transition: all ease 0.4s;
+    transition: all ease 0.4s;
+    opacity: 0;
+    display: none;
+}
+
+app-ws-add-element-button>div>button {
+    position: absolute;
+    z-index: 1;
+    opacity: 0;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    -webkit-transition: all ease 0.4s;
+    -moz-transition: all ease 0.4s;
+    -o-transition: all ease 0.4s;
+    transition: all ease 0.4s;
+}
+
+app-ws-add-element-button:hover>div {
+    /*height:4em;*/
+    display: flex;
+    opacity: 1;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    /*background-color: #b9f6ca;*/
+    border: 1px dashed blue;
+}
+
+app-ws-add-element-button:hover>div>button {
+    /*display: block;*/
+    opacity: 1;
+    /*height:4em;*/
+}

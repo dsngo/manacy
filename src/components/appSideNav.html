@@ -1,0 +1,11 @@
+<div class="app-side-nav-inner" ng-if="!$ctrl.isDeviceMode()">
+    <md-sidenav class="md-sidenav-left padded app-side-nav" md-is-locked-open="$ctrl.hasOpenSideNav()">
+        <ng-transclude></ng-transclude>
+    </md-sidenav>
+
+    <div class="app-side-nav-bar" ng-class="{open: $ctrl.hasOpenSideNav()}" md-colors="{'background': 'background-400'}">
+        <md-button class="app-side-nav-toggler md-raised" md-colors="{'background': 'background-400'}" ng-click="$ctrl.toggleSideNav()">
+            <md-icon>{{$ctrl.hasOpenSideNav() ? "chevron_left" : "chevron_right"}}</md-icon>
+        </md-button>
+    </div>
+</div>

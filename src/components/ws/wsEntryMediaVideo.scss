@@ -1,0 +1,48 @@
+app-ws-entry-media-video {
+    videogular {
+        vg-controls {
+            vg-play-pause-button,
+            vg-volume,
+            vg-fullscreen-button {
+                /* クリックできない領域までクリックカーソルが表示されるスタイルがあたっているため無効化 */
+                cursor: auto;
+            }
+
+            vg-time-display {
+                padding: 0 15px;
+            }
+        }
+
+        &.touch-device {
+            vg-controls {
+                position: static;
+                bottom: initial;
+                z-index: auto;
+
+                .hide-animation {
+                    animation: none;
+                }
+            }
+
+            vg-media, vg-poster {
+                height: calc(100% - 50px);
+            }
+        }
+
+        &.cannot-play {
+            vg-controls {
+                vg-time-display,
+                vg-scrub-bar,
+                vg-volume,
+                vg-fullscreen-button {
+                    display: none;
+                }
+
+                .controls-container:after {
+                    display: table-cell;
+                    content: " ";
+                }
+            }
+        }
+    }
+}

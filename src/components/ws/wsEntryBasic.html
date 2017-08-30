@@ -1,0 +1,18 @@
+<md-card ng-repeat="(author, entries) in $ctrl.entries track by author" ng-if="!$ctrl.editMode">
+    <app-ws-entry-header author-id="author" owner-id="$ctrl.ownerUserId">
+        <p class="md-body-1 notopmargin" ng-if="entries[0].wsEntryTypeId === 1 && entries.length === 1">
+            <span>{{entries[0].jsonData.text}}</span>&nbsp;
+        </p>
+    </app-ws-entry-header>
+
+    <div ng-if="entries[0].wsEntryTypeId !== 1 || entries.length > 1">
+        <app-ws-entry-media params="$ctrl.params" entries="entries"></app-ws-entry-media>
+
+        <p class="md-body-1 notopmargin" ng-if="entries[0].wsEntryTypeId === 1">
+            <span>{{entries[0].jsonData.text}}</span>&nbsp;
+        </p>
+    </div>
+</md-card>
+<md-card ng-if="$ctrl.accessLevel === 2 || $ctrl.editMode">
+    <app-ws-entry-basic-input params="$ctrl.params"></app-ws-entry-basic-input>
+</md-card>

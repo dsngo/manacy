@@ -1,0 +1,28 @@
+<app-header title="$ctrl.wsAssignmentService.ws.title" flex="none" back-to="'auth.wslist'">
+    <!--<md-button aria-label="button-label" onclick="document.backToCourseForm.submit()">
+        <md-icon md-menu-origin>arrow_back</md-icon>
+        <span class="md-caption" hide show-gt-sm>戻る</span>
+        <md-tooltip md-direction="bottom">コース編集画面に戻る</md-tooltip>
+    </md-button>-->
+    <md-button aria-label="Worksheet" ui-sref=".elements" ng-class="$ctrl.$mdMedia('gt-sm') ? '' : 'md-icon-button'">
+        <md-icon md-menu-origin>view_list</md-icon>
+        <span class="md-caption" hide show-gt-sm>書込一覧</span>
+        <md-tooltip md-direction="bottom">ワークシート要素別の書込一覧</md-tooltip>
+    </md-button>
+    <md-button aria-label="Students" ui-sref=".students" ng-class="$ctrl.$mdMedia('gt-sm') ? '' : 'md-icon-button'">
+        <md-icon md-menu-origin>people</md-icon>
+        <span class="md-caption" hide show-gt-sm>学習者一覧</span>
+        <md-tooltip md-direction="bottom">全学習者のワークシート</md-tooltip>
+    </md-button>
+    <md-button aria-label="Edit" ui-sref=".editor" ng-class="$ctrl.$mdMedia('gt-sm') ? '' : 'md-icon-button'">
+        <md-icon md-menu-origin>edit</md-icon>
+        <span class="md-caption" hide show-gt-sm>編集</span>
+        <md-tooltip md-direction="bottom">ワークシートを編集する</md-tooltip>
+    </md-button>
+</app-header>
+<md-content flex="100" class="height100">
+    <ui-view></ui-view>
+</md-content>
+<form name="backToCourseForm" action="../../app2/teacher/resource_list.php" method="post">
+    <input type="hidden" name="CourseId" value="{{$ctrl.wsAssignmentService.ws.resource.courseModule.courseId}}" />
+</form>

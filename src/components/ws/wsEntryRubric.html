@@ -1,0 +1,16 @@
+<md-card ng-repeat="(author, entries) in $ctrl.entries" ng-if="!$ctrl.editMode">
+    <app-ws-entry-header author-id="author" owner-id="$ctrl.ownerUserId">
+        <div ng-repeat="entry in entries">
+            <div ng-repeat="item in entry.jsonData.selectedIndex" ng-if="entry.wsEntryTypeId === 8" md-colors="{background: 'primary-50'}"
+                class="padding-all">
+                <h4 class="nomargin">{{ $ctrl.selections[item].label }}</h4>
+                <p class="md-caption nomargin" style="color: gray">{{ $ctrl.selections[item].text }}</p>
+            </div>
+            <p ng-if="entry.wsEntryTypeId === 1">{{entry.jsonData.text}}</p>
+        </div>
+    </app-ws-entry-header>
+</md-card>
+<md-card ng-if="$ctrl.accessLevel === 2 || $ctrl.editMode">
+    <app-ws-entry-selection-input params="$ctrl.params" hide-save-button="true"></app-ws-entry-selection-input>
+    <app-ws-entry-basic-input params="$ctrl.params" hide-header="true"></app-ws-entry-basic-input>
+</md-card>

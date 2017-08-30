@@ -1,0 +1,38 @@
+<div class="assignment-properties">
+    <div layout="column" layout-align="start center">
+        <md-card class="width100 properties-wrapper" flex="none" layout-padding>
+            <form name="assignmentSettingForm" novalidate  class="properties-wrapper">
+                <md-card-title md-colors="{background: 'primary'}">
+                        <span class="md-title">
+                            配布情報の入力
+                        </span>
+                </md-card-title>
+                <div layout="row" layout-align="center center">
+                    <div class="input-title" flex>授業日</div>
+                    <md-input-container flex>
+                        <md-datepicker ng-model="$ctrl.lessonDate" md-hide-icons="calendar"></md-datepicker>
+                    </md-input-container>
+                </div>
+                <div layout="row" layout-align="center center">
+                    <div class="input-title" flex>学年・クラス</div>
+                    <md-input-container flex>
+                        <md-select ng-model="$ctrl.wsAssignmentDto.directoryId" required name="directoryId">
+                            <md-option ng-value="directory.id" ng-repeat="directory in $ctrl.directories">{{ directory.path }}</md-option>
+                        </md-select>
+                        <div ng-messages="assignmentSettingForm.directoryId.$error">
+                            <div ng-message="required"> 学年・クラスの選択は必須です。</div>
+                        </div>
+                    </md-input-container>
+                </div>
+            </form>
+        </md-card>
+        <div ng-if="$ctrl.isEdit()">
+            <md-button class="md-primary" ng-click="$ctrl.onCancel()">キャンセル</md-button>
+            <md-button class="md-raised md-primary" ng-click="$ctrl.onSave()" ng-disabled="assignmentSettingForm.$invalid || assignmentSettingForm.$pristine">保存</md-button>
+        </div>
+        <div ng-if="!$ctrl.isEdit()">
+            <md-button class="md-primary" ui-sref="auth.wslist.mine">保存せずワークシート一覧へ</md-button>
+            <md-button class="md-raised md-primary" ng-click="$ctrl.onSave()" ng-disabled="assignmentSettingForm.$invalid">保存して配付先設定へ</md-button>
+        </div>
+    </div>
+</div>

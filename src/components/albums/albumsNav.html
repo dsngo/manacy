@@ -1,0 +1,20 @@
+<app-box headline="アルバム名">
+    <md-list>
+        <md-list-item ng-repeat="album in $ctrl.albums" ng-click="$ctrl.selectAlbum(album)">
+            <div>{{album.name}}&nbsp;&nbsp;&nbsp;&nbsp;{{album.date}}&nbsp;&nbsp;{{album.time}}</div>
+            <md-menu style="right: 0px; position: absolute;" ng-if="$ctrl.hasSelectAlbum(album)">
+                <md-button ng-click="$mdOpenMenu($event)" class="md-icon-button" md-colors="{background: 'primary'}">
+                    <md-icon md-menu-origin style="color:white;">more_vert</md-icon>
+                </md-button>
+                <md-menu-content>
+                    <md-menu-item>
+                        <md-button>名前を変更</md-button>
+                    </md-menu-item>
+                    <md-menu-item>
+                        <md-button>最上位へ移動</md-button>
+                    </md-menu-item>
+                </md-menu-content>
+            </md-menu>
+        </md-list-item>
+    </md-list>
+</app-box>

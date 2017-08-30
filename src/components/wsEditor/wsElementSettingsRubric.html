@@ -1,0 +1,64 @@
+<div ng-if="$ctrl.property.elementTypeId == 5">
+    <md-list-item>
+        <p>テキスト</p>
+        <md-switch class="md-secondary" ng-model="$ctrl.textEnabled"></md-switch>
+    </md-list-item>
+    <md-list-item ng-if="$ctrl.textEnabled" class="animated">
+        <div flex="100" layout="column" class="offset">
+            <md-input-container class="nomargin">
+                <label>ラベル</label>
+                <input ng-model="$ctrl.settings.text.label">
+            </md-input-container>
+            <md-input-container class="nomargin">
+                <label>最大文字数</label>
+                <input ng-model="$ctrl.settings.text.maxLength" type="number">
+            </md-input-container>
+            <md-input-container class="nomargin">
+                <label>最小文字数</label>
+                <input ng-model="$ctrl.settings.text.minLength" type="number">
+            </md-input-container>
+            <md-input-container class="nomargin">
+                <label>初期行数</label>
+                <input ng-model="$ctrl.settings.text.rows" type="number">
+            </md-input-container>
+            <md-input-container class="nomargin">
+                <label>デフォルトテキスト</label>
+                <textarea ng-model="$ctrl.settings.text.defaultText" md-maxlength="$ctrl.settings.text.maxLength" rows="4" md-select-on-focus></textarea>
+            </md-input-container>
+        </div>
+    </md-list-item>
+    <md-divider></md-divider>
+    <md-list-item>
+        <md-list flex="100">
+            <md-list-item ng-repeat="item in $ctrl.items">
+                <div flex="100" layout="column">
+                    <p>レベル {{$index+1}}</p>
+                    <md-input-container class="nomargin">
+                        <label>段階名</label>
+                        <input ng-model="item.label"></input>
+                    </md-input-container>
+                    <md-input-container class="nomargin">
+                        <label>評価基準</label>
+                        <textarea ng-model="item.text" rows="2" md-select-on-focus></textarea>
+                    </md-input-container>
+                </div>
+            </md-list-item>
+            <md-list-item class="md-no-proxy">
+                <div flex="100" layout="column">
+                    <p>選択肢 新規追加</p>
+                    <md-input-container class="nomargin">
+                        <label>段階名</label>
+                        <input ng-model="$ctrl.addLabel"></input>
+                    </md-input-container>
+                    <md-input-container class="nomargin">
+                        <label>評価基準</label>
+                        <textarea ng-model="$ctrl.addText" rows="2" md-select-on-focus></textarea>
+                    </md-input-container>
+                    <div layout="row" layout-align="end">
+                        <md-button ng-click="$ctrl.addItem()">追加</md-button>
+                    </div>
+                </div>
+            </md-list-item>
+        </md-list>
+    </md-list-item>
+</div>

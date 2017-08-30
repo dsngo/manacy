@@ -1,0 +1,16 @@
+node_modules/
+app/jspm_packages
+app/components
+app/student_app
+app/teacher_app
+app/css/bundle.css
+app/css/bundle.css.map
+typings/
+dist/
+logs/
+tmp/
+typings.json
+.DS_Store
+.idea
+!.gitkeep
+.vscode

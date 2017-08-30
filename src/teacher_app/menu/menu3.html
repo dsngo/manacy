@@ -1,0 +1,19 @@
+<div class="menu-content" ng-class="{'device-mode': $ctrl.isDeviceMode(), 'desktop-mode': !$ctrl.isDeviceMode()}" layout="column" layout-align="space-around stretch">
+    <div layout="column" layout-align="center strech">
+
+        <md-button class="md-raised md-primary" md-colors="{background: 'primary-900'}" layout="row" layout-align="center center" ui-sref="auth.wslist.mine" ng-click="$ctrl.menu.next()">
+            <md-icon class="md-primary md-icon">import_contacts</md-icon>
+            <span class="menu-button-content">ワークシートを検索する</span>
+        </md-button>
+
+        <md-button class="md-raised md-primary" md-colors="{background: 'primary-900'}" layout="row" layout-align="center center" ui-sref="auth.entries" ng-click="$ctrl.menu.next()">
+            <md-icon class="md-primary md-icon">description</md-icon>
+            <span class="menu-button-content">項目を検索する</span>
+        </md-button>
+
+        <md-button class="md-raised md-primary" ng-disabled="true" layout="row" layout-align="center center" ui-sref="auth.students" ng-click="$ctrl.menu.next()">
+            <md-icon class="md-primary md-icon">people</md-icon>
+            <span class="menu-button-content">児童生徒を検索する</span>
+        </md-button>
+    </div>
+</div>

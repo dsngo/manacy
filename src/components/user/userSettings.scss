@@ -1,0 +1,48 @@
+.user-settings {
+    max-width: 900px;
+    margin-top: 50px;
+    .user-image-settings {
+        height: 135px;
+        width: 135px;
+        padding-right: 25px;
+        padding-bottom: 25px;
+        .img {
+            height: 135px;
+            width: 135px;
+            overflow: hidden;
+            border-radius: 50%;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            display: block;
+            border-radius: 50%;
+        }
+        .md-button {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            &.md-fab {
+                background-color: rgb(189, 189, 189);
+            }
+            &.md-fab:not([disabled]):hover {
+                background-color: rgb(189, 189, 189);
+            }
+        }
+        input[type="file"] {
+            height: 55px; // opacity: 0;
+        }
+    }
+    .cancel-button,
+    .edit-button {
+        width: 100px;
+        padding: 5px;
+    }
+    .cancel-button {
+        left: 0;
+    }
+    .edit-button {
+        margin-left: 30px;
+    }
+}

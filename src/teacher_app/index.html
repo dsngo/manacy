@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja" ng-app="TeacherApp" ng-strict-di>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+  <title>まなびシート</title>
+  <!-- Angular Material style sheet -->
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons" />
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic" />
+  <link rel="stylesheet" href="//fonts.googleapis.com/earlyaccess/notosansjp.css" />
+  <link rel="stylesheet" href="../css/angular-material.ja.device.min.css" media="screen and (max-width:600px)">
+  <link rel="stylesheet" href="../css/angular-material.ja.desktop.min.css" media="screen and (min-width:601px)">
+  <link rel="stylesheet" href="../css/v-accordion.min.css" />
+  <link rel="stylesheet" href="../css/angular-carousel.min.css" />
+  <link rel="stylesheet" href="../css/bundle.css" />
+  <link rel="stylesheet" href="//cdn.quilljs.com/1.2.6/quill.snow.css">
+  <link rel="stylesheet" href="//cdn.quilljs.com/1.2.6/quill.bubble.css">
+  <!--<link rel="stylesheet" href="./assets/app.css" />-->
+
+</head>
+
+<body layout="column" ng-cloak md-theme="{{$ctrl.themeColor}}">
+  <script>
+    var API_PATH = "/api";
+    var AVATAR_PATH = "//manacy0509.blob.core.windows.net/pic";
+    var APP_TYPE = 0;
+  </script>
+
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.11/angular.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.11/angular-animate.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.11/angular-aria.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/angular-i18n/1.5.11/angular-locale_ja-jp.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.11/angular-messages.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.11/angular-sanitize.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.11/angular-touch.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+
+  <script src="//unpkg.com/angular-ui-router@v1.0.0-rc.1/release/angular-ui-router.js"></script>
+  <script src="//unpkg.com/videogular@2.1.2/dist/videogular/videogular.min.js"></script>
+  <script src="//unpkg.com/videogular@2.1.2/dist/controls/vg-controls.min.js"></script>
+  <script src="//unpkg.com/videogular@2.1.2/dist/poster/vg-poster.min.js"></script>
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/restangular/1.6.1/restangular.min.js"></script>
+
+  <script src="//cdn.quilljs.com/1.2.6/quill.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/ng-quill/3.2.1/ng-quill.min.js"></script>
+  <script src="//unpkg.com/angular-drag-and-drop-lists/angular-drag-and-drop-lists.min.js"></script>
+
+  <script src="../jslib/ng-file-upload.min.js"></script>
+  <script src="../jslib/v-accordion.min.js"></script>
+  <script src="../jslib/angular-carousel.min.js"></script>
+  <script src="../jslib/image-resize.min.js"></script>
+
+  <script src="bundle.js"></script>
+  <ui-view></ui-view>
+
+</body>
+
+</html>

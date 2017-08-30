@@ -1,0 +1,20 @@
+<!--<div ng-click="$ctrl.AddElement($event)" md-ink-ripple="true">-->
+<div md-colors="{backgroundColor: 'primary-100'}">
+    <!--<div layout="row" layout-align="center stretch" ng-click="$ctrl.AddElement($event)">-->
+    <md-menu class="">
+        <md-button class="md-fab" ng-click="$mdOpenMenu($event)">
+            <md-tooltip md-direction="bottom">ここに新規追加</md-tooltip>
+            <md-icon>add</md-icon>
+        </md-button>
+        <md-menu-content width="4">
+            <md-menu-item ng-if="$ctrl.enableCopy">
+                <md-button ng-click="$ctrl.copyElement()">ここに選択中の項目をコピー</md-button>
+            </md-menu-item>
+            <md-menu-item>
+                <md-button ng-click="$ctrl.addElement($event)">
+                    ここに新規追加
+                </md-button>
+            </md-menu-item>
+        </md-menu-content>
+    </md-menu>
+</div>

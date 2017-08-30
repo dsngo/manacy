@@ -1,0 +1,44 @@
+<app-ws-add-element-button base-element="$ctrl.element" position="before" ng-if="$ctrl.isSelected"></app-ws-add-element-button>
+<div tabindex="0" class="overlay-base" ng-focus="$ctrl.onFocus()" ng-class="{ selected : $ctrl.isSelected }">
+    <div class="overlay animated" ng-if="$ctrl.isSelected" layout="row">
+        <md-button class="md-fab animated md-mini" ng-click="$ctrl.cancel()" ng-if="$ctrl.wsEditorService.isChanged" md-colors="{background: 'grey-400'}">
+            <md-tooltip md-direction="bottom">変更をキャンセル</md-tooltip>
+            <md-icon>cancel</md-icon>
+        </md-button>
+        <md-button class="md-fab animated" ng-click="$ctrl.save()" ng-if="$ctrl.wsEditorService.isChanged">
+            <md-tooltip md-direction="bottom">変更を保存</md-tooltip>
+            <md-icon>check</md-icon>
+        </md-button>
+        <md-menu>
+            <div layout="row" layout-align="center center">
+                <md-button class="md-fab md-primary" ng-click="$mdOpenMenu($event)">
+                    <md-tooltip md-direction="bottom">操作メニュー</md-tooltip>
+                    <md-icon>menu</md-icon>
+                </md-button>
+            </div>
+            <md-menu-content width="4">
+                <md-menu-item>
+                    <md-button ng-click="">下位階層に新しい要素を新規追加</md-button>
+                </md-menu-item>
+                <md-menu-item>
+                    <md-button ng-click="$ctrl.remove()">削除</md-button>
+                </md-menu-item>
+                <!--<md-menu-item>
+                    <md-button ng-click="$ctrl.onAddEntryClick()">移動</md-button>
+                </md-menu-item>-->
+            </md-menu-content>
+        </md-menu>
+    </div>
+    <div class="origin-name" md-colors="{backgroundColor: 'primary-100'}">{{$ctrl.element.origin.name}}</div>
+    <md-input-container md-no-float class="md-title md-block nomargin no-label">
+        <input ng-model="$ctrl.content.title" placeholder="{{$ctrl.element.origin.titlePlaceholder || 'タイトルを入力'}}" ng-focus="$ctrl.onFocus()">
+    </md-input-container>
+    <ng-quill-editor class="md-body-1" ng-model="$ctrl.content.description" on-selection-changed="$ctrl.onQuillSelectionChanged(editor, range, oldRange, source)"
+        placeholder="{{$ctrl.element.origin.descriptionPlaceholder}}" ng-class="{'no-toolbar': !$ctrl.isSelected}"></ng-quill-editor>
+    <app-ws-entry params="{element:$ctrl.element, editMode:true}" ng-if="$ctrl.content.entryStatus"></app-ws-entry>
+    <!--<div class="transclude">
+        <app-ws-add-element-button base-element="$ctrl.element" position="firstChild" ng-if="$ctrl.isSelected"></app-ws-add-element-button>
+    </div>-->
+    <ng-transclude></ng-transclude>
+</div>
+<app-ws-add-element-button base-element="$ctrl.element" position="after" ng-if="$ctrl.isSelected"></app-ws-add-element-button>

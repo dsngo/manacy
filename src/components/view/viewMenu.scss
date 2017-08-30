@@ -1,0 +1,27 @@
+/* body直下に生成されるため、app-viewタグ内に指定できない */
+md-menu-content.app-view-menu-content {
+    max-height: 95vh;
+
+    .app-view-user-info {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        justify-items: start;
+
+        > app-avatar {
+            margin-left: 16px;
+            padding: 0;
+        }
+
+        > span {
+            padding: 0 12px;
+            font-weight: bolder;
+        }
+    }
+
+    .app-view-basic-menu {
+        /* angular-materialでtransitionが指定されているため、表示/非表示に一瞬固まって見えるのを抑止 */
+        /* TODO: 通常メニューの開閉アニメーションを付ける場合は、この指定を除去する */
+        transition: initial;
+    }
+}

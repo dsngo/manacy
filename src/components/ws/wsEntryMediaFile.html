@@ -1,0 +1,9 @@
+<a ng-href="{{$ctrl.blobUrl}}" download class="ws-entry-media-file-wrapper" ng-click="$event.stopPropagation()">
+    <div class="ws-entry-media-file">
+        <md-icon class="ws-entry-media-file-icon">attach_file</md-icon>
+        <div class="ws-entry-media-file-data">
+            <span>{{$ctrl.entry.jsonData.file.fileName}}</span>
+            <md-icon>file_download</md-icon>
+        </div>
+    </div>
+</a>

@@ -1,0 +1,8 @@
+app-ws-element {
+    body.device-mode & {
+        ng-transclude {
+            margin: 0;
+            padding: 0;
+        }
+    }
+}

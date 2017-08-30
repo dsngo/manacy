@@ -1,0 +1,15 @@
+<div ng-repeat="(groupName, group) in $ctrl.userGroupParam track by group.id" class="ws-element-view-group padding" md-whiteframe="1" ng-if="$ctrl.countUsersInGroup(group)>0 && !$ctrl.isSharedInCourse">
+    <h4 class="nobottommargin md-caption">グループ:<span class="md-headline">{{groupName}}</span></h4>
+    <div style="columns: 2;" ng-if="!$ctrl.isSharedInGroup">
+        <div ng-repeat="user in group track by user.id" class="ws-element-view-user" style="break-inside: avoid-column; padding:1px" ng-if="$ctrl.countUsersInOwner(user.id)>0">
+            <div ng-if="$ctrl.othersWritable" layout="row" layout-align="start end">
+                <app-avatar user-id="user.id" small="true"></app-avatar>
+                <p class="nobottommargin">{{user.displayName}}さんのワークシート</p>
+            </div>
+            <app-ws-entry params="user.param"></app-ws-entry>
+        </div>
+        <div style="break-inside: avoid-column;"></div>
+    </div>
+    <app-ws-entry params="$ctrl.getParams(group[0].id)" ng-if="$ctrl.isSharedInGroup"></app-ws-entry>
+</div>
+<app-ws-entry params="$ctrl.getParams(null)" ng-if="$ctrl.isSharedInCourse"></app-ws-entry>

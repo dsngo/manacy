@@ -1,0 +1,22 @@
+.ws-properties{
+  .properties-wrapper {
+    max-width: 500px;
+    padding: 0;
+  }
+
+  .input-title {
+    width: 120px;
+    max-width: 120px;
+    display: inline-block;
+    text-align:right;
+    margin-right: 10px;
+  }
+
+  md-input-container {
+    max-width: 250px;
+    .md-input {
+      margin-top: 10px;
+      margin-right: 10px;
+    }
+  }
+}

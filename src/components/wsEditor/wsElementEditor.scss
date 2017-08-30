@@ -1,0 +1,38 @@
+/*
+wsElementEditor.scss
+*/
+
+app-ws-element-editor {
+    >div.selected {
+        outline: none;
+        border: solid 2px #a2c4fb;
+    }
+    >ng-transclude {
+        border: solid 1px #464646
+    }
+    div.origin-name {
+        margin: 0;
+        padding: 0 0.5em;
+        /*background-color: blue;*/
+        color: white;
+        display: inline-block;
+    }
+    ng-quill-editor {
+        &.no-toolbar .ql-toolbar {
+            display: none!important;
+        }
+        .ql-container {
+            border: none!important;
+        }
+        >div {
+            position: relative;
+            >.ql-toolbar {
+                position: absolute;
+                top: 100%;
+                background: white;
+                box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
+                z-index: 10;
+            }
+        }
+    }
+}
