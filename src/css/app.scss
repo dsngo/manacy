@@ -1,1 +1,14 @@
-@import "../**/*";
+// Import base css files
+@import "base/app.css";
+@import "base/quill.css";
+@import "base/v-accordion.css";
+
+// Import drawing App scss(s)
+@import "base/drawComponentVariables.scss";
+@import "base/drawComponentMixins.scss";
+@import "drawingComponent/base.scss";
+@import "drawingComponent/customDropdown.scss";
+@import "drawingComponent/customSlider.scss";
+@import "drawingComponent/settingsTooltip.scss";
+@import "drawingComponent/drawComponents.scss";
+@import "drawingComponent/customUtility.scss";

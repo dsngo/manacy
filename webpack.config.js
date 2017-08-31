@@ -41,7 +41,7 @@ const config = {
                 use: "ts-loader", // consider migrating to awesome-typescript-loader for better bundling performance
             },
             {
-                test: /\.scss$/,
+                test: /\.s?css$/,
                 include: join(__dirname, "src"),
                 use: ExtractTextPlugin.extract({
                     fallback: "style-loader",

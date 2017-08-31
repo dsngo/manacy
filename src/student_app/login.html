@@ -1,24 +1,36 @@
-<md-content class="height100vh" md-colors="{background: 'grey-100'}" layout="column" layout-align="center center">
-	<div class="width100" layout="column" layout-align="center center">
-		<md-icon class="logo" md-svg-icon="../images/logo-side.svg" aria-label="まなびシート"></md-icon>
-		<br />
-
-		<div class="width100 login-form-width" flex="none">
-			<md-progress-linear md-mode="indeterminate" ng-disabled="!$ctrl.loginButtonIsDisabled"></md-progress-linear>
-			<form name="loginForm" novalidate>
-				<md-card-content layout="column">
-					<input class="input" name="username" ng-model="$ctrl.username" type="string" required ng-maxlength="64" placeholder="名前"> 
-					<input class="input" name="password" ng-model="$ctrl.password" type="password" required ng-maxlength="64" placeholder="パスワード">  
-					<a class="forgotten-password">パスワードを忘れた場合</a>
-				</md-card-content>
-				<md-card-actions layout="row">
-					<md-button flex="100" class="md-raised md-primary" ng-click="$ctrl.onLoginClick('auth.menu.menu')" ng-disabled="$ctrl.loginButtonIsDisabled || loginForm.$invalid">ログイン</md-button>
-				</md-card-actions>
-				<br />
-			</form>
-
-		</div>
-
-	</div>
-
+<md-toolbar>
+    <div class="md-toolbar-tools">
+        <h1>まなびシート</h1>
+    </div>
+</md-toolbar>
+<md-content layout="column" layout-align="start center">
+    <br />
+    <md-card class="width100" style="max-width: 400px" flex="none">
+        <md-progress-linear md-mode="indeterminate" ng-disabled="!$ctrl.loginButtonIsDisabled"></md-progress-linear>
+        <v-accordion class="v-accordion-arrow">
+            <v-pane expanded="true">
+                <form name="loginForm" novalidate>
+                    <v-pane-header md-ink-ripple="true">
+                        <md-card-title md-colors="{background: 'primary'}"><span class="md-title">生徒ログイン</span></md-card-title>
+                    </v-pane-header>
+                    <v-pane-content>
+                        <md-card-content layout="column">
+                            <md-input-container>
+                                <label>ユーザー名</label>
+                                <input name="username" ng-model="$ctrl.username" type="string" required ng-maxlength="64">
+                            </md-input-container>
+                            <md-input-container>
+                                <label>パスワード</label>
+                                <input name="password" ng-model="$ctrl.password" type="password" required ng-maxlength="64">
+                            </md-input-container>
+                        </md-card-content>
+                        <md-card-actions layout="row">
+                            <md-button flex="100" class="md-raised md-primary" ng-click="$ctrl.onLoginClick('auth.wslist')" ng-disabled="$ctrl.loginButtonIsDisabled || loginForm.$invalid">ログイン</md-button>
+                        </md-card-actions>
+                        <br />
+                    </v-pane-content>
+                </form>
+            </v-pane>
+        </v-accordion>
+    </md-card>
 </md-content>

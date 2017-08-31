@@ -1,0 +1,37 @@
+label {
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+}
+
+select,
+input[type="text"] {
+  height: 30px;
+}
+
+p {
+  margin: 0;
+  color: $text-color;
+  font-size: 16px;
+
+  @include mediaquery-phone-portrait() {
+    font-size: 12px;
+  }
+
+  @include mediaquery-phone-landscape() {
+    font-size: 12px;
+  }
+}
+
+body {
+  @include user-select(none);
+  margin: 0;
+}
+
+button, select {
+  cursor: pointer;
+}
+
+* {
+  outline: none;
+}

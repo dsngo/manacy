@@ -1,0 +1,119 @@
+<!-- <section class="mobile-artboard-wrapper"> -->
+    <!-- [TOOLS PANEL] -->
+    <div class="mobile-main-panel-wrapper draggable">
+      <div class="mobile-module">
+        <ng-md-icon icon="brush" style="fill:dimgray" size="32" ng-click="settingCtrl.showTool(1)"></ng-md-icon>
+        <ng-md-icon icon="text_fields" style="fill:dimgray" size="32" ng-click="settingCtrl.showTool(2)"></ng-md-icon>
+        <!--
+        <div class="mobile-brush-tool" ng-click='settingCtrl.showTool(1)' ng-class="settingCtrl.activeBrushToolClass"></div>
+        <div class="mobile-text-tool" ng-click='settingCtrl.showTool(2)' ng-class="settingCtrl.activeTextToolClass"></div>
+        -->
+      </div>
+      <div class="mobile-module mobile-color-tool-module" ng-click="settingCtrl.showColorToolClass = 'show'">
+        <div class="mobile-color-swatch-trigger-btn" ng-style="{'background-color': settingCtrl.drawModel.color}"></div>
+      </div>
+      <div class="mobile-module">
+        <!--
+        <div class="mobile-undo-btn" ng-click="settingCtrl.undo()"></div>
+        <div class="mobile-redo-btn" ng-click="settingCtrl.redo()"></div>
+        -->
+        <ng-md-icon icon="undo" style="fill:dimgray" size="32" ng-click="settingCtrl.undo()"></ng-md-icon>
+        <ng-md-icon icon="redo" style="fill:dimgray" size="32" ng-click="settingCtrl.redo()"></ng-md-icon>
+        <ng-md-icon icon="close" style="fill:dimgray" size="32" ng-click="settingCtrl.cancel()"></ng-md-icon>  
+      </div>
+    </div>
+
+    <!-- /[TOOLS PANEL] -->
+    <div class="mobile-wrapper" ng-class="settingCtrl.mobileBottom">
+      <!-- [TOOL-OPTION : BRUSH] -->
+      <div class="mobile-sub-panel-wrapper mobile-brush-tool-setting" ng-class="settingCtrl.showBrushToolClass">
+          <!-- [Brush option row : 1] -->
+          <div class="mobile-brush-size-slide">
+            <div md-colors="{background:'default-primary-700'}" class="mobile-change-position-btn mobile-b1" ng-class="settingCtrl.mobileRotate" ng-click="settingCtrl.mobileGoBottom()">
+              <img src="/app/images/triangle.png" class="mobile-img-fluid" alt="">
+            </div>
+            <div class="mobile-brush-slider mobile-b2">
+              <div class="mobile-brush-size">
+                <div md-colors="{background:'default-primary-700'}" class="mobile-circle"></div>
+              </div>
+              <div class="mobile-brush-range">
+                <md-slider class="mobile-brush-thumb-track" md-theme="DrawUITheme"
+                  ng-model="settingCtrl.drawModel.stroke" min="{{1}}"  max="{{200}}"
+                  ng-change="settingCtrl.scrollStrokeValue()" aria-label="Color Picker"></md-slider>
+              </div>
+              <div class="mobile-brush-size">
+                <div md-colors="{background:'default-primary-700'}" class="mobile-circle mobile-circle-big"></div>
+              </div>
+            </div>
+            <select class="mobile-brush-size-dropdown mobile-b3" ng-model="settingCtrl.drawModel.stroke" ng-options="opt as opt for opt in settingCtrl.strokeItems" ng-change="settingCtrl.selectChange()"></select>
+            <div class="mobile-brush-size-btn mobile-b4">
+              <div class="mobile-brush-btn" ng-click="settingCtrl.setStroke(1)">
+                <div md-colors="{background:'default-primary-700'}" class="mobile-brush-1"></div>
+              </div>
+              <div class="mobile-brush-btn" ng-click="settingCtrl.setStroke(5)">
+                <div md-colors="{background:'default-primary-700'}" class="mobile-brush-5"></div>
+              </div>
+              <div class="mobile-brush-btn" ng-click="settingCtrl.setStroke(10)">
+                <div md-colors="{background:'default-primary-700'}" class="mobile-brush-10"></div>
+              </div>
+              <div class="mobile-brush-btn" ng-click="settingCtrl.setStroke(20)">
+                <div md-colors="{background:'default-primary-700'}" class="mobile-brush-20"></div>
+              </div>
+              <div class="mobile-brush-btn" ng-click="settingCtrl.setStroke(50)">
+                <div md-colors="{background:'default-primary-700'}" class="mobile-brush-50"></div>
+              </div>
+            </div>
+            <div class="mobile-tool-swatch-picker mobile-b5">
+              <p>ペン<span class="break-word">の色</span></p>
+              <div class="mobile-color-swatch-trigger-btn" ng-style="{'background-color': settingCtrl.drawModel.color}" ng-click="settingCtrl.showColorToolClass = 'show'"></div>
+            </div>
+          </div>
+      </div>
+      <!-- /[TOOL-OPTION : BRUSH] -->
+
+      <!-- [TOOL-OPTION : TEXT] -->
+      <div class="mobile-sub-panel-wrapper draggable" ng-class="settingCtrl.showTextToolClass">
+          <div class="mobile-text-size-input">
+            <div md-colors="{background:'default-primary-700'}" class="mobile-change-position-btn" ng-class="settingCtrl.mobileRotate"  ng-click="settingCtrl.mobileGoBottom()">
+              <img src="/app/images/triangle.png" class="mobile-img-fluid" alt="">
+            </div>
+            <div class="mobile-text-input">
+              <p>サイズ</p>
+              <div class="mobile-custom-input-dropdown">
+                <input ng-model="settingCtrl.drawModel.fontSize" type="number" min="1" max="200"  class="mobile-size-input" name="size-input">
+                <select class="mobile-text-size-dropdown" name="text-input-dropdown-trigger" data-ng-model="settingCtrl.drawModel.fontSize" ng-options="opt for opt in settingCtrl.fontSizeItems"></select>
+              </div>
+              <button type="button" class="mobile-text-size-btn mobile-plus" name="button" ng-click="settingCtrl.upFontSize()">+</button>
+              <button type="button" class="mobile-text-size-btn mobile-minus" name="button" ng-click="settingCtrl.downFontSize()">-</button>
+            </div>
+            <div class="mobile-btn-text-bold-wrapper">
+              <button type="button" class="mobile-btn-text-bold" ng-class="{bolded: settingCtrl.drawModel.isTextBold, unBoled: !settingCtrl.drawModel.isTextBold }" ng-click="settingCtrl.activeBold()" name="button">
+                <ng-md-icon icon="format_bold" style="fill:dimgray" size="32"></ng-md-icon>
+                <!--あ-->
+              </button>
+            </div>
+            <div class="mobile-color-picker-trigger-wrapper">
+              <p>文字の色</p>
+              <div class="mobile-color-swatch-trigger-btn" ng-style="{'background-color': settingCtrl.drawModel.color}" ng-click="settingCtrl.showColorToolClass = 'show'"></div>
+            </div>
+          </div>
+      </div>
+      <!-- /[TOOL-OPTION : TEXT] -->
+
+      <!-- [TOOL-OPTION : COLOR SWATCH] -->
+      <div class="mobile-sub-panel-wrapper draggable" ng-class="settingCtrl.showColorToolClass">
+        <div class="mobile-option-row-group">
+          <div class="mobile-color-picker-swatches">
+            <div class="mobile-swatch" ng-repeat="item in settingCtrl.colorItems" ng-style="{'background-color': item}" ng-click="settingCtrl.setColor(item)"></div>
+          </div>
+          <div class="mobile-tool-color-picker">
+            <div class="mobile-close-panel-btn" ng-click="settingCtrl.showColorToolClass = ''">
+              <img src="/app/images/close-canvas.png" alt="">
+            </div>
+            <div md-color-picker ng-model="settingCtrl.drawModel.color"></div>
+          </div>
+        </div>
+      </div>
+      <!-- /[TOOL-OPTION : COLOR SWATCH] -->
+    </div>
+  <!-- </section> -->

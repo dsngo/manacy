@@ -1,0 +1,32 @@
+<div class='brush-tolerance-wrapper draggable'>
+  <div class="drag-frame-wrapper">
+    <div class="drag-frame"></div>
+  </div>
+  <div class="tolerance-content">
+    <button class="btn-clear" ng-click="drawCtrl.clear()">clear</button>
+    <select ng-model="drawCtrl.controlType">
+      <option value="bezier">bezier</option>
+      <option value="line">simple line</option>
+    </select>
+    <div>tolerance</div>
+    <input type="range" min="0" max="7" ng-model="drawCtrl.omitValue" step="0.1"/>
+  </div>
+</div>
+<svg class="svg-container" ng-mousemove="drawCtrl.mouseMove($event)" ng-mousedown="drawCtrl.mouseDown($event)" ng-mouseleave="drawCtrl.stopDraw()" ng-mouseup="drawCtrl.stopDraw()" dr-touchstart="drawCtrl.touchstart($event)" dr-touchmove="drawCtrl.touchMove($event)" dr-touchend="drawCtrl.touchEnd($event)">
+
+<g ng-repeat="path in drawCtrl.drawingBranch" ng-cloak ng-if="!path.svgElementDto.isDeleted">
+  <path stroke-linecap="round" ng-attr-d="{{path.points}}" fill="none" ng-attr-stroke="{{path.stroke}}" ng-attr-stroke-width="{{path.strokeWidth}}" ng-if="!path.isText"></path>
+
+    <text ng-attr-x="{{path.textPoint.x}}" ng-attr-y="{{path.textPoint.y}}" ng-attr-fill="{{path.stroke}}" ng-attr-font-size="{{path.fontSize}}" ng-if="path.isText" ng-attr-stroke="{{path.textBold}}" stroke-width="1px">
+      <tspan ng-attr-text-id="{{path.textId}}" ng-attr-x="{{path.textPoint.x}}" ng-attr-y="{{path.textPoint.y + $index*path.fontSize}}" ng-repeat="textVel in path.textValue track by $index">{{textVel}}</tspan>
+    </text>
+  </g>
+
+  <path stroke-linecap="round" ng-attr-d="{{drawCtrl.currentPath.points}}" fill="none" ng-attr-stroke="{{drawCtrl.currentPath.stroke}}" ng-attr-stroke-width="{{drawCtrl.currentPath.strokeWidth}}" ng-if="drawCtrl.currentPath != null"></path>
+</svg>
+<div class="text-box-wrapper" ng-if="drawCtrl.isTextDrawing" id="text-box-parent" ng-style="{top: drawCtrl.textBoxSetTop + 'px', left: drawCtrl.textBoxSetLeft + 'px'}">
+  <div class="drag-thumb" el-draggable pos-x="drawCtrl.textBoxSetLeft" pos-y="drawCtrl.textBoxSetTop" parent-id="text-box-parent" off-style="true">
+  </div>
+  <textarea class="text-box" rows="1" cols="10" ng-model="drawCtrl.textValue" ng-style="{'font-size': drawCtrl.getFontSize(), 'color': drawCtrl.drawModel.color}" ng-class="{textBoxBold: drawCtrl.drawModel.isTextBold}" ng-attr-rows="{{drawCtrl.textRows}}" ng-attr-cols="{{drawCtrl.textCol}}" ng-keypress="drawCtrl.keyPressOntextArea($event)">
+  </textarea>
+</div>

@@ -1,0 +1,149 @@
+<!-- <div class="close-canvas-btn" >
+  <img src="/app/images/close-canvas.png" alt="close canvas button" class="img-fluid">
+</div> -->
+<!-- [TOOLS PANEL] -->
+<div class="main-panel-wrapper draggable" id="tool-set-parent" >
+  <div md-colors="{background:'default-primary-700'}" class="drag-frame" el-draggable pos-x="settingCtrl.toolSetRight" pos-y="settingCtrl.toolSetTop" parent-id="tool-set-parent"></div>
+  <div class="module draw-tool-module">
+    <div class="tool-row">
+      <div class="tool md-primary" data-tooltip="ペンツール" data-placement="left" ng-click='settingCtrl.showTool(1)' ng-class="settingCtrl.activeBrushToolClass">
+        <ng-md-icon icon="brush" style="fill:dimgray" size="40"></ng-md-icon>
+        <!--<div class="brush-tool"></div>-->
+      </div>
+      <div class="tool" data-tooltip="文字ツール" data-placement="left" ng-click='settingCtrl.showTool(2)' ng-class="settingCtrl.activeTextToolClass">
+        <ng-md-icon icon="text_fields" style="fill:dimgray" size="40"></ng-md-icon>
+        <!--<div class="text-tool"></div>-->
+      </div>
+    </div>
+  </div>
+  <div class="module color-tool-module" ng-click="settingCtrl.showColorToolClass = 'show'">
+    <div class="color-swatch-trigger-btn" data-tooltip="カラー" data-placement="left" ng-style="{'background-color': settingCtrl.drawModel.color}"></div>
+  </div>
+  <div class="module action-button-module">
+    <div class="button" data-tooltip="やり直す" data-placement="left" ng-click="settingCtrl.undo()">
+      <ng-md-icon icon="undo" style="fill:dimgray" size="40"></ng-md-icon>
+      <!--<div class="undo-btn"></div>-->
+    </div>
+    <div class="button" data-tooltip="進む" data-placement="left" ng-click="settingCtrl.redo()">
+      <ng-md-icon icon="redo" style="fill:dimgray" size="40"></ng-md-icon>
+      <!--<div class="redo-btn"></div>-->
+    </div>
+  </div>
+  <div class="module action-button-module">
+    <div class="button" data-tooltip="閉じる" data-placement="left" ng-click="settingCtrl.cancel()">
+      <ng-md-icon icon="close" style="fill:dimgray" size="40"></ng-md-icon>
+    </div>
+  </div>
+</div>
+
+<!-- /[TOOLS PANEL] -->
+<div class="wrapper bottom">
+  <!-- [TOOL-OPTION : BRUSH] -->
+  <div class="sub-panel-wrapper brush-tool-setting draggable" ng-class="settingCtrl.showBrushToolClass" id="brush-tool-parent">
+    <div md-colors="{background:'default-primary-700'}" class="drag-frame" el-draggable pos-x="settingCtrl.brushTooltRight" pos-y="settingCtrl.brushToolTop" parent-id="brush-tool-parent">
+      <!--
+        <img src="/app/images/minimize.png" class="minimize-btn" alt="icon indicate minimizeable panel" ng-click="settingCtrl.minimizeBrushTool()">
+      -->
+      </div>
+    <!-- desktop -->
+    <div class="option-row-group desktop-only" ng-class="settingCtrl.brushToolHideClass">
+      <!-- [Brush option row : 1] -->
+      <div class="option-row brush-size-slide">
+        <div class="brush-slider">
+          <div class="brush-size">
+            <div md-colors="{background:'default-primary-700'}" class="circle"></div>
+          </div>
+          <div class="brush-range">
+            <md-slider class="brush-thumb-track" md-theme="DrawUITheme" ng-model="settingCtrl.drawModel.stroke" min="{{1}}"  max="{{200}}" ng-change="settingCtrl.scrollStrokeValue()"></md-slider>
+          </div>
+          <div class="brush-size">
+            <div md-colors="{background:'default-primary-700'}" class="circle circle-big"></div>
+          </div>
+        </div>
+      </div>
+      <!-- [Brush option row : 2] -->
+      <div class="option-row brush-size-dropdown">
+        <p class="unit">サイズ</p>
+        <select class="dropdown" ng-model="settingCtrl.drawModel.stroke" ng-options="opt as opt for opt in settingCtrl.strokeItems" ng-change="settingCtrl.selectStrokeChange()"></select>
+        <p class="unit">Px</p>
+      </div>
+      <!-- [Brush option row : 3] -->
+      <div class="option-row brush-size-btn-wrapper">
+        <div class="brush-size-btn">
+          <div class="brush-btn" ng-click="settingCtrl.setStroke(1)">
+            <div md-colors="{background:'default-primary-700'}" class="brush-1"></div>
+          </div>
+          <div class="brush-btn" ng-click="settingCtrl.setStroke(5)"><div md-colors="{background:'default-primary-700'}" class="brush-5"></div></div>
+          <div class="brush-btn" ng-click="settingCtrl.setStroke(10)"><div md-colors="{background:'default-primary-700'}" class="brush-10"></div></div>
+          <div class="brush-btn" ng-click="settingCtrl.setStroke(20)"><div md-colors="{background:'default-primary-700'}" class="brush-20"></div></div>
+          <div class="brush-btn" ng-click="settingCtrl.setStroke(50)"><div md-colors="{background:'default-primary-700'}" class="brush-50"></div></div>
+        </div>
+      </div>
+      <!-- [Brush  option row : 4] -->
+      <div class="option-row tool-swatch-picker" ng-click="settingCtrl.showColorToolClass = 'show'">
+        <div class="color-swatch-trigger-btn" ng-style="{'background-color': settingCtrl.drawModel.color}"></div>
+        <p>ペンの色</p>
+      </div>
+    </div>
+  </div>
+  <!-- /[TOOL-OPTION : BRUSH] -->
+
+  <!-- [TOOL-OPTION : TEXT] -->
+
+  <div class="sub-panel-wrapper text-tool-setting draggable" ng-class="settingCtrl.showTextToolClass" style="top: 60px; right: 80px" id="text-tool-parent">
+    <div md-colors="{background:'default-primary-700'}" class="drag-frame" el-draggable pos-x="settingCtrl.textTooltRight" pos-y="settingCtrl.textToolTop" parent-id="text-tool-parent">
+      <!--
+        <img src="/app/images/minimize.png" class="minimize-btn" ng-click="settingCtrl.minimizeTextTool()" alt="">
+      -->
+      </div>
+    <div class="option-row-group desktop-only" ng-class="settingCtrl.textToolHideClass">
+      <!-- [Text size option : Input & Size Button] -->
+      <div class="option-row text-size-input">
+        <div class="text-input">
+          <div class="custom-input-dropdown">
+            <input ng-model="settingCtrl.drawModel.fontSize" type="number" min="1" max="200"  class="size-input" name="size-input">
+            <select class="text-size-dropdown" name="text-input-dropdown-trigger" ng-model="settingCtrl.drawModel.fontSize" ng-change='settingCtrl.selectFontChange()' ng-options="opt as opt for opt in settingCtrl.fontSizeItems"></select>
+          </div>
+        </div>
+        <div class="text-size-btn-group">
+          <button type="button" class="text-size-btn plus" name="button" ng-click="settingCtrl.upFontSize()">+</button>
+          <button type="button" class="text-size-btn minus" name="button" ng-click="settingCtrl.downFontSize()">-</button>
+        </div>
+      </div>
+      <!-- [Text option : Text Decoration] -->
+      <div class="option-row">
+        <button type="button" class="text-bold-btn" id="bold-btn" name="button" ng-class="{bolded: settingCtrl.drawModel.isTextBold}" ng-click="settingCtrl.activeBold()">
+          <ng-md-icon icon="format_bold" style="fill:dimgray" size="40"></ng-md-icon>
+          <!--<b>あ</b>-->
+        </button>
+      </div>
+      <!-- [Text option : ColorPicker & Swatch] -->
+      <div class="option-row tool-swatch-picker">
+        <div class="color-swatch-trigger-btn" ng-click="settingCtrl.showColorToolClass = 'show'" ng-style="{'background-color': settingCtrl.drawModel.color}"></div>
+        <p>文字の色</p>
+      </div>
+    </div>
+  </div>
+  <!-- /[TOOL-OPTION : TEXT] -->
+
+  <!-- [TOOL-OPTION : COLOR SWATCH] -->
+  <div class="sub-panel-wrapper swatches-tool-setting draggable" ng-class="settingCtrl.showColorToolClass" id="color-tool-parent">
+    <div md-colors="{background:'default-primary-700'}" class="drag-frame" el-draggable pos-x="settingCtrl.colorToolRight" pos-y="settingCtrl.colorToolTop" parent-id="color-tool-parent">
+    <!--
+      <img src="/app/images/minimize.png" class="minimize-btn" alt="icon indicate minimizeable panel" ng-click="settingCtrl.minimizeColorTool()">
+      <img src="/app/images/close.png" class="close-btn" alt="click to close panel icon" ng-click="settingCtrl.showColorToolClass = ''">
+    -->
+    </div>
+    <div class="option-row-group" ng-class="settingCtrl.colorToolHideClass">
+      <div class="color-picker-swatches">
+        <div class="swatch" ng-repeat="item in settingCtrl.colorItems" ng-style="{'background-color': item}" ng-click="settingCtrl.setColor(item)"></div>
+      </div>
+      <div class="tool-color-picker">
+        <div class="close-panel-btn">
+          <img src="/app/images/panel-close.png" alt="">
+        </div>
+        <div md-color-picker ng-model="settingCtrl.drawModel.color" ng-click="settingCtrl.showColorToolClass = ''" ></div>
+        <p>カラー</p>
+      </div>
+    </div>
+  </div>

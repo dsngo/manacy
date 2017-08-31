@@ -131,7 +131,7 @@ export default class IdentityService extends ServiceBase {
     }
 
     private readonly TOKEN_KEY = "auth_token";  // Tokenをstorageに保存する際のキー
-    private _token: string;
+    private _token: string; // tslint:disable-line
 
     protected get authToken(): string {
         if (!this._token) {
