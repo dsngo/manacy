@@ -1,0 +1,572 @@
+.artboard-wrapper {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+}
+
+.artboard {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+
+}
+
+.artboard-child {
+  position: absolute;
+  height: auto;
+  width: auto;
+  padding: 20px;
+  background-color: lightgray;
+}
+
+.drag-frame {
+    height: 20px;
+    width: 100%;
+    background-color: $drag-frame;
+    border-top-left-radius: $border-radius;
+    border-top-right-radius: $border-radius;
+    display: flex;
+    justify-content: flex-end;
+    cursor: pointer;
+
+    .minimize-btn {
+        width: 20px;
+        height: 100%;
+        float: right;
+        cursor: pointer;
+    }
+    .close-btn {
+        width: 20px;
+        height: 100%;
+        float: right;
+        cursor: pointer;
+    }
+  }
+
+.button {
+  height: 40px;
+  width: 40px;
+  border-radius: $border-radius;
+  margin-bottom: $tool-panel-margin;
+  cursor: pointer;
+  &:hover {
+    border: 1px solid $main-accent-Color;
+    background-color: $main-accent-Color;
+  }
+
+  &:active {
+    background-color: $main-accent-Color;
+    .undo-btn{
+      background-image: url('/app/images/undo-filled.png');
+    }
+    .redo-btn{
+      background-image: url('/app/images/redo-filled.png');
+    }
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  .undo-btn{
+    height: 100%;
+    width: 100%;
+    background-image: url('/app/images/undo-material.png');
+    background-position: center center;
+    background-size: 30px 30px;
+    background-repeat: no-repeat;
+  }
+
+  .redo-btn{
+    height: 100%;
+    width: 100%;
+    background-image: url('/app/images/redo-material.png');
+    background-position: center center;
+    background-size: 30px 30px;
+    background-repeat: no-repeat;
+  }
+
+}
+
+.close-panel-btn {
+  display: none;
+}
+
+.close-canvas-btn {
+  height: 30px;
+  width: 30px;
+  border: 1px solid $tool-module-outline-dark;
+  border-radius: $border-radius;
+  position: absolute;
+  right: 0;
+  margin: 10px 10px 0 0;
+  cursor: pointer;
+  &:active {
+    background-color: $main-background-Color;
+  }
+}
+
+// [ MAIN PANEL ]
+
+.main-panel-wrapper {
+  background-color: $main-background-Color;
+  border-radius: $border-radius;
+  border: 1px solid $tool-module-outline;
+  height: auto;
+  position: absolute;
+  width: 50px;
+  z-index: $zindex-main-panel;
+  box-shadow: $shadow;
+}
+
+.module {
+  margin-bottom: $tool-module-margin;
+  padding: $tool-panel-padding;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+}
+
+.color-tool-module {
+  border-bottom: 1px solid $tool-module-outline;
+  border-top: 1px solid $tool-module-outline;
+  height: 72px !important;
+  padding: 15px 5px 15px 5px;
+  display: flex;
+  align-items: center;
+}
+
+.tool-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: $tool-module-margin;
+
+  &:last-child{
+    margin-bottom: 0;
+  }
+
+  .active {
+    background-color: $main-accent-Color;
+    transition: 200ms;
+  }
+}
+
+.tool {
+
+  background-color: $tool-btn-bgColor;
+  border-radius: $border-radius;
+  height: 40px;
+  width: 40px;
+  cursor: pointer;
+  margin-bottom: $tool-module-margin;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &:hover {
+    border: 1px solid $main-accent-Color;
+    background-color: $main-accent-Color;
+  }
+  &.active {
+    .brush-tool {
+      width: 100%;
+      height: 100%;
+      background-image: url('/app/images/brush-filled-white.png');
+      background-size: 30px 30px;
+      background-repeat: no-repeat;
+      background-position: center center;
+    }
+
+    .text-tool {
+      width: 100%;
+      height: 100%;
+      background-image: url('/app/images/text-tool-white.png');
+      background-size: 30px 30px;
+      background-repeat: no-repeat;
+      background-position: center center;
+    }
+  }
+
+  .brush-tool {
+    width: 100%;
+    height: 100%;
+    background-image: url('/app/images/brush-material.png');
+    background-size: 30px 30px;
+    background-repeat: no-repeat;
+    background-position: center center;
+  }
+
+  .text-tool {
+    width: 100%;
+    height: 100%;
+    background-image: url('/app/images/text-material.png');
+    background-size: 30px 30px;
+    background-repeat: no-repeat;
+    background-position: center center;
+  }
+
+}
+
+.img-fluid {
+  width: 100%;
+  height: auto;
+}
+
+// [ SUB PANEL ]
+
+.sub-panel-wrapper {
+  position: absolute;
+  right: 0;
+  background-color: $main-background-Color;
+  width: 300px;
+  border-radius: $border-radius;
+  border: 1px solid $tool-module-outline;
+  overflow: hidden;
+  display: none;
+  z-index: $zindex-sub-panel;
+  box-shadow: $shadow;
+}
+
+.option-row-group {
+  padding: 0 10px;
+  display: flex;
+  flex-flow: column;
+  .option-row {
+    padding: 8px 0;
+  }
+}
+
+// [ BRUSH ]
+
+.brush-size-dropdown {
+  display: flex;
+  justify-content: space-between;
+  align-items:center;
+
+  .unit {
+    margin: 0;
+    color: $text-color;
+  }
+
+  .dropdown {
+    width: 180px;
+  }
+}
+
+
+.color-swatch-trigger-btn {
+  height: 40px;
+  width: 40px;
+  border-radius: $border-radius;
+  border: 1px solid $tool-module-outline;
+  cursor: pointer;
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.14), 0 2px 2px 0 rgba(0, 0, 0, 0.098), 0 1px 5px 0 rgba(0, 0, 0, 0.084);
+}
+
+.brush-size-btn-wrapper {
+  display: flex;
+  border-top: 1px solid $divider;
+
+  .brush-size-btn {
+    width: 100%;
+  }
+
+  .brush-color-wrapper {
+    width: 40%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 10px;
+
+    p {
+      color: $text-color;
+    }
+
+    .color-swatch-trigger-btn {
+      height: 50px;
+      width: 50px;
+    }
+  }
+}
+
+.brush-size-btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+
+  .brush-btn {
+    width: 100%;
+    height: 55px;
+    border: 1px solid $tool-module-outline;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:first-child {
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+    }
+
+    &:last-child {
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
+    }
+
+    &:active {
+      background-color: $brush-color-active;
+    }
+  }
+
+  .brush-1{
+    height: 1px;
+    width: 1px;
+    background-color:$brush-color;
+    border-radius: 50%;
+  }
+
+  .brush-5{
+    height: 5px;
+    width: 5px;
+    background-color:$brush-color;
+    border-radius: 50%;
+  }
+
+  .brush-10{
+    height: 10px;
+    width: 10px;
+    background-color:$brush-color;
+    border-radius: 50%;
+  }
+
+  .brush-20{
+    height: 20px;
+    width: 20px;
+    background-color:$brush-color;
+    border-radius: 50%;
+  }
+
+  .brush-50{
+    height: 50px;
+    width: 50px;
+    background-color:$brush-color;
+    border-radius: 50%;
+  }
+}
+
+.brush-slider {
+  display: flex;
+  align-items: center;
+  background: transparent;
+
+  .brush-size {
+    width: 40px;
+    height: 40px;
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .circle {
+      height: 10px;
+      width: 10px;
+      background-color: $main-accent-Color;
+      border-radius: 50%;
+    }
+
+    .circle-big{
+      height: 25px;
+      width: 25px;
+    }
+  }
+
+  .brush-range {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+
+    .brush-thumb-track {
+      width: 100%;
+    }
+  }
+}
+
+// [ TEXT ]
+
+.text-input {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 200%;
+
+    .custom-input-dropdown {
+      border: 1px solid $tool-module-outline;
+      border-radius: $border-radius;
+      display: flex;
+      width: 200%;
+
+      .size-input {
+        background-color: white;
+        border: 0;
+        border-radius: $border-radius;
+        color: $text-color;
+        height: 35px;
+        width: 155px;
+        padding-left: 5px;
+        flex-grow: 2;
+        position: absolute;
+        z-index: 80;
+      }
+
+      .text-size-dropdown {
+        border: 0;
+        background-color: white;
+        height: 40px;
+        flex-grow: 1;
+        border-radius: 0;
+        align-self: flex-end;
+        position: relative;
+        color: rgba(0,0,0,0);
+        & option {
+          color: black;
+          background-color: white;
+        }
+      }
+    }
+
+    p {
+      margin: 0;
+      margin-right: 5px;
+      color: rgb(255,255,255);
+    }
+  }
+
+.text-size-input {
+  display: flex;
+  align-items: center;
+}
+
+.text-size-btn-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  margin-left: 5px;
+
+  .text-size-btn{
+    background-color: rgba(255,0,255,0);
+    border: 1px solid $tool-module-outline;
+    border-radius: $border-radius;
+    height: 40px;
+    width: 40px;
+    color: $text-color;
+    margin: 0;
+    margin-right: 5px;
+    padding: 0;
+
+    &:active {
+      background-color: $main-accent-Color;
+      color: white;
+    }
+
+  }
+
+  .text-size-dropdown {
+    height: 40px;
+    width: 90px;
+
+  }
+}
+
+.text-bold-btn {
+  background-color: inherit;
+  border: 1px solid $tool-module-outline;
+  border-radius: $border-radius;
+  height: 50px;
+  width: 50px;
+  padding: 5px 0 0 0;
+  color: $text-color;
+  font-size: 20px;
+  //padding: 0;
+
+  &:hover {
+    border: 1px solid $main-accent-Color;
+    background-color: $main-accent-Color;
+  }
+
+  &:active {
+    background-color: $main-accent-Color;
+    color: white;
+  }
+}
+
+// [ COLOR ]
+
+.tool-swatch-picker {
+  border-top:0;
+  display: flex;
+  align-items: center;
+  width: 50%;
+  flex-flow: row;
+  align-items: center;
+  margin: 5px 0;
+
+  p {
+    margin: 0 0 0 10px;
+    color: $text-color;
+  }
+
+  .color-swatch-trigger-btn {
+    height: 50px;
+    width: 50px;
+  }
+}
+
+.tool-color-picker {
+  border-top: 1px solid $tool-module-outline;
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+
+  p {
+    margin: 0 0 0 10px;
+    color: $text-color;
+
+  }
+
+  .color-picker-trigger-btn {
+    height: 40px;
+    width: 40px;
+    border: 1px solid $tool-module-outline;
+    border-radius: $border-radius;
+    cursor: pointer;
+  }
+}
+
+.color-picker {
+  height: 40px;
+  width: 100%;
+  border-radius: $border-radius;
+  background-color: rgba(89, 235, 255, 1);
+  border: 1px solid $tool-module-outline;
+}
+.swatches-tool-setting {
+  .color-picker-swatches {
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    flex-flow: row wrap;
+    padding: 10px 15px;
+
+    .swatch {
+      height: 40px;
+      width: 40px;
+      cursor: pointer;
+    }
+  }
+}

@@ -1,0 +1,37 @@
+select {
+  border: 0;  /*Removes border*/
+  appearance: none;
+  -webkit-appearance: none;  /*Removes default chrome and safari style*/
+  -moz-appearance: none;  /*Removes default style Firefox*/
+  -o-appearance:none; /*Remove defautl style pre-webkit Opera*/
+  -ms-appearance:none; /*Remove defautl style of Ms browser*/
+  background-color: transparent;
+  border: 1px solid $tool-module-outline;
+  color: $text-color;
+  padding-left: 5px;
+  background: url('/app/images/dropdown-arrow.png');
+  background-position: right center;
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+  cursor: pointer;
+
+}
+
+select::-ms-expand {
+  display: none;
+}
+
+input::-webkit-calendar-picker-indicator {
+  background-color: inherit;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}

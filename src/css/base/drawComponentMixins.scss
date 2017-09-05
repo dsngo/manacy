@@ -1,0 +1,69 @@
+@mixin user-select($select) {
+  -webkit-user-select: $select;
+     -moz-user-select: $select;
+      -ms-user-select: $select; // IE10+
+          user-select: $select;
+}
+
+@mixin tap-highlight-color($color){
+  -webkit-tap-highlight-color: $color;
+      -ms-tap-highlight-color: $color;
+      -ms-tap-highlight-color: $color;
+          tap-highlight-color: $color;
+}
+
+
+@mixin border-radius($boder-radius) {
+  -webkit-border-radius: $boder-radius;
+     -moz-border-radius: $boder-radius;
+          border-radius: $boder-radius;
+}
+
+
+@mixin box-shadow($shadow...) {
+  -webkit-box-shadow: $shadow; // iOS <4.3 & Android <4.1
+          box-shadow: $shadow;
+}
+
+
+@mixin mediaquery-tablet-landscape() {
+  @media only screen and (max-width: 1367px) and (orientation: landscape) {
+    @content
+  }
+}
+
+@mixin mediaquery-phone-landscape() {
+  @media only screen and (max-width: 699px) and (orientation: landscape) {
+    @content
+  }
+}
+
+@mixin mediaquery-tablet-portrait() {
+  @media only screen and (max-width: 1367px) and (orientation: portrait) {
+    @content
+  }
+}
+
+@mixin mediaquery-phone-portrait() {
+  @media only screen and (max-width: 699px) and (orientation: portrait) {
+    @content
+  }
+}
+
+@mixin draw-tool-btn($bg-url, $bg-active-url) {
+  height: 50px;
+  width: 50px;
+  @include border-radius(0);
+  background-image: url($bg-url);
+  background-position: center center;
+  background-size: 30px 30px;
+  background-repeat: no-repeat;
+  cursor: pointer;
+
+  &.active {
+    background-color: $main-accent-Color;
+    transition: 200ms;
+    box-shadow: 0 10px 30px -10px $main-accent-Color;
+    background-image: url($bg-active-url);
+  }
+}

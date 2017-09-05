@@ -1,0 +1,42 @@
+
+.v-accordion-arrow v-pane > v-pane-header::after {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+  content: 'expand_more';
+
+  position: absolute;
+  right: 8px;
+  top: calc(50% - 24px/2);
+
+    -webkit-transition:all ease 0.5s;
+    -moz-transition:all ease 0.5s;
+    -o-transition:all ease 0.5s;
+    transition:all ease 0.5s;
+
+}
+
+.v-accordion-arrow v-pane.is-expanded > v-pane-header::after {
+    -webkit-transform: rotate(-180deg);
+    transform: rotate(-180deg);
+}
+
