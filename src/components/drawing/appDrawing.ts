@@ -26,6 +26,7 @@ export default class AppDrawing extends ComponentBase {
             this.currentPath = newPath;
         });
         this.drawModel.getCurrentToolSubject().subscribe((newValue: string) => {
+            console.log("Here is subject call");
             if (newValue === "line") {
                 if (this.isTextDrawing && this.textValue !== "") {
                     this.drawService.drawText(this.calculatePoint(), this.drawModel, this.textValue);
@@ -48,13 +49,13 @@ export default class AppDrawing extends ComponentBase {
     protected drawingBranch: PathModel[] = [];
     protected currentPath: PathModel = null;
     protected textValue: string = "";
-    protected newTextValue: string = "";
+    // protected editableText: string = "";
+    // protected newTextParameters: {value: string, color: string, isBold: boolean};
 
     public mouseDown(event) {
-        if (event.target.nodeName === "tspan") {
-            this.drawService.editText();
-            return;
-            // this.startEditText(event.x, event.y);
+        if (event.target.nodeName === "tspan" && this.drawModel.currentTool !== "line") {
+            const textId = event.target.getAttribute("text-id") * 1;
+            this.editText(textId);
         }
         this.startDraw(event.x, event.y);
     }
@@ -64,6 +65,14 @@ export default class AppDrawing extends ComponentBase {
         const pointX = event.x - rect.left;
         const pointY = event.y - rect.top;
         this.drawing(pointX, pointY);
+    }
+
+    private async editText(textId) {
+        const obj = await this.drawService.findEditableText(textId);
+        // this.editableText = obj.text;
+        this.startEditText(obj.x, obj.y - 30, obj.text);
+        this.drawService.cleanText(obj.index);
+        console.log(obj);
     }
 
     public startDraw(x, y) {
@@ -92,20 +101,22 @@ export default class AppDrawing extends ComponentBase {
         this.textBoxSetTop = y;
         this.isTextDrawing = true;
     }
-    // Edit text feature
-    private startEditText(x, y) {
-        if (this.isTextEditing && this.newTextValue !== "") {
-            this.drawService.editText(this.calculatePoint(), this.drawModel, this.newTextValue);
-            this.isTextEditing = false;
-            this.textRows = 1;
-            this.textCol = 20;
-            return;
-        }
-        this.newTextValue = "";
+
+    private startEditText(x, y, text: string) {
+        this.textValue = text;
         this.textBoxSetLeft = x;
         this.textBoxSetTop = y;
-        this.isTextEditing = true;
+        this.isTextDrawing = true;
+        if (this.isTextDrawing && this.textValue !== text) {
+            this.drawService.drawText({x, y}, this.drawModel, this.textValue);
+            this.isTextDrawing = false;
+            this.textRows = 1;
+            this.textCol = 20;
+            this.isTextEditing = false;
+            return;
+        }
     }
+
     protected calculatePoint(): PointModel {
         return new PointModel(this.textBoxSetLeft, this.textBoxSetTop + this.drawModel.fontSize + 10);
     }

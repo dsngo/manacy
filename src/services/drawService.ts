@@ -100,12 +100,25 @@ export default class DrawService extends ServiceBase {
         this.addPath(path);
         this.createSVGElement(path.svgElementDto);
     }
-
-    public editText(textId?, newText?, newColor?, isBold?) {
-        if (textId) console.log(this.drawingPath); // tslint:disable-line
-        const path: PathModel = this.drawingPath[this.drawingPath.findIndex((e, i) => e[i].pathId === textId)];
-        console.log(path); // tslint:disable-line
+    public findEditableText(textId: number) {
+        const index = this.drawingPath.findIndex(e => e.pathId === textId);
+        const foundText = this.drawingPath[index];
+        const params = { text: foundText.textValue.join("\n"), x: foundText.textPoint.x, y: foundText.textPoint.y, index };
+        return params;
     }
+
+    public cleanText(index) {
+        this.drawingPath.splice(index, 1);
+    }
+
+    // public editText(textId?: number, newText?: string, newColor?: string, isBold?: boolean) {
+    //     console.log(this.drawingPath); // tslint:disable-line
+    //     const index = this.drawingPath.findIndex(e => e.pathId === textId);
+    //     const path: PathModel = this.drawingPath[index];
+    //     console.log(textId, newText, newColor, isBold);
+    //     // newText ? (path.textValue = newText.split("\n")) : null;
+    //     console.log(path); // tslint:disable-line
+    // }
 
     public drawing(x, y, controlType, drawModel) {
         this.drawModel = drawModel;
@@ -261,6 +274,7 @@ export default class DrawService extends ServiceBase {
     }
 
     private loadSVGElement(firstTimeLoad: boolean) {
+        console.log("start get dbAPI");
         this.busy(true);
         return this.Restangular
             .one("svg", this.svgImage.id.toString())
@@ -269,16 +283,15 @@ export default class DrawService extends ServiceBase {
             })
             .then((svgImg: Models.Dtos.SvgImageDto) => {
                 var tempPath: PathModel[] = [];
-
+                
+                svgImg.elements.forEach((svgElement: Models.Dtos.SvgElementDto) => {
+                    const path = PathModel.parseString(svgElement);
+                    tempPath.splice(0, tempPath.length, path);
+                    this.svgImage.elements.push(svgElement);
+                });
                 this.svgImage.elements.forEach((svgElement: Models.Dtos.SvgElementDto) => {
                     const path = PathModel.parseString(svgElement);
                     tempPath.push(path);
-                });
-
-                svgImg.elements.forEach((svgElement: Models.Dtos.SvgElementDto) => {
-                    const path = PathModel.parseString(svgElement);
-                    tempPath.push(path);
-                    this.svgImage.elements.push(svgElement);
                 });
 
                 this.drawingPath = tempPath;
@@ -288,7 +301,7 @@ export default class DrawService extends ServiceBase {
                 }
 
                 this.pathsSubject.next(this.drawingPath);
-
+                console.log(this.drawingPath);
                 this.svgImage.lastUpdateDatetime = svgImg.lastUpdateDatetime;
             })
             .finally(() => {
