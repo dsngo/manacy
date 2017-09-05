@@ -1,7 +1,6 @@
 // 共通コンポーネント
 import AppAvatar from "./appAvatar";
 import AppBox from "./appBox";
-import AppDrawing from "./appDrawing";
 import AppHeader from "./appHeader";
 import AppSearchText from "./appSearchText";
 import AppSideNav from "./appSideNav";
@@ -13,8 +12,8 @@ import ViewBackTo from "./view/viewBackTo";
 import ViewMenu from "./view/viewMenu";
 
 // アルバム関連
-import AlbumsView from "./albums/albumsView";
 import AlbumsNav from "./albums/albumsNav";
+import AlbumsView from "./albums/albumsView";
 
 // 旧バージョン
 // import WsItemAnnotation from "./ws/wsItemAnnotation";
@@ -71,6 +70,12 @@ import WsOriginCategoryNav from "./wsEditor/wsOriginCategoryNav";
 import WsOriginList from "./wsEditor/wsOriginList";
 import WsSelectOrigins from "./wsEditor/wsSelectOrigins";
 import WsSettings from "./wsEditor/wsSettings";
+
+// ドローアプリ
+import AppDrawing from "./drawing/appDrawing";
+import appDrawingDirective from "./drawing/appDrawingDirective";
+import appDrawingPaint from "./drawing/appDrawingPaint"
+import appDrawingSetting from "./drawing/appDrawingSetting"
 
 // ワークシート準備
 import WsAssignmentList from "./wslist/wsAssignmentList";
@@ -149,6 +154,11 @@ export default function registerComponents(app: ng.IModule) {
     WsOriginCategoryNav.register(app);
     WsOriginList.register(app);
     WsSettings.register(app);
+
+    // ドローアプリ
+    appDrawingSetting.register(app);
+    appDrawingPaint.register(app);
+    appDrawingDirective.register(app);
 
     // ワークシート準備
     WsAssignmentList.register(app);

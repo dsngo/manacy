@@ -59,7 +59,7 @@ export default class AppBase {
         this.appModule =
             this.appModule ||
             angular.module(this.getAppModuleName(),
-                ["ngMaterial", "ui.router", "ngSanitize", "restangular", "vAccordion", "ngAnimate",
+                ["mdColorPicker", "ngMaterial","ngMdIcons", "ui.router", "ngSanitize","restangular", "vAccordion", "ngAnimate",
                     "ngQuill", "ngFileUpload", "angular-carousel", "com.2fdevs.videogular", "com.2fdevs.videogular.plugins.controls",
                     "com.2fdevs.videogular.plugins.poster", "ngMessages", "dndLists"]);
 
@@ -83,7 +83,16 @@ export default class AppBase {
         this.getModule().config(["RestangularProvider", (RestangularProvider: Restangular.IProvider) => {
             RestangularProvider.setBaseUrl(API_PATH);
         }]);
+        
         // AngularJS Materialのテーマの設定
+        
+	    this.getModule().config([
+	      '$mdThemingProvider',
+	      $mdThemingProvider => {
+	        $mdThemingProvider.theme('DrawUITheme');
+	      },
+	    ]);
+
         this.getModule().config(["$mdThemingProvider", (IThemingProvider: ng.material.IThemingProvider) => {
             IThemingProvider.theme('default').primaryPalette('light-green', { 'default': '700' }).accentPalette('purple');
             IThemingProvider.theme('blue').primaryPalette('blue', { 'default': '800' }).accentPalette('deep-orange');

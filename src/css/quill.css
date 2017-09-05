@@ -1,8 +1,0 @@
-/*
-Quill.js用css
-*/
-[ng-quill-editor] { display: block; }
-
-.ql-out-bottom {
-    visibility: initial !important;
-}

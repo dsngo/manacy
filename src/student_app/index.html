@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="../css/angular-material.ja.desktop.min.css" media="screen and (min-width:601px)">
   <link rel="stylesheet" href="../css/v-accordion.min.css" />
   <link rel="stylesheet" href="../css/angular-carousel.min.css" />
+  <link rel="stylesheet" href="../css/mdColorPicker.min.css" />
   <link rel="stylesheet" href="../css/bundle.css" />
   <link rel="stylesheet" href="//cdn.quilljs.com/1.2.6/quill.snow.css">
   <link rel="stylesheet" href="//cdn.quilljs.com/1.2.6/quill.bubble.css">
@@ -26,6 +27,7 @@
 <body layout="column" ng-cloak md-theme="{{$ctrl.themeColor}}">
   <script>
     var API_PATH = "/api";
+    //var API_PATH = "//manacy-dev.azurewebsites.net/api/";
     var AVATAR_PATH = "//manacy0509.blob.core.windows.net/pic";
     var APP_TYPE = 1;
   </script>
@@ -38,6 +40,7 @@
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.11/angular-sanitize.min.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.11/angular-touch.min.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/angular-material-icons/0.7.1/angular-material-icons.min.js"></script> 
 
   <script src="//unpkg.com/angular-ui-router@v1.0.0-rc.1/release/angular-ui-router.js"></script>
   <script src="//unpkg.com/videogular@2.1.2/dist/videogular/videogular.min.js"></script>
@@ -55,6 +58,8 @@
   <script src="../jslib/v-accordion.min.js"></script>
   <script src="../jslib/angular-carousel.min.js"></script>
   <script src="../jslib/image-resize.min.js"></script>
+  <script src="../jslib/tinycolor-min.js"></script>
+  <script src="../jslib/mdColorPicker.js"></script>
 
   <script src="bundle.js"></script>
   <ui-view></ui-view>
