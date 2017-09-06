@@ -111,15 +111,6 @@ export default class DrawService extends ServiceBase {
         this.drawingPath.splice(index, 1);
     }
 
-    // public editText(textId?: number, newText?: string, newColor?: string, isBold?: boolean) {
-    //     console.log(this.drawingPath); // tslint:disable-line
-    //     const index = this.drawingPath.findIndex(e => e.pathId === textId);
-    //     const path: PathModel = this.drawingPath[index];
-    //     console.log(textId, newText, newColor, isBold);
-    //     // newText ? (path.textValue = newText.split("\n")) : null;
-    //     console.log(path); // tslint:disable-line
-    // }
-
     public drawing(x, y, controlType, drawModel) {
         this.drawModel = drawModel;
         this.drawingPoints.push(new PointModel(x, y));
@@ -186,7 +177,7 @@ export default class DrawService extends ServiceBase {
 
     // API call
     private timeAtOffset(offset): Date {
-        var d = new Date();
+        const d = new Date();
         d.setMinutes(d.getMinutes() + d.getTimezoneOffset());
         return d;
     }
@@ -274,7 +265,6 @@ export default class DrawService extends ServiceBase {
     }
 
     private loadSVGElement(firstTimeLoad: boolean) {
-        console.log("start get dbAPI");
         this.busy(true);
         return this.Restangular
             .one("svg", this.svgImage.id.toString())
@@ -282,8 +272,8 @@ export default class DrawService extends ServiceBase {
                 since: this.svgImage.lastUpdateDatetime,
             })
             .then((svgImg: Models.Dtos.SvgImageDto) => {
-                var tempPath: PathModel[] = [];
-                
+                const tempPath: PathModel[] = [];
+
                 svgImg.elements.forEach((svgElement: Models.Dtos.SvgElementDto) => {
                     const path = PathModel.parseString(svgElement);
                     tempPath.splice(0, tempPath.length, path);
@@ -301,7 +291,6 @@ export default class DrawService extends ServiceBase {
                 }
 
                 this.pathsSubject.next(this.drawingPath);
-                console.log(this.drawingPath);
                 this.svgImage.lastUpdateDatetime = svgImg.lastUpdateDatetime;
             })
             .finally(() => {

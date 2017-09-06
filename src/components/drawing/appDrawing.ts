@@ -26,7 +26,6 @@ export default class AppDrawing extends ComponentBase {
             this.currentPath = newPath;
         });
         this.drawModel.getCurrentToolSubject().subscribe((newValue: string) => {
-            console.log("Here is subject call");
             if (newValue === "line") {
                 if (this.isTextDrawing && this.textValue !== "") {
                     this.drawService.drawText(this.calculatePoint(), this.drawModel, this.textValue);
@@ -49,8 +48,6 @@ export default class AppDrawing extends ComponentBase {
     protected drawingBranch: PathModel[] = [];
     protected currentPath: PathModel = null;
     protected textValue: string = "";
-    // protected editableText: string = "";
-    // protected newTextParameters: {value: string, color: string, isBold: boolean};
 
     public mouseDown(event) {
         if (event.target.nodeName === "tspan" && this.drawModel.currentTool !== "line") {
@@ -69,10 +66,8 @@ export default class AppDrawing extends ComponentBase {
 
     private async editText(textId) {
         const obj = await this.drawService.findEditableText(textId);
-        // this.editableText = obj.text;
         this.startEditText(obj.x, obj.y - 30, obj.text);
         this.drawService.cleanText(obj.index);
-        console.log(obj);
     }
 
     public startDraw(x, y) {
@@ -107,6 +102,8 @@ export default class AppDrawing extends ComponentBase {
         this.textBoxSetLeft = x;
         this.textBoxSetTop = y;
         this.isTextDrawing = true;
+        this.textRows = text.split("\n").length;
+        this.textCol = this.maxLength(this.textValue.split("\n"));
         if (this.isTextDrawing && this.textValue !== text) {
             this.drawService.drawText({x, y}, this.drawModel, this.textValue);
             this.isTextDrawing = false;
