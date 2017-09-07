@@ -100,10 +100,19 @@ export default class DrawService extends ServiceBase {
         this.addPath(path);
         this.createSVGElement(path.svgElementDto);
     }
+
     public findEditableText(textId: number) {
         const index = this.drawingPath.findIndex(e => e.pathId === textId);
         const foundText = this.drawingPath[index];
-        const params = { text: foundText.textValue.join("\n"), x: foundText.textPoint.x, y: foundText.textPoint.y, index };
+        const params = {
+            text: foundText.textValue.join("\n"),
+            x: foundText.textPoint.x,
+            y: foundText.textPoint.y,
+            index,
+            color: foundText.stroke,
+            bold: foundText.textBold !== "none",
+            fontSize: foundText.fontSize,
+        };
         return params;
     }
 
@@ -176,10 +185,8 @@ export default class DrawService extends ServiceBase {
     }
 
     // API call
-    private timeAtOffset(offset): Date {
-        const d = new Date();
-        d.setMinutes(d.getMinutes() + d.getTimezoneOffset());
-        return d;
+    private timeAtOffset(): string {
+        return new Date().toISOString();
     }
 
     public svgImage: Models.Dtos.SvgImageDto;
@@ -192,10 +199,10 @@ export default class DrawService extends ServiceBase {
             viewHeight: svgHeight,
             viewWidth: svgWidth,
             elements: [],
-            lastUpdateDatetime: this.timeAtOffset(0).toISOString(),
+            lastUpdateDatetime: this.timeAtOffset(),
             isDeleted: false,
-            updateDate: this.timeAtOffset(0).toISOString(),
-            createDate: this.timeAtOffset(0).toISOString(),
+            updateDate: this.timeAtOffset(),
+            createDate: this.timeAtOffset(),
             updateUserId: this.identityService.currentUser.id,
             createUserId: this.identityService.currentUser.id,
         };
@@ -218,8 +225,8 @@ export default class DrawService extends ServiceBase {
             id: uuidv4(),
             element: pathElement.getSVGElement(),
             isDeleted: false,
-            updateDate: this.timeAtOffset(0).toISOString(),
-            createDate: this.timeAtOffset(0).toISOString(),
+            updateDate: this.timeAtOffset(),
+            createDate: this.timeAtOffset(),
             updateUserId: this.identityService.currentUser.id,
             createUserId: this.identityService.currentUser.id,
         };
@@ -265,6 +272,7 @@ export default class DrawService extends ServiceBase {
     }
 
     private loadSVGElement(firstTimeLoad: boolean) {
+        // console.log("start server call"); // tslint:disable-line
         this.busy(true);
         return this.Restangular
             .one("svg", this.svgImage.id.toString())
@@ -273,13 +281,16 @@ export default class DrawService extends ServiceBase {
             })
             .then((svgImg: Models.Dtos.SvgImageDto) => {
                 const tempPath: PathModel[] = [];
-
+                // console.log("svgIMG call"); // tslint:disable-line
                 svgImg.elements.forEach((svgElement: Models.Dtos.SvgElementDto) => {
+                    // console.log(svgElement); // tslint:disable-line
                     const path = PathModel.parseString(svgElement);
                     tempPath.splice(0, tempPath.length, path);
                     this.svgImage.elements.push(svgElement);
                 });
+
                 this.svgImage.elements.forEach((svgElement: Models.Dtos.SvgElementDto) => {
+                    console.log(svgElement); // tslint:disable-line
                     const path = PathModel.parseString(svgElement);
                     tempPath.push(path);
                 });
@@ -313,19 +324,24 @@ export default class DrawService extends ServiceBase {
             });
     }
 
-    // For test
-    private tempSvgimage() {
-        this.svgImage = {
-            id: "5C76B204-65CA-4A14-A46F-E0AC112D6DA9", // C5BDA6E6-240B-489A-92C2-65BC555C4D73",
-            lastUpdateDatetime: new Date(0).toISOString(),
-            viewWidth: 0,
-            viewHeight: 0,
-            isDeleted: false,
-            elements: [],
-            updateDate: new Date(0).toISOString(),
-            createDate: new Date(0).toISOString(),
-            updateUserId: this.identityService.currentUser.id,
-            createUserId: this.identityService.currentUser.id,
-        };
+    public parseSVGElement(svgElementFromDatabase: string) {
+        const elementObj = JSON.parse(svgElementFromDatabase);
+        return elementObj;
     }
 }
+
+// // For test
+// private tempSvgimage() {
+//     this.svgImage = {
+//         id: "5C76B204-65CA-4A14-A46F-E0AC112D6DA9", // C5BDA6E6-240B-489A-92C2-65BC555C4D73",
+//         lastUpdateDatetime: new Date(0).toISOString(),
+//         viewWidth: 0,
+//         viewHeight: 0,
+//         isDeleted: false,
+//         elements: [],
+//         updateDate: new Date(0).toISOString(),
+//         createDate: new Date(0).toISOString(),
+//         updateUserId: this.identityService.currentUser.id,
+//         createUserId: this.identityService.currentUser.id,
+//     };
+// }
