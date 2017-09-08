@@ -117,8 +117,7 @@ export default class DrawService extends ServiceBase {
     }
 
     public cleanText(index) {
-        this.drawingPath[index].svgElementDto.isDeleted = true;
-        this.drawingPath.splice(index, 1);
+        this.updateSvgElement(this.drawingPath[index].svgElementDto);
     }
 
     public drawing(x, y, controlType, drawModel) {
@@ -273,7 +272,6 @@ export default class DrawService extends ServiceBase {
     }
 
     private loadSVGElement(firstTimeLoad: boolean) {
-        // console.log("start server call"); // tslint:disable-line
         this.busy(true);
         return this.Restangular
             .one("svg", this.svgImage.id.toString())
@@ -282,9 +280,7 @@ export default class DrawService extends ServiceBase {
             })
             .then((svgImg: Models.Dtos.SvgImageDto) => {
                 const tempPath: PathModel[] = [];
-                // console.log("svgIMG call"); // tslint:disable-line
                 svgImg.elements.forEach((svgElement: Models.Dtos.SvgElementDto) => {
-                    // console.log(svgElement); // tslint:disable-line
                     const path = PathModel.parseString(svgElement);
                     tempPath.splice(0, tempPath.length, path);
                     this.svgImage.elements.push(svgElement);

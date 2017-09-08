@@ -29,11 +29,18 @@
       <!--<div class="redo-btn"></div>-->
     </div>
   </div>
+  <!-- /[Tool clean board] -->
+  <!-- <div class="module action-button-module">
+    <div class="button" data-tooltip="" data-placement="left" ng-click="settingCtrl.clear()">
+      <ng-md-icon icon="delete_sweep" style="fill:dimgray" size="40"></ng-md-icon>
+    </div>
+  </div> -->
   <div class="module action-button-module">
     <div class="button" data-tooltip="閉じる" data-placement="left" ng-click="settingCtrl.cancel()">
       <ng-md-icon icon="close" style="fill:dimgray" size="40"></ng-md-icon>
     </div>
   </div>
+  
 </div>
 
 <!-- /[TOOLS PANEL] -->
@@ -70,13 +77,14 @@
       <!-- [Brush option row : 3] -->
       <div class="option-row brush-size-btn-wrapper">
         <div class="brush-size-btn">
-          <div class="brush-btn" ng-click="settingCtrl.setStroke(1)">
+          <div class="brush-btn" ng-class="{'select-stroke-active' : settingCtrl.drawModel.stroke == 1}" ng-click="settingCtrl.setStroke(1)">
             <div md-colors="{background:'default-primary-700'}" class="brush-1"></div>
           </div>
-          <div class="brush-btn" ng-click="settingCtrl.setStroke(5)"><div md-colors="{background:'default-primary-700'}" class="brush-5"></div></div>
-          <div class="brush-btn" ng-click="settingCtrl.setStroke(10)"><div md-colors="{background:'default-primary-700'}" class="brush-10"></div></div>
-          <div class="brush-btn" ng-click="settingCtrl.setStroke(20)"><div md-colors="{background:'default-primary-700'}" class="brush-20"></div></div>
-          <div class="brush-btn" ng-click="settingCtrl.setStroke(50)"><div md-colors="{background:'default-primary-700'}" class="brush-50"></div></div>
+          <!-- [Show active stroke] -->
+          <div class="brush-btn" ng-class="{'select-stroke-active' : settingCtrl.drawModel.stroke == 5}" ng-click="settingCtrl.setStroke(5)"><div md-colors="{background:'default-primary-700'}" class="brush-5"></div></div>
+          <div class="brush-btn" ng-class="{'select-stroke-active' : settingCtrl.drawModel.stroke == 10}" ng-click="settingCtrl.setStroke(10)"><div md-colors="{background:'default-primary-700'}" class="brush-10"></div></div>
+          <div class="brush-btn" ng-class="{'select-stroke-active' : settingCtrl.drawModel.stroke == 20}" ng-click="settingCtrl.setStroke(20)"><div md-colors="{background:'default-primary-700'}" class="brush-20"></div></div>
+          <div class="brush-btn" ng-class="{'select-stroke-active' : settingCtrl.drawModel.stroke == 50}" ng-click="settingCtrl.setStroke(50)"><div md-colors="{background:'default-primary-700'}" class="brush-50"></div></div>
         </div>
       </div>
       <!-- [Brush  option row : 4] -->

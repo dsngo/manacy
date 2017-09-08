@@ -61,7 +61,7 @@ export default class AppDrawingSetting extends ComponentBase {
         });
         this.strokeItems[0] = this.drawModel.stroke;
 
-        this.hideBrushTool();
+        // this.hideBrushTool();
     }
 
     private selectStrokeChange() {
@@ -73,7 +73,7 @@ export default class AppDrawingSetting extends ComponentBase {
         });
         this.strokeItems[0] = this.drawModel.stroke;
 
-        this.hideBrushTool();
+        // this.hideBrushTool();
     }
 
     private colorItems: string[] = [
@@ -101,7 +101,7 @@ export default class AppDrawingSetting extends ComponentBase {
     private textTooltRight: number = 0;
     private colorToolTop: number = 350;
     private colorToolRight: number = 0;
-
+    private check = true;
     public constructor(public drawService: DrawService, public window: ng.IWindowService, public $mdDialog: ng.material.IDialogService) {
         super();
         this.toolSetRight = window.innerWidth - 20;
@@ -126,13 +126,13 @@ export default class AppDrawingSetting extends ComponentBase {
             return el !== Number(this.drawModel.fontSize);
         });
         this.fontSizeItems[0] = this.drawModel.fontSize;
-
+        
         this.hideTextTool();
     }
 
     protected setStroke(value: number): void {
         this.drawModel.stroke = value;
-        this.hideBrushTool();
+        // this.hideBrushTool();
     }
 
     protected setColor(value) {
@@ -148,19 +148,26 @@ export default class AppDrawingSetting extends ComponentBase {
         this.drawService.redoPath();
     }
 
+    protected clear() {
+        this.drawService.clearDrawingPaths();
+    }
     protected showTool(tool): void {
-        this.showBrushToolClass = "";
-        this.showTextToolClass = "";
+        // this.showBrushToolClass = "";
+        // this.showTextToolClass = "";
         this.activeBrushToolClass = "";
         this.activeTextToolClass = "";
         switch (tool) {
             case 1:
-                this.showBrushToolClass = "show";
+                // Show/hide tool panel when click button
+                this.showBrushToolClass = this.showBrushToolClass == "show" ? "" : "show";
+                this.showTextToolClass = "";
                 this.activeBrushToolClass = "active";
                 this.drawModel.setCurrentTool("line");
                 break;
             case 2:
-                this.showTextToolClass = "show";
+                // Show/hide tool panel when click button
+                this.showTextToolClass = this.showTextToolClass == "show" ? "" : "show"
+                this.showBrushToolClass = "";
                 this.activeTextToolClass = "active";
                 this.drawModel.setCurrentTool("text");
                 break;
