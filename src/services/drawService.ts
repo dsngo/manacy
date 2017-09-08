@@ -16,7 +16,7 @@ export default class DrawService extends ServiceBase {
     public static $inject = ["Restangular", "$q", IdentityService.IID];
 
     private drawModel: DrawModel = new DrawModel();
-    private drawingPath: PathModel[] = [];
+    private drawingPaths: any[] = [];
     private pathsSubject: Subject<PathModel[]> = new Subject<PathModel[]>();
     private currentPathSubject: Subject<PathModel> = new Subject<PathModel>();
     private currentPath: PathModel = null;
@@ -45,8 +45,8 @@ export default class DrawService extends ServiceBase {
     }
 
     public addPath(path: PathModel) {
-        this.drawingPath.push(path);
-        this.pathsSubject.next(this.drawingPath);
+        this.drawingPaths.push(path);
+        this.pathsSubject.next(this.drawingPaths);
     }
 
     public undoPath() {
@@ -58,13 +58,13 @@ export default class DrawService extends ServiceBase {
     }
 
     private undoRedoAction(isUndo: boolean) {
-        this.drawingPath = this.drawingPath.sort((el, nextEl) => {
+        this.drawingPaths = this.drawingPaths.sort((el, nextEl) => {
             if (new Date(el.svgElementDto.createDate) > new Date(nextEl.svgElementDto.createDate)) {
                 return 1;
             }
             return -1;
         });
-        const undoPaths = this.drawingPath.filter((el: PathModel) => {
+        const undoPaths = this.drawingPaths.filter((el: PathModel) => {
             return el.svgElementDto.createUserId === this.identityService.currentUser.id && el.svgElementDto.isDeleted === isUndo;
         });
         if (undoPaths.length > 0) {
@@ -74,12 +74,12 @@ export default class DrawService extends ServiceBase {
     }
 
     public clearDrawingPaths() {
-        this.drawingPath = [];
-        this.pathsSubject.next(this.drawingPath);
+        this.drawingPaths = [];
+        this.pathsSubject.next(this.drawingPaths);
     }
 
     private cleanUndoPath() {
-        this.drawingPath = this.drawingPath.filter(el => {
+        this.drawingPaths = this.drawingPaths.filter(el => {
             return !el.svgElementDto.isDeleted;
         });
     }
@@ -106,8 +106,8 @@ export default class DrawService extends ServiceBase {
     }
 
     public findEditableText(textId: number) {
-        const index = this.drawingPath.findIndex(e => e.pathId === textId);
-        const foundText = this.drawingPath[index];
+        const index = this.drawingPaths.findIndex(e => e.pathId === textId);
+        const foundText = this.drawingPaths[index];
         const params = {
             text: foundText.textValue.join("\n"),
             x: foundText.textPoint.x,
@@ -121,7 +121,7 @@ export default class DrawService extends ServiceBase {
     }
 
     public cleanText(index) {
-        this.updateSvgElement(this.drawingPath[index].svgElementDto);
+        this.updateSvgElement(this.drawingPaths[index].svgElementDto);
     }
 
     public drawing(x, y, controlType, drawModel) {
@@ -284,25 +284,25 @@ export default class DrawService extends ServiceBase {
             })
             .then((svgImg: Models.Dtos.SvgImageDto) => {
                 const tempPath: PathModel[] = [];
-                svgImg.elements.forEach((svgElement: Models.Dtos.SvgElementDto) => {
-                    const path = PathModel.parseString(svgElement);
+                svgImg.elements.forEach((svgElement) => {
+                    const path = this.parseSVGElement(svgElement);
                     tempPath.splice(0, tempPath.length, path);
                     this.svgImage.elements.push(svgElement);
                 });
 
-                this.svgImage.elements.forEach((svgElement: Models.Dtos.SvgElementDto) => {
+                this.svgImage.elements.forEach((svgElement) => {
                     // console.log(svgElement); // tslint:disable-line
-                    const path = PathModel.parseString(svgElement);
+                    const path = this.parseSVGElement(svgElement);
                     tempPath.push(path);
                 });
 
-                this.drawingPath = tempPath;
+                this.drawingPaths = tempPath;
 
                 if (firstTimeLoad) {
                     this.cleanUndoPath();
                 }
 
-                this.pathsSubject.next(this.drawingPath);
+                this.pathsSubject.next(this.drawingPaths);
                 this.svgImage.lastUpdateDatetime = svgImg.lastUpdateDatetime;
             })
             .finally(() => {
@@ -317,7 +317,7 @@ export default class DrawService extends ServiceBase {
             .one("svg", this.svgImage.id.toString())
             .customPUT(updateSvg, updateSvg.id.toString())
             .then(() => {
-                this.pathsSubject.next(this.drawingPath);
+                this.pathsSubject.next(this.drawingPaths);
                 return;
             })
             .finally(() => {
@@ -325,24 +325,8 @@ export default class DrawService extends ServiceBase {
             });
     }
 
-    public parseSVGElement(svgElementFromDatabase: string) {
+    public parseSVGElement(svgElementFromDatabase) {
         const elementObj = JSON.parse(svgElementFromDatabase);
         return elementObj;
     }
 }
-
-// // For test
-// private tempSvgimage() {
-//     this.svgImage = {
-//         id: "5C76B204-65CA-4A14-A46F-E0AC112D6DA9", // C5BDA6E6-240B-489A-92C2-65BC555C4D73",
-//         lastUpdateDatetime: new Date(0).toISOString(),
-//         viewWidth: 0,
-//         viewHeight: 0,
-//         isDeleted: false,
-//         elements: [],
-//         updateDate: new Date(0).toISOString(),
-//         createDate: new Date(0).toISOString(),
-//         updateUserId: this.identityService.currentUser.id,
-//         createUserId: this.identityService.currentUser.id,
-//     };
-// }

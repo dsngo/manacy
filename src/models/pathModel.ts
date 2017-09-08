@@ -16,20 +16,36 @@ export class PathModel {
     ) {}
 
     public getSVGElement(): string {
-        let elm: string = "";
-        if (this.isText) {
-            elm = `<text text-id="${this.pathId}" x="${this.textPoint.x}" y="${this.textPoint.y}" fill="${this.stroke}" font-size="${this
-                .fontSize}" stroke="${this.textBold}" stroke-width="1px">`;
-            for (let index = 0; index < this.textValue.length; index++) {
-                const element = this.textValue[index];
-                elm += `<tspan x="${this.textPoint.x}" y="${this.textPoint.y + index * this.fontSize}" >${element}</tspan>`;
-            }
-            elm += "</text>";
-        } else {
-            elm = `<path path-id="${this.pathId}" stroke-linecap="round" d="${this.points}" fill="none" stroke="${this.stroke}" stroke-width="${this
-                .strokeWidth}"></path>`;
-        }
-        return elm;
+        const textElmObj = {
+            textId: this.pathId,
+            color: this.stroke,
+            bold: this.textBold !== "none",
+            textValues: this.textValue.map((e, i) => ({ value: e, x: this.textPoint.x, y: this.textPoint.y + i * this.fontSize })),
+        };
+
+        const brushElmObj = {
+            brushId: this.pathId,
+            position: this.points,
+            stroke: this.stroke,
+            strokeWidth: this.strokeWidth,
+        };
+
+        return JSON.stringify(this.isText ? textElmObj : brushElmObj);
+
+        // let elm: string = "";
+        // if (this.isText) {
+        //     elm = `<text text-id="${this.pathId}" x="${this.textPoint.x}" y="${this.textPoint.y}" fill="${this.stroke}" font-size="${this
+        //         .fontSize}" stroke="${this.textBold}" stroke-width="1px">`;
+        //     for (let index = 0; index < this.textValue.length; index++) {
+        //         const element = this.textValue[index];
+        //         elm += `<tspan x="${this.textPoint.x}" y="${this.textPoint.y + index * this.fontSize}" >${element}</tspan>`;
+        //     }
+        //     elm += "</text>";
+        // } else {
+        //     elm = `<path path-id="${this.pathId}" stroke-linecap="round" d="${this.points}" fill="none" stroke="${this.stroke}" stroke-width="${this
+        //         .strokeWidth}"></path>`;
+        // }
+        // return elm;
     }
     public static parseString(data: Models.Dtos.SvgElementDto): PathModel {
         const parser = new DOMParser();
