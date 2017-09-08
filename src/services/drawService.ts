@@ -35,6 +35,10 @@ export default class DrawService extends ServiceBase {
         return this.currentPathSubject;
     }
 
+    // public getPaths() {
+    //     return this.drawingPath;
+    // }
+
     public setCurrentPath(path: PathModel) {
         this.currentPath = path;
         this.currentPathSubject.next(this.currentPath);

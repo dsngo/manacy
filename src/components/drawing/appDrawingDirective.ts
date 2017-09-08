@@ -72,13 +72,8 @@ function draggable(appModule) {
                     function mousemove(event) {
                         const activePosX = event.screenX - startX;
                         const activePosY = event.screenY - startY;
-                        const rightActive = $window.innerWidth - activePosX;
-                        if (
-                            activePosY < 0 ||
-                            activePosY > $window.innerHeight - $element[0].offsetParent.clientHeight ||
-                            rightActive < 0 ||
-                            rightActive + $element[0].offsetParent.clientWidth > $window.innerWidth
-                        ) {
+                        // const rightActive = $window.innerWidth - activePosX;
+                        if (activePosX <= 0 || activePosY <= 0) {
                             return;
                         }
 

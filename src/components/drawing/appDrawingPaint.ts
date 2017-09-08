@@ -26,6 +26,7 @@ export default class AppDrawingPaint extends ComponentBase {
     public constructor(private drawService: DrawService, private window: ng.IWindowService) {
         super();
         if (this.svgImgId === "") {
+            this.drawService.clearDrawingPaths();
             this.drawService.createSVGImage(this.window.innerWidth, this.window.innerHeight);
         } else {
             this.drawService.loadSVGImage(this.svgImgId);

@@ -21,7 +21,7 @@ export default class AppDrawing extends ComponentBase {
         super();
 
         // Get init paths
-        this.drawingBranch = this.drawService.getPaths();
+        // this.drawingBranch = this.drawService.getPaths();
 
         this.drawService.getPathsSubject().subscribe((newPaths: PathModel[]) => {
             this.drawingBranch = newPaths;
@@ -40,9 +40,11 @@ export default class AppDrawing extends ComponentBase {
     }
     private drawModel: DrawModel;
     private isDrawing = false;
-    private textBoxSetLeft = 300;
+    private textBoxSetLeft = 20;
     private textBoxSetTop = 300;
     private isTextBoxDraggable: boolean = false;
+    private textRows: number = 1;
+    private textCol: number = 20;
 
     protected controlType: string = "bezier";
     protected omitValue: number = 4;
@@ -65,7 +67,6 @@ export default class AppDrawing extends ComponentBase {
     }
 
     public mouseMove(event) {
-        
         const rect = event.currentTarget.getBoundingClientRect();
         const pointX = event.x - rect.left;
         const pointY = event.y - rect.top;
@@ -74,7 +75,10 @@ export default class AppDrawing extends ComponentBase {
 
     private async editText(textId) {
         const obj = await this.drawService.findEditableText(textId);
-        this.startEditText(obj.x, obj.y - 30, obj.text);
+        this.drawModel.color = obj.color;
+        this.drawModel.isTextBold = obj.bold;
+        this.drawModel.fontSize = obj.fontSize;
+        this.startEditText(obj.x, obj.y - (this.drawModel.fontSize + 10), obj.text);
         this.drawService.cleanText(obj.index);
     }
 
@@ -110,8 +114,10 @@ export default class AppDrawing extends ComponentBase {
         this.textBoxSetLeft = x;
         this.textBoxSetTop = y;
         this.isTextDrawing = true;
+        this.textRows = text.split("\n").length;
+        this.textCol = this.maxLength(text.split("\n"));
         if (this.isTextDrawing && this.textValue !== text) {
-            this.drawService.drawText({x, y}, this.drawModel, this.textValue);
+            this.drawService.drawText({ x, y }, this.drawModel, this.textValue);
             this.isTextDrawing = false;
             this.textRows = 1;
             this.textCol = 20;
@@ -153,8 +159,6 @@ export default class AppDrawing extends ComponentBase {
         this.drawing(event.touches[0].pageX, event.touches[0].pageY);
     }
     // public touchEnd(event) {}
-    private textRows: number = 1;
-    private textCol: number = 20;
 
     public keyPressOntextArea(event: KeyboardEvent) {
         if (event.key === "Enter") {
