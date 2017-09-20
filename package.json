@@ -26,7 +26,8 @@
     "videogular": "^2.2.1"
   },
   "scripts": {
-    "webpack": "webpack --watch --progress"
+    "build": "webpack --progress",
+    "g:commit": "git add . & git commit -m "
   },
   "devDependencies": {
     "@types/angular": "^1.5.23",
@@ -37,7 +38,6 @@
     "@types/ng-file-upload": "^12.2.1",
     "@types/quill": "^1.3.2",
     "@types/restangular": "^1.5.41",
-    "autoprefixer": "^7.1.1",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.28.7",
     "cssnano": "^3.10.0",
@@ -45,16 +45,11 @@
     "import-glob-loader": "^1.1.0",
     "node-sass": "^4.5.3",
     "optimize-css-assets-webpack-plugin": "^3.1.1",
-    "postcss": "^6.0.1",
-    "postcss-easy-import": "^2.0.0",
-    "postcss-loader": "^2.0.5",
-    "postcss-nested": "^2.0.2",
-    "precss": "^1.4.0",
     "sass-loader": "^6.0.5",
     "style-loader": "^0.18.1",
     "ts-loader": "^2.3.6",
     "tslint": "^5.7.0",
-    "typescript": "2.3.4",
+    "typescript": "^2.5.2",
     "webpack": "^3.5.5",
     "webpack-node-externals": "^1.5.4"
   }
