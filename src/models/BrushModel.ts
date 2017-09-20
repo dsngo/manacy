@@ -2,17 +2,18 @@ import { BaseDrawModel, IBaseDrawModel } from "./BaseDrawModel";
 
 export interface IBrushModel extends IBaseDrawModel {
     brushId: number;
-    // fill: string;
-    // stroke: number;
-    strokeWidth: number;
+    fill: string;
+    stroke: string;
+    strokeWidth: string;
+    points: string;
 }
 
 export class BrushModel extends BaseDrawModel {
-    constructor(baseSettings, public brushSettings: IBrushModel) {
-        super(baseSettings);
+    constructor(public brushSettings: IBrushModel) {
+        super();
     }
-    public constructBrushElement(): string {
-        const brushSVGElement: IBrushModel = { ...this.brushSettings, ...this.baseSettings };
+    public constructElement(): string {
+        const brushSVGElement: IBrushModel = { ...this.baseSettings, ...this.brushSettings };
         return JSON.stringify(brushSVGElement);
     }
 }

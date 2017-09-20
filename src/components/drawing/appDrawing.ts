@@ -1,17 +1,43 @@
 import * as angular from "angular";
 import { DrawModel } from "../../models/drawModel";
+import { TextModel, ITextModel } from "../../models/TextModel";
+import { BrushModel, IBrushModel } from "../../models/BrushModel";
 import { PathModel } from "../../models/pathModel";
 import { PointModel } from "../../models/pointModel";
 import DrawService from "../../services/drawService";
+import { BaseDrawModel, IBaseDrawModel } from "../../models/BaseDrawModel";
 import ComponentBase from "../componentBase";
 
 export default class AppDrawing extends ComponentBase {
     public static readonly IID: string = "drawComponent";
 
+    private drawModel: DrawModel;
+    private textModel: TextModel;
+    private brushModel: BrushModel;
+    private isDrawing = false;
+    private textBoxSetLeft = 300;
+    private textBoxSetTop = 300;
+    private isTextBoxDraggable: boolean = false;
+
+    protected controlType: string = "bezier";
+    protected omitValue: number = 4;
+    protected textBoxHideClass = "";
+    protected isTextDrawing: boolean = false;
+    protected isTextEditing: boolean = false;
+    // protected drawingBranch: PathModel[] = [];
+    protected drawingText: TextModel[] = [];
+    protected drawingBrush: BrushModel[] = [];
+
+    // protected currentPath: PathModel = null;
+    protected currentText: TextModel = null;
+    protected currentBrush: BrushModel = null;
+
+    protected textValue: string = "";
+
     protected static setOptions(options: ng.IComponentOptions) {
         super.setOptions(options);
         options.controllerAs = "drawCtrl";
-        options.bindings = { drawModel: "=" };
+        options.bindings = { drawModel: "=", brushModel: "=", textModel: "=" };
         options.templateUrl = "../components/drawing/appDrawing.html";
     }
 
@@ -22,13 +48,30 @@ export default class AppDrawing extends ComponentBase {
 
         // Get init paths
         // this.drawingBranch = this.drawService.getPaths();
+        this.drawingText = this.drawService.getTexts();
+        this.drawingBrush = this.drawService.getBrushes();
+        this.drawService.getTextsSubject().subscribe((newTexts: TextModel[]) => {
+            this.drawingText = newTexts;
+        });
 
-        this.drawService.getPathsSubject().subscribe((newPaths: PathModel[]) => {
-            this.drawingBranch = newPaths;
+        this.drawService.getCurrentTextSubject().subscribe((newText: TextModel) => {
+            this.currentText = newText;
         });
-        this.drawService.getCurrentPathSubject().subscribe((newPath: PathModel) => {
-            this.currentPath = newPath;
+
+        this.drawService.getBrushesSubject().subscribe((newBrushes: BrushModel[]) => {
+            this.drawingBrush = newBrushes;
         });
+
+        this.drawService.getCurrentBrushSubject().subscribe((newBrush: BrushModel) => {
+            this.currentBrush = newBrush;
+        })
+        // this.drawService.getPathsSubject().subscribe((newPaths: PathModel[]) => {
+        //     this.drawingBranch = newPaths;
+        // });
+        // this.drawService.getCurrentPathSubject().subscribe((newPath: PathModel) => {
+        //     this.currentPath = newPath;
+        // });
+
         this.drawModel.getCurrentToolSubject().subscribe((newValue: string) => {
             if (newValue === "line") {
                 if (this.isTextDrawing && this.textValue !== "") {
@@ -38,36 +81,21 @@ export default class AppDrawing extends ComponentBase {
             }
         });
     }
-    private drawModel: DrawModel;
-    private isDrawing = false;
-    private textBoxSetLeft = 20;
-    private textBoxSetTop = 300;
-    private isTextBoxDraggable: boolean = false;
-    private textRows: number = 1;
-    private textCol: number = 20;
+    
 
-    protected controlType: string = "bezier";
-    protected omitValue: number = 4;
-    protected textBoxHideClass = "";
-    protected isTextDrawing: boolean = false;
-    protected isTextEditing: boolean = false;
-    protected drawingBranch: PathModel[] = [];
-    protected currentPath: PathModel = null;
-    protected textValue: string = "";
-
-    public mouseDown(event): void {
+    public mouseDown(event) {
         // Event handler for Left-click
         if (event.buttons !== 2) {
             if (event.target.nodeName === "tspan" && this.drawModel.currentTool !== "line") {
                 const textId = event.target.getAttribute("text-id") * 1;
                 this.editText(textId);
-                return;
             }
             this.startDraw(event.x, event.y);
         }
     }
 
     public mouseMove(event) {
+        
         const rect = event.currentTarget.getBoundingClientRect();
         const pointX = event.x - rect.left;
         const pointY = event.y - rect.top;
@@ -76,26 +104,24 @@ export default class AppDrawing extends ComponentBase {
 
     private async editText(textId) {
         const obj = await this.drawService.findEditableText(textId);
-        this.drawModel.color = obj.color;
-        this.drawModel.isTextBold = obj.bold;
-        this.drawModel.fontSize = obj.fontSize;
-        this.startEditText(obj.x, obj.y - (this.drawModel.fontSize + 10), obj.text);
+        this.startEditText(obj.x, obj.y - 30, obj.text);
         this.drawService.cleanText(obj.index);
-        return;
     }
 
     public startDraw(x, y) {
         if (this.drawModel.currentTool === "line") {
-            this.startDrawLine();
+            this.isDrawing = true;
+            this.drawService.startDraw();
+            // this.startDrawLine();
             return;
         }
         this.startDrawText(x, y);
     }
 
-    private startDrawLine() {
-        this.isDrawing = true;
-        this.drawService.startDraw();
-    }
+    // private startDrawLine() {
+    //     this.isDrawing = true;
+    //     this.drawService.startDraw();
+    // }
 
     private startDrawText(x, y) {
         if (this.isTextDrawing && this.textValue !== "") {
@@ -111,15 +137,13 @@ export default class AppDrawing extends ComponentBase {
         this.isTextDrawing = true;
     }
 
-    private startEditText(x, y, text: string): void {
+    private startEditText(x, y, text: string) {
         this.textValue = text;
         this.textBoxSetLeft = x;
         this.textBoxSetTop = y;
         this.isTextDrawing = true;
-        this.textRows = text.split("\n").length;
-        this.textCol = this.maxLength(text.split("\n"));
         if (this.isTextDrawing && this.textValue !== text) {
-            this.drawService.drawText({ x, y }, this.drawModel, this.textValue);
+            this.drawService.drawText({x, y}, this.drawModel, this.textValue);
             this.isTextDrawing = false;
             this.textRows = 1;
             this.textCol = 20;
@@ -147,7 +171,7 @@ export default class AppDrawing extends ComponentBase {
     }
 
     public clear() {
-        this.drawService.clearDrawingPaths();
+        // this.drawService.clearDrawingPaths();
     }
 
     protected getFontSize(): string {
@@ -157,10 +181,14 @@ export default class AppDrawing extends ComponentBase {
     public touchstart(event: TouchEvent) {
         this.startDraw(event.touches[0].pageX, event.touches[0].pageY);
     }
+
     public touchMove(event: TouchEvent) {
         this.drawing(event.touches[0].pageX, event.touches[0].pageY);
     }
+
     // public touchEnd(event) {}
+    private textRows: number = 1;
+    private textCol: number = 20;
 
     public keyPressOntextArea(event: KeyboardEvent) {
         if (event.key === "Enter") {

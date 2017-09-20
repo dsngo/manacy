@@ -8,11 +8,11 @@ export interface ITextModel extends IBaseDrawModel {
 }
 
 export class TextModel extends BaseDrawModel {
-    constructor(baseSettings, public textSettings: ITextModel) {
-        super(baseSettings);
+    constructor(public textSettings: ITextModel) {
+        super();
     }
-    public constructTextElement(): string {
-        const textSVGElement: ITextModel = { ...this.textSettings, ...this.baseSettings };
+    public constructElement(): string {
+        const textSVGElement: ITextModel = { ...this.baseSettings, ...this.textSettings };
         return JSON.stringify(textSVGElement);
     }
 }

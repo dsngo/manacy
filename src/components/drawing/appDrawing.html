@@ -14,16 +14,23 @@
 </div>
 <svg class="svg-container" ng-mousemove="drawCtrl.mouseMove($event)" ng-mousedown="drawCtrl.mouseDown($event)" ng-mouseleave="drawCtrl.stopDraw()" ng-mouseup="drawCtrl.stopDraw()" dr-touchstart="drawCtrl.touchstart($event)" dr-touchmove="drawCtrl.touchMove($event)" dr-touchend="drawCtrl.touchEnd($event)">
 
-<g ng-repeat="path in drawCtrl.drawingBranch" ng-cloak ng-if="!path.svgElementDto.isDeleted">
+<!-- <g ng-repeat="path in drawCtrl.drawingBranch" ng-cloak ng-if="!path.svgElementDto.isDeleted">
   <path stroke-linecap="round" ng-attr-d="{{path.points}}" fill="none" ng-attr-stroke="{{path.stroke}}" ng-attr-stroke-width="{{path.strokeWidth}}" ng-if="!path.isText"></path>
-
-    <!-- <text ng-attr-x="{{path.textPoint.x}}" ng-attr-y="{{path.textPoint.y}}" ng-attr-fill="{{path.stroke}}" ng-attr-font-size="{{path.fontSize}}" ng-if="path.isText" ng-attr-stroke="{{path.textBold}}" stroke-width="1px"> -->
-    <text ng-if="path.isText">
-      <tspan ng-attr-text-id="{{path.pathId}}" ng-attr-x="{{path.textPoint.x}}" ng-attr-y="{{path.textPoint.y + $index*path.fontSize}}" stroke-width="1px" ng-attr-fill="{{path.stroke}}" ng-attr-font-size="{{path.fontSize}}" ng-attr-stroke="{{path.textBold}}" ng-repeat="textVel in path.textValue track by $index">{{textVel}}</tspan>
-    </text>
-  </g>
-
-  <path stroke-linecap="round" ng-attr-d="{{drawCtrl.currentPath.points}}" fill="none" ng-attr-stroke="{{drawCtrl.currentPath.stroke}}" ng-attr-stroke-width="{{drawCtrl.currentPath.strokeWidth}}" ng-if="drawCtrl.currentPath != null"></path>
+  <text ng-attr-x="{{path.textPoint.x}}" ng-attr-y="{{path.textPoint.y}}" ng-attr-fill="{{path.stroke}}" ng-attr-font-size="{{path.fontSize}}" ng-if="path.isText" ng-attr-stroke="{{path.textBold}}" stroke-width="1px">
+  <text ng-if="path.isText">
+    <tspan ng-attr-text-id="{{path.pathId}}" ng-attr-x="{{path.textPoint.x}}" ng-attr-y="{{path.textPoint.y + $index*path.fontSize}}" stroke-width="1px" ng-attr-fill="{{path.stroke}}" ng-attr-font-size="{{path.fontSize}}" ng-attr-stroke="{{path.textBold}}" ng-repeat="textVel in path.textValue track by $index">{{textVel}}</tspan>
+  </text>
+</g> -->
+<g ng-repeat="text in drawCtrl.drawingText" ng-cloak ng-if="!path.svgElementDto.isDeleted">
+  <text>
+    <tspan ng-attr-text-id="{{text.textSettings.textId}}" ng-attr-x="{{text.textSettings.positionX}}" ng-attr-y="{{text.textSettings.positionY + $index*text.textSettings.fontSize}}" stroke-width="1px" ng-attr-fill="{{text.textSettings.stroke}}" ng-attr-font-size="{{text.textSettings.fontSize}}" ng-attr-stroke="{{text.textSettings.textBold}}" ng-repeat="textVel in text.textSettings.textValue track by $index">{{textVel}}</tspan>
+  </text>
+</g>
+<g ng-repeat="brush in drawCtrl.drawingBrush" ng-cloak>
+  <path stroke-linecap="round" ng-attr-d="{{brush.brushSettings.points}}" fill="none" ng-attr-stroke="{{brush.brushSettings.stroke}}" ng-attr-stroke-width="{{brush.brushSettings.strokeWidth}}"></path>
+</g>
+<!-- <path stroke-linecap="round" ng-attr-d="{{drawCtrl.currentPath.points}}" fill="none" ng-attr-stroke="{{drawCtrl.currentPath.stroke}}" ng-attr-stroke-width="{{drawCtrl.currentPath.strokeWidth}}" ng-if="drawCtrl.currentPath != null"></path> -->
+<path  stroke-linecap="round" ng-attr-d="{{drawCtrl.currentBrush.brushSettings.points}}" fill="none" ng-attr-stroke="{{drawCtrl.currentBrush.brushSettings.stroke}}" ng-attr-stroke-width="{{drawCtrl.currentBrush.brushSettings.strokeWidth}}" ng-if="drawCtrl.currentBrush != null"></path>
 </svg>
 <div class="text-box-wrapper" ng-if="drawCtrl.isTextDrawing" id="text-box-parent" ng-style="{top: drawCtrl.textBoxSetTop + 'px', left: drawCtrl.textBoxSetLeft + 'px'}">
   <div class="drag-thumb" el-draggable pos-x="drawCtrl.textBoxSetLeft" pos-y="drawCtrl.textBoxSetTop" parent-id="text-box-parent" off-style="true">

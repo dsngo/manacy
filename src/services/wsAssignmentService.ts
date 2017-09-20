@@ -639,7 +639,7 @@ export default class WsAssignmentService extends ServiceBase {
         }
 
         this.busy(true);
-        const promise: any = this.Restangular.one("media").one("file", fileId).get()
+        const promise = this.Restangular.one("media").one("file", fileId).get()
             .then((blobData: Models.Dtos.BlobUrlDto) => {
                 if (blobData.urlInfo.blobEncodeStatus !== Anzas.Manacy.Models.Dtos.BlobEncodeStatusEnum.Done) {
                     return this.$q.reject(`対象ファイルのアップロードは完了してません。fileId: ${fileId}`);

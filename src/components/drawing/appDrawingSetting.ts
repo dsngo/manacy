@@ -108,6 +108,7 @@ export default class AppDrawingSetting extends ComponentBase {
         this.brushTooltRight = window.innerWidth - 80;
         this.textTooltRight = window.innerWidth - 80;
         this.colorToolRight = window.innerWidth - 80;
+        this.activeBrushToolClass = "active";
     }
 
     protected upFontSize() {
@@ -141,15 +142,15 @@ export default class AppDrawingSetting extends ComponentBase {
     }
 
     protected undo() {
-        this.drawService.undoPath();
+        this.drawService.undoRedoDraw("undo");
     }
 
     protected redo() {
-        this.drawService.redoPath();
+        this.drawService.undoRedoDraw("redo");
     }
 
     protected clear() {
-        this.drawService.clearDrawingPaths();
+        // this.drawService.clearDrawingPaths();
     }
     protected showTool(tool): void {
         // this.showBrushToolClass = "";
