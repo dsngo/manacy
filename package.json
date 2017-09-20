@@ -26,7 +26,7 @@
     "videogular": "^2.2.1"
   },
   "scripts": {
-    "webpack": "webpack --watch --progress"
+    "webpack": "webpack --progress"
   },
   "devDependencies": {
     "@types/angular": "1.5.x",

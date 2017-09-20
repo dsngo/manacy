@@ -55,12 +55,13 @@ export default class AppDrawing extends ComponentBase {
     protected currentPath: PathModel = null;
     protected textValue: string = "";
 
-    public mouseDown(event) {
+    public mouseDown(event): void {
         // Event handler for Left-click
         if (event.buttons !== 2) {
             if (event.target.nodeName === "tspan" && this.drawModel.currentTool !== "line") {
                 const textId = event.target.getAttribute("text-id") * 1;
                 this.editText(textId);
+                return;
             }
             this.startDraw(event.x, event.y);
         }
@@ -73,13 +74,14 @@ export default class AppDrawing extends ComponentBase {
         this.drawing(pointX, pointY);
     }
 
-    private async editText(textId) {
+    private async editText(textId): Promise<void> {
         const obj = await this.drawService.findEditableText(textId);
         this.drawModel.color = obj.color;
         this.drawModel.isTextBold = obj.bold;
         this.drawModel.fontSize = obj.fontSize;
         this.startEditText(obj.x, obj.y - (this.drawModel.fontSize + 10), obj.text);
         this.drawService.cleanText(obj.index);
+        return;
     }
 
     public startDraw(x, y) {

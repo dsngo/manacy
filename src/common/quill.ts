@@ -16,7 +16,7 @@ export default function registerQuill(app: ng.IModule) {
     // ngQuillのデフォルト設定
     app.config(["ngQuillConfigProvider", (ngQuillConfigProvider) => {
 
-        const config: Quill.QuillOptionsStatic = {
+        const config = {
             modules: {
                 toolbar: [
                     ["bold", "italic", "underline", "strike"],        // toggled buttons

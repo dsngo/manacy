@@ -23,7 +23,11 @@ export default class DrawService extends ServiceBase {
 
     private drawingPoints: PointModel[] = [];
 
-    public constructor(protected Restangular: restangular.IService, protected $q: ng.IQService, protected identityService: IdentityService) {
+    public constructor(
+        protected Restangular: restangular.IService,
+        protected $q: ng.IQService,
+        protected identityService: IdentityService,
+    ) {
         super();
     }
 
@@ -34,10 +38,6 @@ export default class DrawService extends ServiceBase {
     public getCurrentPathSubject(): Subject<PathModel> {
         return this.currentPathSubject;
     }
-
-    // public getPaths() {
-    //     return this.drawingPath;
-    // }
 
     public setCurrentPath(path: PathModel) {
         this.currentPath = path;
@@ -65,7 +65,10 @@ export default class DrawService extends ServiceBase {
             return -1;
         });
         const undoPaths = this.drawingPath.filter((el: PathModel) => {
-            return el.svgElementDto.createUserId === this.identityService.currentUser.id && el.svgElementDto.isDeleted === isUndo;
+            return (
+                el.svgElementDto.createUserId === this.identityService.currentUser.id &&
+                el.svgElementDto.isDeleted === isUndo
+            );
         });
         if (undoPaths.length > 0) {
             const undoPath = isUndo ? undoPaths[0] : undoPaths[undoPaths.length - 1];
@@ -117,6 +120,7 @@ export default class DrawService extends ServiceBase {
             bold: foundText.textBold !== "none",
             fontSize: foundText.fontSize,
         };
+        console.log(foundText); // tslint:disable-line
         return params;
     }
 
@@ -171,9 +175,13 @@ export default class DrawService extends ServiceBase {
         let attribute = `M${points[0].x}, ${points[0].y}`;
         for (let i = 0; i < cubics.length; i++) {
             if (i === cubics.length - 1) {
-                attribute += `M${cubics[i][0]},${cubics[i][1]}, ${cubics[i][2]},${cubics[i][3]} ${cubics[i][4]},${cubics[i][5]} `;
+                attribute += `M${cubics[i][0]},${cubics[i][1]}, ${cubics[i][2]},${cubics[i][3]} ${cubics[
+                    i
+                ][4]},${cubics[i][5]} `;
             } else {
-                attribute += `C${cubics[i][0]},${cubics[i][1]}, ${cubics[i][2]},${cubics[i][3]} ${cubics[i][4]},${cubics[i][5]}`;
+                attribute += `C${cubics[i][0]},${cubics[i][1]}, ${cubics[i][2]},${cubics[i][3]} ${cubics[
+                    i
+                ][4]},${cubics[i][5]}`;
             }
         }
         return this.setPath(attribute);
@@ -189,8 +197,8 @@ export default class DrawService extends ServiceBase {
     }
 
     // API call
-    private timeAtOffset(): string {
-        return new Date().toISOString();
+    private timeAtOffset(o?: number): string {
+        return (o ? new Date(o) : new Date()).toISOString();
     }
 
     public svgImage: Models.Dtos.SvgImageDto;
@@ -253,13 +261,13 @@ export default class DrawService extends ServiceBase {
     public loadSVGImage(svgImageId: string) {
         this.svgImage = {
             id: svgImageId,
-            lastUpdateDatetime: new Date(0).toISOString(),
+            lastUpdateDatetime: this.timeAtOffset(0),
             viewWidth: 0,
             viewHeight: 0,
             isDeleted: false,
             elements: [],
-            updateDate: new Date(0).toISOString(),
-            createDate: new Date(0).toISOString(),
+            updateDate: this.timeAtOffset(),
+            createDate: this.timeAtOffset(),
             updateUserId: this.identityService.currentUser.id,
             createUserId: this.identityService.currentUser.id,
         };
@@ -291,7 +299,6 @@ export default class DrawService extends ServiceBase {
                 });
 
                 this.svgImage.elements.forEach((svgElement: Models.Dtos.SvgElementDto) => {
-                    // console.log(svgElement); // tslint:disable-line
                     const path = PathModel.parseString(svgElement);
                     tempPath.push(path);
                 });
@@ -324,25 +331,4 @@ export default class DrawService extends ServiceBase {
                 this.busy(false);
             });
     }
-
-    public parseSVGElement(svgElementFromDatabase: string) {
-        const elementObj = JSON.parse(svgElementFromDatabase);
-        return elementObj;
-    }
 }
-
-// // For test
-// private tempSvgimage() {
-//     this.svgImage = {
-//         id: "5C76B204-65CA-4A14-A46F-E0AC112D6DA9", // C5BDA6E6-240B-489A-92C2-65BC555C4D73",
-//         lastUpdateDatetime: new Date(0).toISOString(),
-//         viewWidth: 0,
-//         viewHeight: 0,
-//         isDeleted: false,
-//         elements: [],
-//         updateDate: new Date(0).toISOString(),
-//         createDate: new Date(0).toISOString(),
-//         updateUserId: this.identityService.currentUser.id,
-//         createUserId: this.identityService.currentUser.id,
-//     };
-// }
