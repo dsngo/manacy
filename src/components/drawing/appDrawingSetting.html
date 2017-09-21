@@ -7,12 +7,12 @@
   <div class="module draw-tool-module">
     <div class="tool-row">
       <div class="tool md-primary" data-tooltip="ペンツール" data-placement="left" ng-click='settingCtrl.showTool(1)' ng-class="settingCtrl.activeBrushToolClass">
-        <ng-md-icon icon="brush" style="fill:dimgray" size="40"></ng-md-icon>
-        <!--<div class="brush-tool"></div>-->
+        <!-- <ng-md-icon icon="brush" style="fill:dimgray" size="40"></ng-md-icon> -->
+        <div class="brush-tool" md-colors="{background:'default-primary-700'}"></div>
       </div>
       <div class="tool" data-tooltip="文字ツール" data-placement="left" ng-click='settingCtrl.showTool(2)' ng-class="settingCtrl.activeTextToolClass">
-        <ng-md-icon icon="text_fields" style="fill:dimgray" size="40"></ng-md-icon>
-        <!--<div class="text-tool"></div>-->
+        <!-- <ng-md-icon icon="text_fields" style="fill:dimgray" size="40"></ng-md-icon> -->
+        <div class="text-tool" md-colors="{background:'default-primary-700'}"></div>
       </div>
     </div>
   </div>
@@ -21,12 +21,12 @@
   </div>
   <div class="module action-button-module">
     <div class="button" data-tooltip="やり直す" data-placement="left" ng-click="settingCtrl.undo()">
-      <ng-md-icon icon="undo" style="fill:dimgray" size="40"></ng-md-icon>
-      <!--<div class="undo-btn"></div>-->
+      <!-- <ng-md-icon icon="undo" style="fill:dimgray" size="40"></ng-md-icon> -->
+      <div class="undo-btn" md-colors="{background:'default-primary-700'}"></div>
     </div>
     <div class="button" data-tooltip="進む" data-placement="left" ng-click="settingCtrl.redo()">
-      <ng-md-icon icon="redo" style="fill:dimgray" size="40"></ng-md-icon>
-      <!--<div class="redo-btn"></div>-->
+      <!-- <ng-md-icon icon="redo" style="fill:dimgray" size="40"></ng-md-icon> -->
+      <div class="redo-btn" md-colors="{background:'default-primary-700'}"></div>
     </div>
   </div>
   <!-- /[Tool clean board] -->
@@ -37,7 +37,7 @@
   </div> -->
   <div class="module action-button-module">
     <div class="button" data-tooltip="閉じる" data-placement="left" ng-click="settingCtrl.cancel()">
-      <ng-md-icon icon="close" style="fill:dimgray" size="40"></ng-md-icon>
+      <ng-md-icon icon="close" md-colors="{fill:'default-primary-700'}" size="40"></ng-md-icon>
     </div>
   </div>
   
@@ -121,7 +121,7 @@
       <!-- [Text option : Text Decoration] -->
       <div class="option-row">
         <button type="button" class="text-bold-btn" id="bold-btn" name="button" ng-class="{bolded: settingCtrl.drawModel.isTextBold}" ng-click="settingCtrl.activeBold()">
-          <ng-md-icon icon="format_bold" style="fill:dimgray" size="40"></ng-md-icon>
+          <ng-md-icon icon="format_bold" md-colors="{fill:'default-primary-700'}" size="40"></ng-md-icon>
           <!--<b>あ</b>-->
         </button>
       </div>

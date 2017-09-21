@@ -57,10 +57,12 @@
   &:active {
     background-color: $main-accent-Color;
     .undo-btn{
-      background-image: url('/app/images/undo-filled.png');
+      @include colored-icon('/app/images/icons/drawingapp/undo-material.svg');
+      background: dimgrey;
     }
     .redo-btn{
-      background-image: url('/app/images/redo-filled.png');
+      @include colored-icon('/app/images/icons/drawingapp/redo-material.svg');
+      background: dimgrey;
     }
   }
 
@@ -71,19 +73,23 @@
   .undo-btn{
     height: 100%;
     width: 100%;
-    background-image: url('/app/images/undo-material.png');
-    background-position: center center;
-    background-size: 30px 30px;
-    background-repeat: no-repeat;
+    // background-image: url('/app/images/icons/drawingapp/undo-material.svg');
+    // background-position: center center;
+    // background-size: 30px 30px;
+    // background-repeat: no-repeat;
+    @include colored-icon('/app/images/icons/drawingapp/undo-material.svg');
+    background: dimgrey;
   }
 
   .redo-btn{
     height: 100%;
     width: 100%;
-    background-image: url('/app/images/redo-material.png');
-    background-position: center center;
-    background-size: 30px 30px;
-    background-repeat: no-repeat;
+    // background-image: url('/app/images/icons/drawingapp/redo-material.svg');
+    // background-position: center center;
+    // background-size: 30px 30px;
+    // background-repeat: no-repeat;
+    @include colored-icon('/app/images/icons/drawingapp/redo-material.svg');
+    background: dimgrey;
   }
 
 }
@@ -173,40 +179,36 @@
   }
   &.active {
     .brush-tool {
-      width: 100%;
-      height: 100%;
-      background-image: url('/app/images/brush-filled-white.png');
-      background-size: 30px 30px;
-      background-repeat: no-repeat;
-      background-position: center center;
+      @include colored-icon('/app/images/icons/drawingapp/brush-material.svg');
+      background: dimgrey !important;
     }
 
     .text-tool {
-      width: 100%;
-      height: 100%;
-      background-image: url('/app/images/text-tool-white.png');
-      background-size: 30px 30px;
-      background-repeat: no-repeat;
-      background-position: center center;
+      @include colored-icon('/app/images/icons/drawingapp/text-material.svg');
+      background: dimgrey !important;
     }
   }
 
   .brush-tool {
     width: 100%;
     height: 100%;
-    background-image: url('/app/images/brush-material.png');
-    background-size: 30px 30px;
-    background-repeat: no-repeat;
-    background-position: center center;
+    // background-image: url('/app/images/icons/drawingapp/brush-material.svg');
+    // background-size: 30px 30px;
+    // background-repeat: no-repeat;
+    // background-position: center center;
+    @include colored-icon('/app/images/icons/drawingapp/brush-material.svg');
+    background: dimgrey;
   }
 
   .text-tool {
     width: 100%;
     height: 100%;
-    background-image: url('/app/images/text-material.png');
-    background-size: 30px 30px;
-    background-repeat: no-repeat;
-    background-position: center center;
+    // background-image: url('/app/images/icons/drawingapp/text-material.svg');
+    // background-size: 30px 30px;
+    // background-repeat: no-repeat;
+    // background-position: center center;
+    @include colored-icon('/app/images/icons/drawingapp/text-material.svg');
+    background: dimgrey;
   }
 
 }

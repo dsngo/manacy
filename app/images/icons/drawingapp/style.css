@@ -1,0 +1,10 @@
+.text-tool {
+    background-color: red;
+    -webkit-mask: url("text-material.svg") no-repeat 50% 50%;
+    mask: url("text-material.svg") no-repeat 50% 50%;
+
+}
+div {
+    height: 300px;
+    widows: 300px;
+}

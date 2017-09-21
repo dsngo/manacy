@@ -50,7 +50,9 @@ export default class AppBase {
      */
     protected static appModule: ng.IModule;
 
-    protected static getAppModuleName(): string { return; }
+    protected static getAppModuleName(): string {
+        return;
+    }
 
     /**
      * メインモジュール生成・取得
@@ -58,10 +60,24 @@ export default class AppBase {
     public static getModule(): ng.IModule {
         this.appModule =
             this.appModule ||
-            angular.module(this.getAppModuleName(),
-                ["mdColorPicker", "ngMaterial","ngMdIcons", "ui.router", "ngSanitize","restangular", "vAccordion", "ngAnimate",
-                    "ngQuill", "ngFileUpload", "angular-carousel", "com.2fdevs.videogular", "com.2fdevs.videogular.plugins.controls",
-                    "com.2fdevs.videogular.plugins.poster", "ngMessages", "dndLists"]);
+            angular.module(this.getAppModuleName(), [
+                "mdColorPicker",
+                "ngMaterial",
+                "ngMdIcons",
+                "ui.router",
+                "ngSanitize",
+                "restangular",
+                "vAccordion",
+                "ngAnimate",
+                "ngQuill",
+                "ngFileUpload",
+                "angular-carousel",
+                "com.2fdevs.videogular",
+                "com.2fdevs.videogular.plugins.controls",
+                "com.2fdevs.videogular.plugins.poster",
+                "ngMessages",
+                "dndLists",
+            ]);
 
         return this.appModule;
     }
@@ -80,26 +96,40 @@ export default class AppBase {
      */
     protected static Init() {
         // API URLの設定
-        this.getModule().config(["RestangularProvider", (RestangularProvider: Restangular.IProvider) => {
-            RestangularProvider.setBaseUrl(API_PATH);
-        }]);
-        
-        // AngularJS Materialのテーマの設定
-        
-	    this.getModule().config([
-	      '$mdThemingProvider',
-	      $mdThemingProvider => {
-	        $mdThemingProvider.theme('DrawUITheme');
-	      },
-	    ]);
+        this.getModule().config([
+            "RestangularProvider",
+            (RestangularProvider: Restangular.IProvider) => {
+                RestangularProvider.setBaseUrl(API_PATH);
+            },
+        ]);
 
-        this.getModule().config(["$mdThemingProvider", (IThemingProvider: ng.material.IThemingProvider) => {
-            IThemingProvider.theme('default').primaryPalette('light-green', { 'default': '700' }).accentPalette('purple');
-            IThemingProvider.theme('blue').primaryPalette('blue', { 'default': '800' }).accentPalette('deep-orange');
-            IThemingProvider.theme('red').primaryPalette('red', { 'default': '700' }).accentPalette('blue');
-            IThemingProvider.theme('yellow').primaryPalette('yellow').accentPalette('indigo');
-            IThemingProvider.alwaysWatchTheme(true);
-        }]);
+        // AngularJS Materialのテーマの設定
+
+        this.getModule().config([
+            "$mdThemingProvider",
+            $mdThemingProvider => {
+                $mdThemingProvider.theme("DrawUITheme");
+            },
+        ]);
+
+        this.getModule().config([
+            "$mdThemingProvider",
+            (IThemingProvider: ng.material.IThemingProvider) => {
+                IThemingProvider.theme("default")
+                    .primaryPalette("light-green", { default: "700" })
+                    .accentPalette("purple");
+                IThemingProvider.theme("blue")
+                    .primaryPalette("blue", { default: "800" })
+                    .accentPalette("deep-orange");
+                IThemingProvider.theme("red")
+                    .primaryPalette("red", { default: "700" })
+                    .accentPalette("blue");
+                IThemingProvider.theme("yellow")
+                    .primaryPalette("yellow")
+                    .accentPalette("indigo");
+                IThemingProvider.alwaysWatchTheme(true);
+            },
+        ]);
 
         registerQuill(this.getModule());
         registerErrSrc(this.getModule());
