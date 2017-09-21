@@ -47,7 +47,7 @@ export default class AppDrawingSetting extends ComponentBase {
     public cancel(): void {
         const thisComponent = this;
 
-     	// parentElementパラメーターをダイアログに渡す
+        // parentElementパラメーターをダイアログに渡す
         // const dialogOption = WsDrawingDialog.getDialogOptions($event);
 
         this.$mdDialog.cancel();
@@ -102,7 +102,11 @@ export default class AppDrawingSetting extends ComponentBase {
     private colorToolTop: number = 350;
     private colorToolRight: number = 0;
     private check = true;
-    public constructor(public drawService: DrawService, public window: ng.IWindowService, public $mdDialog: ng.material.IDialogService) {
+    public constructor(
+        public drawService: DrawService,
+        public window: ng.IWindowService,
+        public $mdDialog: ng.material.IDialogService,
+    ) {
         super();
         this.toolSetRight = window.innerWidth - 20;
         this.brushTooltRight = window.innerWidth - 80;
@@ -126,7 +130,7 @@ export default class AppDrawingSetting extends ComponentBase {
             return el !== Number(this.drawModel.fontSize);
         });
         this.fontSizeItems[0] = this.drawModel.fontSize;
-        
+
         this.hideTextTool();
     }
 
@@ -159,14 +163,14 @@ export default class AppDrawingSetting extends ComponentBase {
         switch (tool) {
             case 1:
                 // Show/hide tool panel when click button
-                this.showBrushToolClass = this.showBrushToolClass == "show" ? "" : "show";
+                this.showBrushToolClass = this.showBrushToolClass === "show" ? "" : "show";
                 this.showTextToolClass = "";
                 this.activeBrushToolClass = "active";
                 this.drawModel.setCurrentTool("line");
                 break;
             case 2:
                 // Show/hide tool panel when click button
-                this.showTextToolClass = this.showTextToolClass == "show" ? "" : "show"
+                this.showTextToolClass = this.showTextToolClass === "show" ? "" : "show";
                 this.showBrushToolClass = "";
                 this.activeTextToolClass = "active";
                 this.drawModel.setCurrentTool("text");
@@ -210,8 +214,8 @@ export default class AppDrawingSetting extends ComponentBase {
     private isDraggable: boolean = false;
 
     public activeBold() {
-        this.drawModel.isTextBold = this.drawModel.isTextBold ? false : true;
-        this.hideTextTool();
+        this.drawModel.isTextBold = !this.drawModel.isTextBold;
+        // this.hideTextTool();
     }
 
     public mobileGoBottom() {

@@ -12,7 +12,7 @@
       </div>
       <div class="tool" data-tooltip="文字ツール" data-placement="left" ng-click='settingCtrl.showTool(2)' ng-class="settingCtrl.activeTextToolClass">
         <!-- <ng-md-icon icon="text_fields" style="fill:dimgray" size="40"></ng-md-icon> -->
-        <div class="text-tool" md-colors="{background:'default-primary-700'}"></div>
+        <div ng-class="settingCtrl.drawModel.isTextBold ? 'text-bold-tool': 'text-tool'" md-colors="{background:'default-primary-700'}"></div>
       </div>
     </div>
   </div>
@@ -122,6 +122,7 @@
       <div class="option-row">
         <button type="button" class="text-bold-btn" id="bold-btn" name="button" ng-class="{bolded: settingCtrl.drawModel.isTextBold}" ng-click="settingCtrl.activeBold()">
           <ng-md-icon icon="format_bold" md-colors="{fill:'default-primary-700'}" size="40"></ng-md-icon>
+          <!-- <div class="format-bold" md-colors="{background:'default-primary-700'}"></div> -->
           <!--<b>あ</b>-->
         </button>
       </div>
