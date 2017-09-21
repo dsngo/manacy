@@ -1,11 +1,10 @@
 import * as angular from "angular";
-import { DrawModel } from "../../models/drawModel";
-import { TextModel, ITextModel } from "../../models/TextModel";
-import { BrushModel, IBrushModel } from "../../models/BrushModel";
-import { PathModel } from "../../models/pathModel";
-import { PointModel } from "../../models/pointModel";
-import DrawService from "../../services/drawService";
 import { BaseDrawModel, IBaseDrawModel } from "../../models/BaseDrawModel";
+import { BrushModel, IBrushModel } from "../../models/BrushModel";
+import { DrawModel } from "../../models/drawModel";
+import { PointModel } from "../../models/PointModel";
+import { ITextModel, TextModel } from "../../models/TextModel";
+import DrawService from "../../services/drawService";
 import ComponentBase from "../componentBase";
 
 export default class AppDrawing extends ComponentBase {
@@ -64,7 +63,7 @@ export default class AppDrawing extends ComponentBase {
 
         this.drawService.getCurrentBrushSubject().subscribe((newBrush: BrushModel) => {
             this.currentBrush = newBrush;
-        })
+        });
         // this.drawService.getPathsSubject().subscribe((newPaths: PathModel[]) => {
         //     this.drawingBranch = newPaths;
         // });
@@ -81,7 +80,6 @@ export default class AppDrawing extends ComponentBase {
             }
         });
     }
-    
 
     public mouseDown(event) {
         // Event handler for Left-click
@@ -95,7 +93,6 @@ export default class AppDrawing extends ComponentBase {
     }
 
     public mouseMove(event) {
-        
         const rect = event.currentTarget.getBoundingClientRect();
         const pointX = event.x - rect.left;
         const pointY = event.y - rect.top;
@@ -143,7 +140,7 @@ export default class AppDrawing extends ComponentBase {
         this.textBoxSetTop = y;
         this.isTextDrawing = true;
         if (this.isTextDrawing && this.textValue !== text) {
-            this.drawService.drawText({x, y}, this.drawModel, this.textValue);
+            this.drawService.drawText({ x, y }, this.drawModel, this.textValue);
             this.isTextDrawing = false;
             this.textRows = 1;
             this.textCol = 20;

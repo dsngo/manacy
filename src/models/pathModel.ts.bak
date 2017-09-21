@@ -1,6 +1,6 @@
 import Models from "./models";
-import { PointModel } from "./pointModel";
-import { TextModel, ITextModel } from "./TextModel";
+import { PointModel } from "./PointModel";
+import { ITextModel, TextModel } from "./TextModel";
 export class PathModel {
     constructor(
         public pathId: number = 0,

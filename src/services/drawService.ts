@@ -5,8 +5,7 @@ import uuidv4 from "../common/uuid";
 import { BrushModel, IBrushModel } from "../models/BrushModel";
 import { DrawModel } from "../models/drawModel";
 import Models from "../models/models";
-import { PathModel } from "../models/pathModel";
-import { PointModel } from "../models/pointModel";
+import { PointModel } from "../models/PointModel";
 import { ITextModel, TextModel } from "../models/TextModel";
 import { catmullRom2bezier } from "./catmullRom2bezier";
 import { simplify } from "./drawSimplify";
@@ -48,7 +47,6 @@ export default class DrawService extends ServiceBase {
         this.drawingBrush = [];
         this.textsSubject.next([]);
         this.brushSubject.next([]);
-
     }
     // public getPathsSubject(): Subject<PathModel[]> {
     //     return this.pathsSubject;
@@ -177,22 +175,22 @@ export default class DrawService extends ServiceBase {
         return this.svgImage;
     }
 
-    public drawText(point: PointModel, drawModel: DrawModel, textValue: string) {
-        const iSetting: ITextModel = {
+    public drawText(points: PointModel, drawModel: DrawModel, textValue: string) {
+        const textSettings: ITextModel = {
             textId: Date.now(),
             fontSize: drawModel.fontSize,
             textValue: textValue.split("\n"),
             isBold: drawModel.isTextBold,
             currentTool: "text",
             color: drawModel.color,
-            positionX: point.x,
-            positionY: point.y,
+            positionX: points.x,
+            positionY: points.y,
         };
-        const text: TextModel = new TextModel(iSetting);
-        this.addText(text);
+        const newTexts: TextModel = new TextModel(textSettings);
+        this.addText(newTexts);
         // this.cleanUndoPath();
-        const element = this.makeSVGElement(text);
-        this.createSVGElement(element);
+        const newElements = this.makeSVGElement(newTexts);
+        this.createSVGElement(newElements);
         // const path: PathModel = new PathModel();
         // path.pathId = Date.now();
         // path.textPoint = point;
@@ -276,8 +274,6 @@ export default class DrawService extends ServiceBase {
             fill: this.drawModel.color,
             currentTool: "line",
             color: this.drawModel.color,
-            positionX: 1,
-            positionY: 1,
         };
         const brush: BrushModel = new BrushModel(iSetting);
         const element = this.makeSVGElement(brush);
@@ -317,8 +313,6 @@ export default class DrawService extends ServiceBase {
             fill: this.drawModel.color,
             currentTool: "line",
             color: this.drawModel.color,
-            positionX: 1,
-            positionY: 1,
         };
         const brush: BrushModel = new BrushModel(settings);
         return brush;
@@ -363,16 +357,12 @@ export default class DrawService extends ServiceBase {
         let attribute = `M${points[0].x}, ${points[0].y}`;
         for (let i = 0; i < cubics.length; i++) {
             if (i === cubics.length - 1) {
-                attribute += `M${cubics[i][0]},${cubics[i][1]}, ${cubics[i][2]},${cubics[i][3]} ${cubics[
-                    i
-                ][4]},${cubics[i][5]} `;
+                attribute += `M${cubics[i][0]},${cubics[i][1]}, ${cubics[i][2]},${cubics[i][3]} ${cubics[i][4]},${cubics[i][5]}`;
             } else {
-                attribute += `C${cubics[i][0]},${cubics[i][1]}, ${cubics[i][2]},${cubics[i][3]} ${cubics[
-                    i
-                ][4]},${cubics[i][5]}`;
+                attribute += `C${cubics[i][0]},${cubics[i][1]}, ${cubics[i][2]},${cubics[i][3]} ${cubics[i][4]},${cubics[i][5]}`;
             }
         }
-        const settings: IBrushModel = {
+        const brushSettings: IBrushModel = {
             brushId: Date.now(),
             points: attribute,
             stroke: this.drawModel.color,
@@ -380,10 +370,8 @@ export default class DrawService extends ServiceBase {
             fill: this.drawModel.color,
             currentTool: "line",
             color: this.drawModel.color,
-            positionX: 1,
-            positionY: 1,
         };
-        const brush: BrushModel = new BrushModel(settings);
+        const brush: BrushModel = new BrushModel(brushSettings);
         return brush;
     }
 
@@ -525,9 +513,6 @@ export default class DrawService extends ServiceBase {
                     // this.cleanUndoPath();
                 }
                 this.svgImage = svgImg;
-                console.log(this.svgImage.elements);
-
-                // this.pathsSubject.next(this.drawingPath);
                 this.textsSubject.next(this.drawingText);
                 this.brushSubject.next(this.drawingBrush);
             })
@@ -546,8 +531,6 @@ export default class DrawService extends ServiceBase {
                 fill: element.stroke,
                 currentTool: "line",
                 color: element.color || element.stroke,
-                positionX: element.positionX || 1,
-                positionY: element.positionY || 1,
             };
             const brush = new BrushModel(setting);
             tempBrush.push(brush);

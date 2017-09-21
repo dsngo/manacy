@@ -1,4 +1,4 @@
-import { PointModel } from "../Models/pointModel";
+import { PointModel } from "../Models/PointModel";
 
 export function catmullRom2bezier(points: PointModel[]) {
     const cubics = [];

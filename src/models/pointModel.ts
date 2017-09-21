@@ -1,3 +1,3 @@
 export class PointModel {
-  constructor(public x: number = 1, public y: number = 1) {}
+  constructor(public x = 1, public y = 1) {}
 }

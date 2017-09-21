@@ -1,7 +1,6 @@
 import * as angular from "angular";
 import { DrawModel } from "../../models/drawModel";
 import Models from "../../models/models";
-import { PathModel } from "../../models/pathModel";
 import DrawService from "../../Services/drawService";
 import ComponentBase from "../componentBase";
 
@@ -26,7 +25,6 @@ export default class AppDrawingPaint extends ComponentBase {
     public constructor(private drawService: DrawService, private window: ng.IWindowService) {
         super();
         if (this.svgImgId === "") {
-            this.drawService.clearDrawingPaths();
             this.drawService.createSVGImage(this.window.innerWidth, this.window.innerHeight);
         } else {
             this.drawService.loadSVGImage(this.svgImgId);

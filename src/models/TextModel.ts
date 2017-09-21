@@ -5,6 +5,8 @@ export interface ITextModel extends IBaseDrawModel {
     fontSize: number;
     textValue: string[];
     isBold: boolean;
+    positionX: number;
+    positionY: number;
 }
 
 export class TextModel extends BaseDrawModel {

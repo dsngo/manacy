@@ -1,5 +1,5 @@
 // tslint:disable
-import { PointModel } from "../Models/pointModel"
+import { PointModel } from "../Models/PointModel"
 
 // to suit your point format, run search/replace for '.x' and '.y';
 // for 3D version, see 3d branch (configurability would draw significant performance overhead)
