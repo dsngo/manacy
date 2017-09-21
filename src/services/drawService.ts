@@ -42,7 +42,7 @@ export default class DrawService extends ServiceBase {
     ) {
         super();
     }
-    public clearDrawingPaths() {
+    public cleanDrawingPaths() {
         this.drawingText = [];
         this.drawingBrush = [];
         this.textsSubject.next([]);
@@ -266,7 +266,7 @@ export default class DrawService extends ServiceBase {
         //     path = this.createPath(this.drawingPoints);
         // }
         // path.svgElementDto = this.makeSVGElement(path);
-        const iSetting: IBrushModel = {
+        const brushSettings: IBrushModel = {
             brushId: Date.now(),
             stroke: this.drawModel.color,
             strokeWidth: this.drawModel.stroke + "px",
@@ -275,7 +275,7 @@ export default class DrawService extends ServiceBase {
             currentTool: "line",
             color: this.drawModel.color,
         };
-        const brush: BrushModel = new BrushModel(iSetting);
+        const brush: BrushModel = new BrushModel(brushSettings);
         const element = this.makeSVGElement(brush);
         // this.cleanUndoPath();
         this.addBrush(brush);
@@ -383,6 +383,7 @@ export default class DrawService extends ServiceBase {
     public svgImage: Models.Dtos.SvgImageDto;
 
     public createSVGImage(svgWidth, svgHeight) {
+        this.cleanDrawingPaths();
         this.busy(true);
 
         this.svgImage = {
