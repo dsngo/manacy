@@ -2,12 +2,11 @@
     <!-- [TOOLS PANEL] -->
     <div class="mobile-main-panel-wrapper draggable">
       <div class="mobile-module">
-        <ng-md-icon icon="brush" style="fill:dimgray" size="32" ng-click="settingCtrl.showTool(1)"></ng-md-icon>
-        <ng-md-icon icon="text_fields" style="fill:dimgray" size="32" ng-click="settingCtrl.showTool(2)"></ng-md-icon>
-        <!--
-        <div class="mobile-brush-tool" ng-click='settingCtrl.showTool(1)' ng-class="settingCtrl.activeBrushToolClass"></div>
-        <div class="mobile-text-tool" ng-click='settingCtrl.showTool(2)' ng-class="settingCtrl.activeTextToolClass"></div>
-        -->
+        <!-- <ng-md-icon icon="brush" style="fill:dimgray" size="32" ng-click="settingCtrl.showTool(1)"></ng-md-icon>
+        <ng-md-icon icon="text_fields" style="fill:dimgray" size="32" ng-click="settingCtrl.showTool(2)"></ng-md-icon> -->
+        
+        <div class="mobile-brush-tool {{settingCtrl.activeBrushToolClass}}" ng-click='settingCtrl.showTool(1)'></div>
+        <div class="mobile-text-tool {{settingCtrl.activeTextToolClass}}" ng-click='settingCtrl.showTool(2)'></div>       
       </div>
       <div class="mobile-module mobile-color-tool-module" ng-click="settingCtrl.showColorToolClass = 'show'">
         <div class="mobile-color-swatch-trigger-btn" ng-style="{'background-color': settingCtrl.drawModel.color}"></div>
@@ -24,12 +23,12 @@
     </div>
 
     <!-- /[TOOLS PANEL] -->
-    <div class="mobile-wrapper" ng-class="settingCtrl.mobileBottom">
+    <div class="mobile-wrapper {{settingCtrl.mobileBottom}}">
       <!-- [TOOL-OPTION : BRUSH] -->
-      <div class="mobile-sub-panel-wrapper mobile-brush-tool-setting" ng-class="settingCtrl.showBrushToolClass">
+      <div class="mobile-sub-panel-wrapper mobile-brush-tool-setting {{settingCtrl.showBrushToolClass}}">
           <!-- [Brush option row : 1] -->
           <div class="mobile-brush-size-slide">
-            <div md-colors="{background:'default-primary-700'}" class="mobile-change-position-btn mobile-b1" ng-class="settingCtrl.mobileRotate" ng-click="settingCtrl.mobileGoBottom()">
+            <div md-colors="{background:'default-primary-700'}" class="mobile-change-position-btn mobile-b1 {{settingCtrl.mobileRotate}}" ng-click="settingCtrl.mobileGoBottom()">
               <img src="/app/images/triangle.png" class="mobile-img-fluid" alt="">
             </div>
             <div class="mobile-brush-slider mobile-b2">
@@ -72,9 +71,9 @@
       <!-- /[TOOL-OPTION : BRUSH] -->
 
       <!-- [TOOL-OPTION : TEXT] -->
-      <div class="mobile-sub-panel-wrapper draggable" ng-class="settingCtrl.showTextToolClass">
+      <div class="mobile-sub-panel-wrapper draggable {{settingCtrl.showTextToolClass}}">
           <div class="mobile-text-size-input">
-            <div md-colors="{background:'default-primary-700'}" class="mobile-change-position-btn" ng-class="settingCtrl.mobileRotate"  ng-click="settingCtrl.mobileGoBottom()">
+            <div md-colors="{background:'default-primary-700'}" class="mobile-change-position-btn {{settingCtrl.mobileRotate}}" ng-click="settingCtrl.mobileGoBottom()">
               <img src="/app/images/triangle.png" class="mobile-img-fluid" alt="">
             </div>
             <div class="mobile-text-input">
@@ -87,7 +86,7 @@
               <button type="button" class="mobile-text-size-btn mobile-minus" name="button" ng-click="settingCtrl.downFontSize()">-</button>
             </div>
             <div class="mobile-btn-text-bold-wrapper">
-              <button type="button" class="mobile-btn-text-bold" ng-class="{bolded: settingCtrl.drawModel.isTextBold, unBoled: !settingCtrl.drawModel.isTextBold }" ng-click="settingCtrl.activeBold()" name="button">
+              <button type="button" class="mobile-btn-text-bold {{settingCtrl.drawModel.isTextBold?'bolded':''}}" ng-click="settingCtrl.activeBold()" name="button">
                 <ng-md-icon icon="format_bold" style="fill:dimgray" size="32"></ng-md-icon>
                 <!--あ-->
               </button>

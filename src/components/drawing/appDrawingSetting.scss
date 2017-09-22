@@ -55,10 +55,10 @@
 
     &:active {
         background-color: $main-accent-Color;
-        .undo-btn {
-            background-color: dimgrey !important;
+        ng-md-icon {
+            fill: dimgrey !important;
         }
-        .redo-btn {
+        .undo-btn, .redo-btn {
             background-color: dimgrey !important;
         }
     }
@@ -162,7 +162,9 @@
         background-color: $main-accent-Color;
     }
     &.active {
-        .brush-tool, .text-tool, .text-bold-tool {
+        .brush-tool,
+        .text-tool,
+        .text-bold-tool {
             background-color: dimgrey !important;
         }
     }
@@ -177,13 +179,13 @@
         width: 100%;
         height: 100%;
         @include colored-icon("/app/images/icons/drawingapp/text-material.svg");
-        transition: all .5s ease-in-out;
+        transition: all 0.5s ease-in-out;
     }
     .text-bold-tool {
         width: 100%;
         height: 100%;
         @include colored-icon("/app/images/icons/drawingapp/text-bold-material.svg");
-        transition: all .5s ease-in-out;
+        transition: all 0.5s ease-in-out;
     }
 }
 
@@ -462,28 +464,27 @@
     border-radius: $border-radius;
     height: 50px;
     width: 50px;
-    padding: 5px 0 0 0;
-    color: $text-color;
-    font-size: 20px;
-    //padding: 0;
+    // padding: 5px 0 0 0;
+    // @include colored-icon('/app/images/icons/drawingapp/text-bold-material.svg');
+    // color: $text-color;
+    // font-size: 20px;
+    // padding: 0;
 
     &:hover {
         border: 1px solid $main-accent-Color;
         background-color: $main-accent-Color;
     }
 
-    &:active {
+    &.active {
         background-color: $main-accent-Color;
-        color: white;
+        .format-bold {
+            background-color: dimgrey !important;
+        }
     }
-}
-
-.format-bold {
-    z-index: 99;
-    position: absolute;
-    @include colored-icon("/app/images/icons/drawingapp/text-bold-material.svg");
-    &:active {
-        background-color: dimgrey !important;
+    .format-bold {
+        height: 100%;
+        width: 100%;
+        @include colored-icon("/app/images/icons/drawingapp/text-bold-material.svg");
     }
 }
 
@@ -543,7 +544,6 @@
         justify-content: center;
         flex-flow: row wrap;
         padding: 10px 15px;
-
         .swatch {
             height: 40px;
             width: 40px;
