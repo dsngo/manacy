@@ -144,6 +144,10 @@ export default class AppDrawingSetting extends ComponentBase {
         this.showColorToolClass = "";
     }
 
+    protected toggleColorTool() {
+        this.showColorToolClass = this.showColorToolClass === "" ? "show" : "";
+    }
+
     protected undo() {
         this.drawService.undoPath();
     }
