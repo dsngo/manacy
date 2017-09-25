@@ -1,0 +1,690 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\Common7\\IDE\\Extensions\\Microsoft\\Web Tools\\External\\\\node\\node',
+1 verbose cli   'C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\Common7\\IDE\\Extensions\\Microsoft\\Web Tools\\External\\npm\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install' ]
+2 info using npm@1.4.9
+3 info using node@v0.10.31
+4 verbose node symlink C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\Extensions\Microsoft\Web Tools\External\\node\node
+5 verbose readDependencies using package.json deps
+6 verbose install where, deps [ 'D:\\WebDev\\draw_v1.1_3008\\Anzas.Manacy.Web.Client',
+6 verbose install   [ 'angular',
+6 verbose install     'angular-animate',
+6 verbose install     'angular-aria',
+6 verbose install     'angular-carousel',
+6 verbose install     'angular-drag-and-drop-lists',
+6 verbose install     'angular-material',
+6 verbose install     'angular-messages',
+6 verbose install     'angular-sanitize',
+6 verbose install     'angular-touch',
+6 verbose install     'angular-ui-router',
+6 verbose install     'lodash',
+6 verbose install     'ng-file-upload',
+6 verbose install     'ng-quill',
+6 verbose install     'quill-image-resize-module',
+6 verbose install     'restangular',
+6 verbose install     'rxjs',
+6 verbose install     'v-accordion',
+6 verbose install     'videogular',
+6 verbose install     '@types/angular',
+6 verbose install     '@types/angular-animate',
+6 verbose install     '@types/angular-material',
+6 verbose install     '@types/lodash',
+6 verbose install     '@types/ng-file-upload',
+6 verbose install     '@types/quill',
+6 verbose install     '@types/restangular',
+6 verbose install     'autoprefixer',
+6 verbose install     'copy-webpack-plugin',
+6 verbose install     'css-loader',
+6 verbose install     'cssnano',
+6 verbose install     'extract-text-webpack-plugin',
+6 verbose install     'import-glob-loader',
+6 verbose install     'node-sass',
+6 verbose install     'optimize-css-assets-webpack-plugin',
+6 verbose install     'sass-loader',
+6 verbose install     'style-loader',
+6 verbose install     'ts-loader',
+6 verbose install     'tslint',
+6 verbose install     'typescript',
+6 verbose install     'webpack',
+6 verbose install     'webpack-node-externals' ] ]
+7 info preinstall material-start@1.0.0
+8 warn package.json copy-webpack-plugin@4.0.1 No README data
+9 warn package.json estraverse@4.2.0 No README data
+10 warn package.json setimmediate@1.0.5 No README data
+11 warn package.json string_decoder@0.10.31 string_decoder is also the name of a node core module.
+12 warn package.json util@0.10.3 util is also the name of a node core module.
+13 warn package.json events@1.1.1 events is also the name of a node core module.
+14 warn package.json querystring@0.2.0 querystring is also the name of a node core module.
+15 warn package.json indexof@0.0.1 No repository field.
+16 warn package.json bcrypt-pbkdf@1.0.1 No repository field.
+17 warn package.json assert@1.4.1 assert is also the name of a node core module.
+18 warn package.json url@0.11.0 url is also the name of a node core module.
+19 warn package.json buffer@4.9.1 buffer is also the name of a node core module.
+20 warn package.json punycode@1.4.1 punycode is also the name of a node core module.
+21 verbose readDependencies using package.json deps
+22 verbose already installed skipping optimize-css-assets-webpack-plugin@^3.1.1 D:\WebDev\draw_v1.1_3008\Anzas.Manacy.Web.Client
+23 verbose already installed skipping sass-loader@^6.0.5 D:\WebDev\draw_v1.1_3008\Anzas.Manacy.Web.Client
+24 verbose already installed skipping style-loader@^0.18.1 D:\WebDev\draw_v1.1_3008\Anzas.Manacy.Web.Client
+25 verbose already installed skipping ts-loader@^2.1.0 D:\WebDev\draw_v1.1_3008\Anzas.Manacy.Web.Client
+26 verbose already installed skipping tslint@^5.7.0 D:\WebDev\draw_v1.1_3008\Anzas.Manacy.Web.Client
+27 verbose already installed skipping typescript@2.5.2 D:\WebDev\draw_v1.1_3008\Anzas.Manacy.Web.Client
+28 verbose already installed skipping webpack@^3.5.5 D:\WebDev\draw_v1.1_3008\Anzas.Manacy.Web.Client
+29 verbose already installed skipping webpack-node-externals@^1.5.4 D:\WebDev\draw_v1.1_3008\Anzas.Manacy.Web.Client
+30 verbose already installed skipping angular@1.5.x D:\WebDev\draw_v1.1_3008\Anzas.Manacy.Web.Client
+31 verbose already installed skipping angular-animate@1.5.x D:\WebDev\draw_v1.1_3008\Anzas.Manacy.Web.Client
+32 verbose already installed skipping angular-aria@1.5.x D:\WebDev\draw_v1.1_3008\Anzas.Manacy.Web.Client
+33 verbose already installed skipping angular-carousel@^1.0.2 D:\WebDev\draw_v1.1_3008\Anzas.Manacy.Web.Client
+34 verbose already installed skipping angular-drag-and-drop-lists@^2.1.0 D:\WebDev\draw_v1.1_3008\Anzas.Manacy.Web.Client
+35 verbose already installed skipping angular-material@^1.1.3 D:\WebDev\draw_v1.1_3008\Anzas.Manacy.Web.Client
+36 verbose already installed skipping angular-messages@1.5.x D:\WebDev\draw_v1.1_3008\Anzas.Manacy.Web.Client
+37 verbose already installed skipping angular-sanitize@1.5.x D:\WebDev\draw_v1.1_3008\Anzas.Manacy.Web.Client
+38 verbose already installed skipping angular-touch@^1.5.11 D:\WebDev\draw_v1.1_3008\Anzas.Manacy.Web.Client
+39 verbose already installed skipping angular-ui-router@^1.0.0-rc.1 D:\WebDev\draw_v1.1_3008\Anzas.Manacy.Web.Client
+40 verbose already installed skipping lodash@^4.17.0 D:\WebDev\draw_v1.1_3008\Anzas.Manacy.Web.Client
+41 verbose already installed skipping ng-file-upload@^12.2.13 D:\WebDev\draw_v1.1_3008\Anzas.Manacy.Web.Client
+42 verbose already installed skipping ng-quill@^3.2.1 D:\WebDev\draw_v1.1_3008\Anzas.Manacy.Web.Client
+43 verbose already installed skipping quill-image-resize-module@^3.0.0 D:\WebDev\draw_v1.1_3008\Anzas.Manacy.Web.Client
+44 verbose already installed skipping restangular@^1.6.1 D:\WebDev\draw_v1.1_3008\Anzas.Manacy.Web.Client
+45 verbose already installed skipping rxjs@^5.4.3 D:\WebDev\draw_v1.1_3008\Anzas.Manacy.Web.Client
+46 verbose already installed skipping v-accordion@^1.6.0 D:\WebDev\draw_v1.1_3008\Anzas.Manacy.Web.Client
+47 verbose already installed skipping videogular@^2.2.1 D:\WebDev\draw_v1.1_3008\Anzas.Manacy.Web.Client
+48 verbose cache add [ '@types/angular@1.5.x', null ]
+49 verbose cache add name=undefined spec="@types/angular@1.5.x" args=["@types/angular@1.5.x",null]
+50 verbose parsed url { protocol: null,
+50 verbose parsed url   slashes: null,
+50 verbose parsed url   auth: null,
+50 verbose parsed url   host: null,
+50 verbose parsed url   port: null,
+50 verbose parsed url   hostname: null,
+50 verbose parsed url   hash: null,
+50 verbose parsed url   search: null,
+50 verbose parsed url   query: null,
+50 verbose parsed url   pathname: '@types/angular@1.5.x',
+50 verbose parsed url   path: '@types/angular@1.5.x',
+50 verbose parsed url   href: '@types/angular@1.5.x' }
+51 verbose cache add [ '@types/angular-animate@1.5.x', null ]
+52 verbose cache add name=undefined spec="@types/angular-animate@1.5.x" args=["@types/angular-animate@1.5.x",null]
+53 verbose parsed url { protocol: null,
+53 verbose parsed url   slashes: null,
+53 verbose parsed url   auth: null,
+53 verbose parsed url   host: null,
+53 verbose parsed url   port: null,
+53 verbose parsed url   hostname: null,
+53 verbose parsed url   hash: null,
+53 verbose parsed url   search: null,
+53 verbose parsed url   query: null,
+53 verbose parsed url   pathname: '@types/angular-animate@1.5.x',
+53 verbose parsed url   path: '@types/angular-animate@1.5.x',
+53 verbose parsed url   href: '@types/angular-animate@1.5.x' }
+54 verbose cache add [ '@types/angular-material@^1.1.3', null ]
+55 verbose cache add name=undefined spec="@types/angular-material@^1.1.3" args=["@types/angular-material@^1.1.3",null]
+56 verbose parsed url { protocol: null,
+56 verbose parsed url   slashes: null,
+56 verbose parsed url   auth: null,
+56 verbose parsed url   host: null,
+56 verbose parsed url   port: null,
+56 verbose parsed url   hostname: null,
+56 verbose parsed url   hash: null,
+56 verbose parsed url   search: null,
+56 verbose parsed url   query: null,
+56 verbose parsed url   pathname: '@types/angular-material@^1.1.3',
+56 verbose parsed url   path: '@types/angular-material@^1.1.3',
+56 verbose parsed url   href: '@types/angular-material@^1.1.3' }
+57 verbose cache add [ '@types/lodash@^4.14.55', null ]
+58 verbose cache add name=undefined spec="@types/lodash@^4.14.55" args=["@types/lodash@^4.14.55",null]
+59 verbose parsed url { protocol: null,
+59 verbose parsed url   slashes: null,
+59 verbose parsed url   auth: null,
+59 verbose parsed url   host: null,
+59 verbose parsed url   port: null,
+59 verbose parsed url   hostname: null,
+59 verbose parsed url   hash: null,
+59 verbose parsed url   search: null,
+59 verbose parsed url   query: null,
+59 verbose parsed url   pathname: '@types/lodash@^4.14.55',
+59 verbose parsed url   path: '@types/lodash@^4.14.55',
+59 verbose parsed url   href: '@types/lodash@^4.14.55' }
+60 verbose cache add [ '@types/ng-file-upload@^12.2.1', null ]
+61 verbose cache add name=undefined spec="@types/ng-file-upload@^12.2.1" args=["@types/ng-file-upload@^12.2.1",null]
+62 verbose parsed url { protocol: null,
+62 verbose parsed url   slashes: null,
+62 verbose parsed url   auth: null,
+62 verbose parsed url   host: null,
+62 verbose parsed url   port: null,
+62 verbose parsed url   hostname: null,
+62 verbose parsed url   hash: null,
+62 verbose parsed url   search: null,
+62 verbose parsed url   query: null,
+62 verbose parsed url   pathname: '@types/ng-file-upload@^12.2.1',
+62 verbose parsed url   path: '@types/ng-file-upload@^12.2.1',
+62 verbose parsed url   href: '@types/ng-file-upload@^12.2.1' }
+63 verbose cache add [ '@types/quill@0.0.30', null ]
+64 verbose cache add name=undefined spec="@types/quill@0.0.30" args=["@types/quill@0.0.30",null]
+65 verbose parsed url { protocol: null,
+65 verbose parsed url   slashes: null,
+65 verbose parsed url   auth: null,
+65 verbose parsed url   host: null,
+65 verbose parsed url   port: null,
+65 verbose parsed url   hostname: null,
+65 verbose parsed url   hash: null,
+65 verbose parsed url   search: null,
+65 verbose parsed url   query: null,
+65 verbose parsed url   pathname: '@types/quill@0.0.30',
+65 verbose parsed url   path: '@types/quill@0.0.30',
+65 verbose parsed url   href: '@types/quill@0.0.30' }
+66 verbose cache add name="" spec="types/angular@1.5.x" args=["","types/angular@1.5.x"]
+67 verbose parsed url { protocol: null,
+67 verbose parsed url   slashes: null,
+67 verbose parsed url   auth: null,
+67 verbose parsed url   host: null,
+67 verbose parsed url   port: null,
+67 verbose parsed url   hostname: null,
+67 verbose parsed url   hash: null,
+67 verbose parsed url   search: null,
+67 verbose parsed url   query: null,
+67 verbose parsed url   pathname: 'types/angular@1.5.x',
+67 verbose parsed url   path: 'types/angular@1.5.x',
+67 verbose parsed url   href: 'types/angular@1.5.x' }
+68 verbose cache add name="" spec="types/angular-animate@1.5.x" args=["","types/angular-animate@1.5.x"]
+69 verbose parsed url { protocol: null,
+69 verbose parsed url   slashes: null,
+69 verbose parsed url   auth: null,
+69 verbose parsed url   host: null,
+69 verbose parsed url   port: null,
+69 verbose parsed url   hostname: null,
+69 verbose parsed url   hash: null,
+69 verbose parsed url   search: null,
+69 verbose parsed url   query: null,
+69 verbose parsed url   pathname: 'types/angular-animate@1.5.x',
+69 verbose parsed url   path: 'types/angular-animate@1.5.x',
+69 verbose parsed url   href: 'types/angular-animate@1.5.x' }
+70 verbose cache add name="" spec="types/angular-material@^1.1.3" args=["","types/angular-material@^1.1.3"]
+71 verbose parsed url { protocol: null,
+71 verbose parsed url   slashes: null,
+71 verbose parsed url   auth: null,
+71 verbose parsed url   host: null,
+71 verbose parsed url   port: null,
+71 verbose parsed url   hostname: null,
+71 verbose parsed url   hash: null,
+71 verbose parsed url   search: null,
+71 verbose parsed url   query: null,
+71 verbose parsed url   pathname: 'types/angular-material@^1.1.3',
+71 verbose parsed url   path: 'types/angular-material@^1.1.3',
+71 verbose parsed url   href: 'types/angular-material@^1.1.3' }
+72 verbose cache add name="" spec="types/lodash@^4.14.55" args=["","types/lodash@^4.14.55"]
+73 verbose parsed url { protocol: null,
+73 verbose parsed url   slashes: null,
+73 verbose parsed url   auth: null,
+73 verbose parsed url   host: null,
+73 verbose parsed url   port: null,
+73 verbose parsed url   hostname: null,
+73 verbose parsed url   hash: null,
+73 verbose parsed url   search: null,
+73 verbose parsed url   query: null,
+73 verbose parsed url   pathname: 'types/lodash@^4.14.55',
+73 verbose parsed url   path: 'types/lodash@^4.14.55',
+73 verbose parsed url   href: 'types/lodash@^4.14.55' }
+74 verbose cache add name="" spec="types/ng-file-upload@^12.2.1" args=["","types/ng-file-upload@^12.2.1"]
+75 verbose parsed url { protocol: null,
+75 verbose parsed url   slashes: null,
+75 verbose parsed url   auth: null,
+75 verbose parsed url   host: null,
+75 verbose parsed url   port: null,
+75 verbose parsed url   hostname: null,
+75 verbose parsed url   hash: null,
+75 verbose parsed url   search: null,
+75 verbose parsed url   query: null,
+75 verbose parsed url   pathname: 'types/ng-file-upload@^12.2.1',
+75 verbose parsed url   path: 'types/ng-file-upload@^12.2.1',
+75 verbose parsed url   href: 'types/ng-file-upload@^12.2.1' }
+76 verbose cache add name="" spec="types/quill@0.0.30" args=["","types/quill@0.0.30"]
+77 verbose parsed url { protocol: null,
+77 verbose parsed url   slashes: null,
+77 verbose parsed url   auth: null,
+77 verbose parsed url   host: null,
+77 verbose parsed url   port: null,
+77 verbose parsed url   hostname: null,
+77 verbose parsed url   hash: null,
+77 verbose parsed url   search: null,
+77 verbose parsed url   query: null,
+77 verbose parsed url   pathname: 'types/quill@0.0.30',
+77 verbose parsed url   path: 'types/quill@0.0.30',
+77 verbose parsed url   href: 'types/quill@0.0.30' }
+78 verbose cache add name="types/angular" spec="1.5.x" args=["types/angular","1.5.x"]
+79 verbose parsed url { protocol: null,
+79 verbose parsed url   slashes: null,
+79 verbose parsed url   auth: null,
+79 verbose parsed url   host: null,
+79 verbose parsed url   port: null,
+79 verbose parsed url   hostname: null,
+79 verbose parsed url   hash: null,
+79 verbose parsed url   search: null,
+79 verbose parsed url   query: null,
+79 verbose parsed url   pathname: '1.5.x',
+79 verbose parsed url   path: '1.5.x',
+79 verbose parsed url   href: '1.5.x' }
+80 verbose addNamed [ 'types/angular', '1.5.x' ]
+81 verbose addNamed [ null, '>=1.5.0-0 <1.6.0-0' ]
+82 verbose cache add name="types/angular-animate" spec="1.5.x" args=["types/angular-animate","1.5.x"]
+83 verbose parsed url { protocol: null,
+83 verbose parsed url   slashes: null,
+83 verbose parsed url   auth: null,
+83 verbose parsed url   host: null,
+83 verbose parsed url   port: null,
+83 verbose parsed url   hostname: null,
+83 verbose parsed url   hash: null,
+83 verbose parsed url   search: null,
+83 verbose parsed url   query: null,
+83 verbose parsed url   pathname: '1.5.x',
+83 verbose parsed url   path: '1.5.x',
+83 verbose parsed url   href: '1.5.x' }
+84 verbose addNamed [ 'types/angular-animate', '1.5.x' ]
+85 verbose addNamed [ null, '>=1.5.0-0 <1.6.0-0' ]
+86 verbose cache add name="types/angular-material" spec="^1.1.3" args=["types/angular-material","^1.1.3"]
+87 verbose parsed url { protocol: null,
+87 verbose parsed url   slashes: null,
+87 verbose parsed url   auth: null,
+87 verbose parsed url   host: null,
+87 verbose parsed url   port: null,
+87 verbose parsed url   hostname: null,
+87 verbose parsed url   hash: null,
+87 verbose parsed url   search: null,
+87 verbose parsed url   query: null,
+87 verbose parsed url   pathname: '^1.1.3',
+87 verbose parsed url   path: '^1.1.3',
+87 verbose parsed url   href: '^1.1.3' }
+88 verbose addNamed [ 'types/angular-material', '^1.1.3' ]
+89 verbose addNamed [ null, '>=1.1.3-0 <2.0.0-0' ]
+90 verbose cache add name="types/lodash" spec="^4.14.55" args=["types/lodash","^4.14.55"]
+91 verbose parsed url { protocol: null,
+91 verbose parsed url   slashes: null,
+91 verbose parsed url   auth: null,
+91 verbose parsed url   host: null,
+91 verbose parsed url   port: null,
+91 verbose parsed url   hostname: null,
+91 verbose parsed url   hash: null,
+91 verbose parsed url   search: null,
+91 verbose parsed url   query: null,
+91 verbose parsed url   pathname: '^4.14.55',
+91 verbose parsed url   path: '^4.14.55',
+91 verbose parsed url   href: '^4.14.55' }
+92 verbose addNamed [ 'types/lodash', '^4.14.55' ]
+93 verbose addNamed [ null, '>=4.14.55-0 <5.0.0-0' ]
+94 verbose cache add name="types/ng-file-upload" spec="^12.2.1" args=["types/ng-file-upload","^12.2.1"]
+95 verbose parsed url { protocol: null,
+95 verbose parsed url   slashes: null,
+95 verbose parsed url   auth: null,
+95 verbose parsed url   host: null,
+95 verbose parsed url   port: null,
+95 verbose parsed url   hostname: null,
+95 verbose parsed url   hash: null,
+95 verbose parsed url   search: null,
+95 verbose parsed url   query: null,
+95 verbose parsed url   pathname: '^12.2.1',
+95 verbose parsed url   path: '^12.2.1',
+95 verbose parsed url   href: '^12.2.1' }
+96 verbose addNamed [ 'types/ng-file-upload', '^12.2.1' ]
+97 verbose addNamed [ null, '>=12.2.1-0 <13.0.0-0' ]
+98 verbose cache add name="types/quill" spec="0.0.30" args=["types/quill","0.0.30"]
+99 verbose parsed url { protocol: null,
+99 verbose parsed url   slashes: null,
+99 verbose parsed url   auth: null,
+99 verbose parsed url   host: null,
+99 verbose parsed url   port: null,
+99 verbose parsed url   hostname: null,
+99 verbose parsed url   hash: null,
+99 verbose parsed url   search: null,
+99 verbose parsed url   query: null,
+99 verbose parsed url   pathname: '0.0.30',
+99 verbose parsed url   path: '0.0.30',
+99 verbose parsed url   href: '0.0.30' }
+100 verbose addNamed [ 'types/quill', '0.0.30' ]
+101 verbose addNamed [ '0.0.30', '0.0.30' ]
+102 silly lockFile 04302451-types-angular-1-5-x types/angular@1.5.x
+103 verbose lock types/angular@1.5.x C:\Users\Rhaps\AppData\Roaming\npm-cache\04302451-types-angular-1-5-x.lock
+104 silly lockFile 7dea5d89-types-angular-animate-1-5-x types/angular-animate@1.5.x
+105 verbose lock types/angular-animate@1.5.x C:\Users\Rhaps\AppData\Roaming\npm-cache\7dea5d89-types-angular-animate-1-5-x.lock
+106 silly lockFile 94fdd679-types-angular-material-1-1-3 types/angular-material@^1.1.3
+107 verbose lock types/angular-material@^1.1.3 C:\Users\Rhaps\AppData\Roaming\npm-cache\94fdd679-types-angular-material-1-1-3.lock
+108 silly lockFile a50ae15b-types-lodash-4-14-55 types/lodash@^4.14.55
+109 verbose lock types/lodash@^4.14.55 C:\Users\Rhaps\AppData\Roaming\npm-cache\a50ae15b-types-lodash-4-14-55.lock
+110 silly lockFile 0123a64f-types-ng-file-upload-12-2-1 types/ng-file-upload@^12.2.1
+111 verbose lock types/ng-file-upload@^12.2.1 C:\Users\Rhaps\AppData\Roaming\npm-cache\0123a64f-types-ng-file-upload-12-2-1.lock
+112 silly lockFile 78bc1613-types-quill-0-0-30 types/quill@0.0.30
+113 verbose lock types/quill@0.0.30 C:\Users\Rhaps\AppData\Roaming\npm-cache\78bc1613-types-quill-0-0-30.lock
+114 silly addNameRange { name: 'types/angular',
+114 silly addNameRange   range: '>=1.5.0-0 <1.6.0-0',
+114 silly addNameRange   hasData: false }
+115 silly addNameRange { name: 'types/angular-material',
+115 silly addNameRange   range: '>=1.1.3-0 <2.0.0-0',
+115 silly addNameRange   hasData: false }
+116 verbose cache add [ '@types/restangular@^1.5.34', null ]
+117 verbose cache add name=undefined spec="@types/restangular@^1.5.34" args=["@types/restangular@^1.5.34",null]
+118 verbose parsed url { protocol: null,
+118 verbose parsed url   slashes: null,
+118 verbose parsed url   auth: null,
+118 verbose parsed url   host: null,
+118 verbose parsed url   port: null,
+118 verbose parsed url   hostname: null,
+118 verbose parsed url   hash: null,
+118 verbose parsed url   search: null,
+118 verbose parsed url   query: null,
+118 verbose parsed url   pathname: '@types/restangular@^1.5.34',
+118 verbose parsed url   path: '@types/restangular@^1.5.34',
+118 verbose parsed url   href: '@types/restangular@^1.5.34' }
+119 verbose cache add [ 'autoprefixer@^7.1.1', null ]
+120 verbose cache add name=undefined spec="autoprefixer@^7.1.1" args=["autoprefixer@^7.1.1",null]
+121 verbose parsed url { protocol: null,
+121 verbose parsed url   slashes: null,
+121 verbose parsed url   auth: null,
+121 verbose parsed url   host: null,
+121 verbose parsed url   port: null,
+121 verbose parsed url   hostname: null,
+121 verbose parsed url   hash: null,
+121 verbose parsed url   search: null,
+121 verbose parsed url   query: null,
+121 verbose parsed url   pathname: 'autoprefixer@^7.1.1',
+121 verbose parsed url   path: 'autoprefixer@^7.1.1',
+121 verbose parsed url   href: 'autoprefixer@^7.1.1' }
+122 verbose cache add name="autoprefixer" spec="^7.1.1" args=["autoprefixer","^7.1.1"]
+123 verbose parsed url { protocol: null,
+123 verbose parsed url   slashes: null,
+123 verbose parsed url   auth: null,
+123 verbose parsed url   host: null,
+123 verbose parsed url   port: null,
+123 verbose parsed url   hostname: null,
+123 verbose parsed url   hash: null,
+123 verbose parsed url   search: null,
+123 verbose parsed url   query: null,
+123 verbose parsed url   pathname: '^7.1.1',
+123 verbose parsed url   path: '^7.1.1',
+123 verbose parsed url   href: '^7.1.1' }
+124 verbose addNamed [ 'autoprefixer', '^7.1.1' ]
+125 verbose addNamed [ null, '>=7.1.1-0 <8.0.0-0' ]
+126 silly lockFile 512f2c1d-autoprefixer-7-1-1 autoprefixer@^7.1.1
+127 verbose lock autoprefixer@^7.1.1 C:\Users\Rhaps\AppData\Roaming\npm-cache\512f2c1d-autoprefixer-7-1-1.lock
+128 verbose already installed skipping copy-webpack-plugin@^4.0.1 D:\WebDev\draw_v1.1_3008\Anzas.Manacy.Web.Client
+129 verbose already installed skipping css-loader@^0.28.7 D:\WebDev\draw_v1.1_3008\Anzas.Manacy.Web.Client
+130 verbose already installed skipping cssnano@^3.10.0 D:\WebDev\draw_v1.1_3008\Anzas.Manacy.Web.Client
+131 verbose already installed skipping extract-text-webpack-plugin@^3.0.0 D:\WebDev\draw_v1.1_3008\Anzas.Manacy.Web.Client
+132 verbose already installed skipping import-glob-loader@^1.1.0 D:\WebDev\draw_v1.1_3008\Anzas.Manacy.Web.Client
+133 verbose already installed skipping node-sass@^4.5.3 D:\WebDev\draw_v1.1_3008\Anzas.Manacy.Web.Client
+134 silly addNameRange { name: 'types/ng-file-upload',
+134 silly addNameRange   range: '>=12.2.1-0 <13.0.0-0',
+134 silly addNameRange   hasData: false }
+135 silly addNameRange { name: 'types/lodash',
+135 silly addNameRange   range: '>=4.14.55-0 <5.0.0-0',
+135 silly addNameRange   hasData: false }
+136 silly addNameRange { name: 'types/angular-animate',
+136 silly addNameRange   range: '>=1.5.0-0 <1.6.0-0',
+136 silly addNameRange   hasData: false }
+137 verbose cache add name="" spec="types/restangular@^1.5.34" args=["","types/restangular@^1.5.34"]
+138 verbose parsed url { protocol: null,
+138 verbose parsed url   slashes: null,
+138 verbose parsed url   auth: null,
+138 verbose parsed url   host: null,
+138 verbose parsed url   port: null,
+138 verbose parsed url   hostname: null,
+138 verbose parsed url   hash: null,
+138 verbose parsed url   search: null,
+138 verbose parsed url   query: null,
+138 verbose parsed url   pathname: 'types/restangular@^1.5.34',
+138 verbose parsed url   path: 'types/restangular@^1.5.34',
+138 verbose parsed url   href: 'types/restangular@^1.5.34' }
+139 verbose cache add name="types/restangular" spec="^1.5.34" args=["types/restangular","^1.5.34"]
+140 verbose parsed url { protocol: null,
+140 verbose parsed url   slashes: null,
+140 verbose parsed url   auth: null,
+140 verbose parsed url   host: null,
+140 verbose parsed url   port: null,
+140 verbose parsed url   hostname: null,
+140 verbose parsed url   hash: null,
+140 verbose parsed url   search: null,
+140 verbose parsed url   query: null,
+140 verbose parsed url   pathname: '^1.5.34',
+140 verbose parsed url   path: '^1.5.34',
+140 verbose parsed url   href: '^1.5.34' }
+141 verbose addNamed [ 'types/restangular', '^1.5.34' ]
+142 verbose addNamed [ null, '>=1.5.34-0 <2.0.0-0' ]
+143 silly lockFile 25432553-types-restangular-1-5-34 types/restangular@^1.5.34
+144 verbose lock types/restangular@^1.5.34 C:\Users\Rhaps\AppData\Roaming\npm-cache\25432553-types-restangular-1-5-34.lock
+145 silly addNameRange { name: 'autoprefixer',
+145 silly addNameRange   range: '>=7.1.1-0 <8.0.0-0',
+145 silly addNameRange   hasData: false }
+146 silly addNameRange { name: 'types/restangular',
+146 silly addNameRange   range: '>=1.5.34-0 <2.0.0-0',
+146 silly addNameRange   hasData: false }
+147 verbose url raw autoprefixer
+148 verbose url resolving [ 'https://registry.npmjs.org/', './autoprefixer' ]
+149 verbose url resolved https://registry.npmjs.org/autoprefixer
+150 info trying registry request attempt 1 at 13:27:29
+151 verbose etag W/"59b31e53-4eca0"
+152 http GET https://registry.npmjs.org/autoprefixer
+153 verbose url raw types/lodash
+154 verbose url resolving [ 'https://registry.npmjs.org/', './types/lodash' ]
+155 verbose url resolved https://registry.npmjs.org/types/lodash
+156 info trying registry request attempt 1 at 13:27:30
+157 http GET https://registry.npmjs.org/types/lodash
+158 verbose url raw types/quill
+159 verbose url resolving [ 'https://registry.npmjs.org/', './types/quill' ]
+160 verbose url resolved https://registry.npmjs.org/types/quill
+161 info trying registry request attempt 1 at 13:27:30
+162 http GET https://registry.npmjs.org/types/quill
+163 verbose url raw types/angular-animate
+164 verbose url resolving [ 'https://registry.npmjs.org/', './types/angular-animate' ]
+165 verbose url resolved https://registry.npmjs.org/types/angular-animate
+166 info trying registry request attempt 1 at 13:27:30
+167 http GET https://registry.npmjs.org/types/angular-animate
+168 verbose url raw types/angular-material
+169 verbose url resolving [ 'https://registry.npmjs.org/', './types/angular-material' ]
+170 verbose url resolved https://registry.npmjs.org/types/angular-material
+171 info trying registry request attempt 1 at 13:27:30
+172 http GET https://registry.npmjs.org/types/angular-material
+173 verbose url raw types/ng-file-upload
+174 verbose url resolving [ 'https://registry.npmjs.org/', './types/ng-file-upload' ]
+175 verbose url resolved https://registry.npmjs.org/types/ng-file-upload
+176 info trying registry request attempt 1 at 13:27:30
+177 http GET https://registry.npmjs.org/types/ng-file-upload
+178 verbose url raw types/restangular
+179 verbose url resolving [ 'https://registry.npmjs.org/', './types/restangular' ]
+180 verbose url resolved https://registry.npmjs.org/types/restangular
+181 info trying registry request attempt 1 at 13:27:30
+182 http GET https://registry.npmjs.org/types/restangular
+183 verbose url raw types/angular
+184 verbose url resolving [ 'https://registry.npmjs.org/', './types/angular' ]
+185 verbose url resolved https://registry.npmjs.org/types/angular
+186 info trying registry request attempt 1 at 13:27:30
+187 http GET https://registry.npmjs.org/types/angular
+188 http 200 https://registry.npmjs.org/autoprefixer
+189 silly registry.get cb [ 200,
+189 silly registry.get   { server: 'nginx/1.10.3',
+189 silly registry.get     'content-type': 'application/json',
+189 silly registry.get     'last-modified': 'Mon, 25 Sep 2017 05:40:01 GMT',
+189 silly registry.get     etag: 'W/"59c896b1-4ecb8"',
+189 silly registry.get     'content-encoding': 'gzip',
+189 silly registry.get     'cache-control': 'max-age=300',
+189 silly registry.get     'content-length': '26566',
+189 silly registry.get     'accept-ranges': 'bytes',
+189 silly registry.get     date: 'Mon, 25 Sep 2017 06:26:51 GMT',
+189 silly registry.get     via: '1.1 varnish',
+189 silly registry.get     age: '86',
+189 silly registry.get     connection: 'keep-alive',
+189 silly registry.get     'x-served-by': 'cache-sin18021-SIN',
+189 silly registry.get     'x-cache': 'HIT',
+189 silly registry.get     'x-cache-hits': '4',
+189 silly registry.get     'x-timer': 'S1506320812.797288,VS0,VE0',
+189 silly registry.get     vary: 'Accept-Encoding, Accept' } ]
+190 silly addNameRange number 2 { name: 'autoprefixer',
+190 silly addNameRange   range: '>=7.1.1-0 <8.0.0-0',
+190 silly addNameRange   hasData: true }
+191 silly addNameRange versions [ 'autoprefixer',
+191 silly addNameRange   [ '0.1.20130409',
+191 silly addNameRange     '0.2.20130413',
+191 silly addNameRange     '0.3.20130423',
+191 silly addNameRange     '0.3.20130424',
+191 silly addNameRange     '0.3.20130427',
+191 silly addNameRange     '0.3.20130502',
+191 silly addNameRange     '0.4.20130507',
+191 silly addNameRange     '0.4.20130515',
+191 silly addNameRange     '0.4.20130521',
+191 silly addNameRange     '0.4.20130524',
+191 silly addNameRange     '0.4.20130528',
+191 silly addNameRange     '0.4.20130530',
+191 silly addNameRange     '0.4.20130603',
+191 silly addNameRange     '0.5.20130615',
+191 silly addNameRange     '0.5.20130616',
+191 silly addNameRange     '0.5.20130617',
+191 silly addNameRange     '0.5.20130625',
+191 silly addNameRange     '0.5.20130626',
+191 silly addNameRange     '0.5.20130629',
+191 silly addNameRange     '0.6.20130716',
+191 silly addNameRange     '0.6.20130721',
+191 silly addNameRange     '0.6.20130728',
+191 silly addNameRange     '0.6.20130729',
+191 silly addNameRange     '0.6.20130730',
+191 silly addNameRange     '0.6.20130731',
+191 silly addNameRange     '0.7.20130805',
+191 silly addNameRange     '0.7.20130806',
+191 silly addNameRange     '0.7.20130807',
+191 silly addNameRange     '0.7.20130808',
+191 silly addNameRange     '0.7.20130810',
+191 silly addNameRange     '0.7.20130824',
+191 silly addNameRange     '0.8.20130902',
+191 silly addNameRange     '0.8.20130903',
+191 silly addNameRange     '0.8.20130906',
+191 silly addNameRange     '0.8.20130911',
+191 silly addNameRange     '0.8.20130919',
+191 silly addNameRange     '0.8.20130923',
+191 silly addNameRange     '0.8.20131001',
+191 silly addNameRange     '0.8.20131006',
+191 silly addNameRange     '0.8.20131007',
+191 silly addNameRange     '0.8.20131009',
+191 silly addNameRange     '0.8.20131015',
+191 silly addNameRange     '0.8.20131017',
+191 silly addNameRange     '0.8.20131020',
+191 silly addNameRange     '0.8.20131029',
+191 silly addNameRange     '0.8.20131104',
+191 silly addNameRange     '0.8.20131209',
+191 silly addNameRange     '0.8.20131213',
+191 silly addNameRange     '1.0.20131222',
+191 silly addNameRange     '1.0.20140103',
+191 silly addNameRange     '1.0.20140109',
+191 silly addNameRange     '1.0.20140110',
+191 silly addNameRange     '1.0.20140117',
+191 silly addNameRange     '1.0.20140130',
+191 silly addNameRange     '1.0.20140203',
+191 silly addNameRange     '1.0.20140213',
+191 silly addNameRange     '1.1.20140218',
+191 silly addNameRange     '1.1.20140222',
+191 silly addNameRange     '1.1.20140226',
+191 silly addNameRange     '1.1.20140302',
+191 silly addNameRange     '1.1.20140319',
+191 silly addNameRange     '1.1.20140327',
+191 silly addNameRange     '1.1.20140403',
+191 silly addNameRange     '1.1.20140410',
+191 silly addNameRange     '1.1.20140429',
+191 silly addNameRange     '1.1.20140430',
+191 silly addNameRange     '1.1.20140510',
+191 silly addNameRange     '1.1.20140512',
+191 silly addNameRange     '1.1.20140521',
+191 silly addNameRange     '1.1.20140523',
+191 silly addNameRange     '1.1.20140605',
+191 silly addNameRange     '1.2.0',
+191 silly addNameRange     '1.3.0',
+191 silly addNameRange     '1.3.1',
+191 silly addNameRange     '2.0.0',
+191 silly addNameRange     '2.0.1',
+191 silly addNameRange     '2.0.2',
+191 silly addNameRange     '2.1.0',
+191 silly addNameRange     '2.1.1',
+191 silly addNameRange     '2.2.0',
+191 silly addNameRange     '3.0.0',
+191 silly addNameRange     '3.1.0',
+191 silly addNameRange     '4.0.0',
+191 silly addNameRange     '5.0.0',
+191 silly addNameRange     '5.1.0',
+191 silly addNameRange     '5.1.1',
+191 silly addNameRange     '5.2.0',
+191 silly addNameRange     '6.0.0',
+191 silly addNameRange     '6.0.1',
+191 silly addNameRange     '6.0.2',
+191 silly addNameRange     '6.0.3',
+191 silly addNameRange     '6.1.0',
+191 silly addNameRange     '6.1.1',
+191 silly addNameRange     '6.1.2',
+191 silly addNameRange     '6.2.0',
+191 silly addNameRange     '6.2.1',
+191 silly addNameRange     '6.2.2',
+191 silly addNameRange     '6.2.3',
+191 silly addNameRange     '6.3.0',
+191 silly addNameRange     '6.3.1',
+191 silly addNameRange     '6.3.2',
+191 silly addNameRange     '6.3.3',
+191 silly addNameRange     '6.3.4',
+191 silly addNameRange     '6.3.5',
+191 silly addNameRange     '6.3.6',
+191 silly addNameRange     '6.3.7',
+191 silly addNameRange     '6.4.0',
+191 silly addNameRange     '6.4.1',
+191 silly addNameRange     '6.5.0',
+191 silly addNameRange     '6.5.1',
+191 silly addNameRange     '6.5.2',
+191 silly addNameRange     '6.5.3',
+191 silly addNameRange     '6.5.4',
+191 silly addNameRange     '6.6.0',
+191 silly addNameRange     '6.6.1',
+191 silly addNameRange     '6.7.0',
+191 silly addNameRange     '6.7.1',
+191 silly addNameRange     '6.7.2',
+191 silly addNameRange     '6.7.3',
+191 silly addNameRange     '6.7.4',
+191 silly addNameRange     '6.7.5',
+191 silly addNameRange     '6.7.6',
+191 silly addNameRange     '6.7.7',
+191 silly addNameRange     '7.0.0',
+191 silly addNameRange     '7.0.1',
+191 silly addNameRange     '7.1.0',
+191 silly addNameRange     '7.1.1',
+191 silly addNameRange     '7.1.2',
+191 silly addNameRange     '7.1.3',
+191 silly addNameRange     '7.1.4' ] ]
+192 verbose addNamed [ 'autoprefixer', '7.1.4' ]
+193 verbose addNamed [ '7.1.4', '7.1.4' ]
+194 silly lockFile c14f1313-autoprefixer-7-1-4 autoprefixer@7.1.4
+195 verbose lock autoprefixer@7.1.4 C:\Users\Rhaps\AppData\Roaming\npm-cache\c14f1313-autoprefixer-7-1-4.lock
+196 silly lockFile c14f1313-autoprefixer-7-1-4 autoprefixer@7.1.4
+197 silly lockFile c14f1313-autoprefixer-7-1-4 autoprefixer@7.1.4
+198 silly lockFile 512f2c1d-autoprefixer-7-1-1 autoprefixer@^7.1.1
+199 silly lockFile 512f2c1d-autoprefixer-7-1-1 autoprefixer@^7.1.1
+200 http 404 https://registry.npmjs.org/types/angular-material
+201 silly registry.get cb [ 404,
+201 silly registry.get   { 'content-type': 'application/json',
+201 silly registry.get     'cache-control': 'max-age=0',
+201 silly registry.get     'content-length': '2',
+201 silly registry.get     'accept-ranges': 'bytes',
+201 silly registry.get     date: 'Mon, 25 Sep 2017 06:26:52 GMT',
+201 silly registry.get     via: '1.1 varnish',
+201 silly registry.get     age: '0',
+201 silly registry.get     connection: 'keep-alive',
+201 silly registry.get     'x-served-by': 'cache-sin18022-SIN',
+201 silly registry.get     'x-cache': 'MISS',
+201 silly registry.get     'x-cache-hits': '0',
+201 silly registry.get     'x-timer': 'S1506320812.780542,VS0,VE815',
+201 silly registry.get     vary: 'Accept-Encoding' } ]
+202 silly lockFile 94fdd679-types-angular-material-1-1-3 types/angular-material@^1.1.3
+203 silly lockFile 94fdd679-types-angular-material-1-1-3 types/angular-material@^1.1.3
+204 error 404 Not Found
+204 error 404
+204 error 404 'types/angular-material' is not in the npm registry.
+204 error 404 You should bug the author to publish it
+204 error 404 It was specified as a dependency of 'material-start'
+204 error 404
+204 error 404 Note that you can also install from a
+204 error 404 tarball, folder, or http url, or git url.
+205 error System Windows_NT 6.2.9200
+206 error command "C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\Common7\\IDE\\Extensions\\Microsoft\\Web Tools\\External\\\\node\\node" "C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\Common7\\IDE\\Extensions\\Microsoft\\Web Tools\\External\\npm\\node_modules\\npm\\bin\\npm-cli.js" "install"
+207 error cwd D:\WebDev\draw_v1.1_3008\Anzas.Manacy.Web.Client
+208 error node -v v0.10.31
+209 error npm -v 1.4.9
+210 error code E404
+211 verbose exit [ 1, true ]

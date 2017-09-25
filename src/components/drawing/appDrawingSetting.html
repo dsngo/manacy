@@ -120,7 +120,8 @@
             </div>
             <!-- [Text option : Text Decoration] -->
             <div class="option-row">
-                <button type="button" class="text-bold-btn {{settingCtrl.drawModel.isTextBold?'active':''}}" id="bold-btn" name="button" ng-click="settingCtrl.activeBold()">
+                <button type="button" class="text-bold-btn {{settingCtrl.drawModel.isTextBold?'active':''}}" id="bold-btn" name="button"
+                    ng-click="settingCtrl.activeBold()">
                     <div class="format-bold" md-colors="{background:'default-primary-700'}"></div>
                 </button>
             </div>
@@ -136,8 +137,7 @@
     <!-- [TOOL-OPTION : COLOR SWATCH] -->
     <div class="sub-panel-wrapper swatches-tool-setting draggable {{settingCtrl.showColorToolClass}}" id="color-tool-parent">
         <div md-colors="{background:'default-primary-700'}" class="drag-frame" el-draggable pos-x="settingCtrl.colorToolRight" pos-y="settingCtrl.colorToolTop"
-        parent-id="color-tool-parent">
-        </div>
+            parent-id="color-tool-parent"></div>
         <div class="option-row-group {{settingCtrl.colorToolHideClass}}">
             <div class="color-picker-swatches">
                 <div class="swatch" ng-repeat="item in settingCtrl.colorItems" ng-style="{'background-color': item}" ng-click="settingCtrl.setColor(item)"></div>
@@ -148,3 +148,4 @@
             </div>
         </div>
     </div>
+</div>

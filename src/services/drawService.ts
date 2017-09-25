@@ -65,10 +65,7 @@ export default class DrawService extends ServiceBase {
             return -1;
         });
         const undoPaths = this.drawingPath.filter((el: PathModel) => {
-            return (
-                el.svgElementDto.createUserId === this.identityService.currentUser.id &&
-                el.svgElementDto.isDeleted === isUndo
-            );
+            return el.svgElementDto.createUserId === this.identityService.currentUser.id && el.svgElementDto.isDeleted === isUndo;
         });
         if (undoPaths.length > 0) {
             const undoPath = isUndo ? undoPaths[0] : undoPaths[undoPaths.length - 1];
@@ -91,7 +88,7 @@ export default class DrawService extends ServiceBase {
         this.drawingPoints = [];
     }
 
-    public drawText(point: PointModel, drawModel: DrawModel, textValue: string) {
+    public drawText(point: PointModel, drawModel: DrawModel, textValue: string, createdDate?: string) {
         const path: PathModel = new PathModel();
         path.pathId = Date.now();
         path.textPoint = point;
@@ -103,7 +100,7 @@ export default class DrawService extends ServiceBase {
             path.textBold = drawModel.color;
         }
         this.cleanUndoPath();
-        path.svgElementDto = this.makeSVGElement(path);
+        path.svgElementDto = this.makeSVGElement(path, createdDate || this.timeAtOffset());
         this.addPath(path);
         this.createSVGElement(path.svgElementDto);
     }
@@ -119,8 +116,8 @@ export default class DrawService extends ServiceBase {
             color: foundText.stroke,
             bold: foundText.textBold !== "none",
             fontSize: foundText.fontSize,
+            createdDate: foundText.svgElementDto.createDate,
         };
-        console.log(foundText); // tslint:disable-line
         return params;
     }
 
@@ -151,7 +148,7 @@ export default class DrawService extends ServiceBase {
         } else {
             path = this.createPath(this.drawingPoints);
         }
-        path.svgElementDto = this.makeSVGElement(path);
+        path.svgElementDto = this.makeSVGElement(path, this.timeAtOffset());
         this.cleanUndoPath();
         this.addPath(path);
         this.createSVGElement(path.svgElementDto);
@@ -175,13 +172,9 @@ export default class DrawService extends ServiceBase {
         let attribute = `M${points[0].x}, ${points[0].y}`;
         for (let i = 0; i < cubics.length; i++) {
             if (i === cubics.length - 1) {
-                attribute += `M${cubics[i][0]},${cubics[i][1]}, ${cubics[i][2]},${cubics[i][3]} ${cubics[
-                    i
-                ][4]},${cubics[i][5]} `;
+                attribute += `M${cubics[i][0]},${cubics[i][1]}, ${cubics[i][2]},${cubics[i][3]} ${cubics[i][4]},${cubics[i][5]} `;
             } else {
-                attribute += `C${cubics[i][0]},${cubics[i][1]}, ${cubics[i][2]},${cubics[i][3]} ${cubics[
-                    i
-                ][4]},${cubics[i][5]}`;
+                attribute += `C${cubics[i][0]},${cubics[i][1]}, ${cubics[i][2]},${cubics[i][3]} ${cubics[i][4]},${cubics[i][5]}`;
             }
         }
         return this.setPath(attribute);
@@ -232,13 +225,13 @@ export default class DrawService extends ServiceBase {
             });
     }
 
-    private makeSVGElement(pathElement: PathModel): Models.Dtos.SvgElementDto {
+    private makeSVGElement(pathElement: PathModel, createdDate: string): Models.Dtos.SvgElementDto {
         return {
             id: uuidv4(),
             element: pathElement.getSVGElement(),
             isDeleted: false,
             updateDate: this.timeAtOffset(),
-            createDate: this.timeAtOffset(),
+            createDate: createdDate,
             updateUserId: this.identityService.currentUser.id,
             createUserId: this.identityService.currentUser.id,
         };

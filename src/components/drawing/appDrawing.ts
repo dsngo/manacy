@@ -20,9 +20,6 @@ export default class AppDrawing extends ComponentBase {
     public constructor(public drawService: DrawService, public window: ng.IWindowService) {
         super();
 
-        // Get init paths
-        // this.drawingBranch = this.drawService.getPaths();
-
         this.drawService.getPathsSubject().subscribe((newPaths: PathModel[]) => {
             this.drawingBranch = newPaths;
         });
@@ -54,17 +51,16 @@ export default class AppDrawing extends ComponentBase {
     protected drawingBranch: PathModel[] = [];
     protected currentPath: PathModel = null;
     protected textValue: string = "";
+    protected pulledDate: string = "";
 
     public mouseDown(event): void {
         // Event handler for Left-click
-        if (event.buttons !== 2) {
-            if (event.target.nodeName === "tspan" && this.drawModel.currentTool !== "line") {
-                const textId = event.target.getAttribute("text-id") * 1;
-                this.editText(textId);
-                return;
-            }
-            this.startDraw(event.x, event.y);
+        if (event.buttons !== 2 && event.target.nodeName === "tspan" && this.drawModel.currentTool !== "line") {
+            const textId = event.target.getAttribute("text-id") * 1;
+            this.editText(textId);
+            return;
         }
+        this.startDraw(event.x, event.y);
     }
 
     public mouseMove(event) {
@@ -72,16 +68,6 @@ export default class AppDrawing extends ComponentBase {
         const pointX = event.x - rect.left;
         const pointY = event.y - rect.top;
         this.drawing(pointX, pointY);
-    }
-
-    private async editText(textId): Promise<void> {
-        const obj = await this.drawService.findEditableText(textId);
-        this.drawModel.color = obj.color;
-        this.drawModel.isTextBold = obj.bold;
-        this.drawModel.fontSize = obj.fontSize;
-        this.startEditText(obj.x, obj.y - (this.drawModel.fontSize + 10), obj.text);
-        this.drawService.cleanText(obj.index);
-        return;
     }
 
     public startDraw(x, y) {
@@ -99,10 +85,11 @@ export default class AppDrawing extends ComponentBase {
 
     private startDrawText(x, y) {
         if (this.isTextDrawing && this.textValue !== "") {
-            this.drawService.drawText(this.calculatePoint(), this.drawModel, this.textValue);
+            this.drawService.drawText(this.calculatePoint(), this.drawModel, this.textValue, this.isTextEditing && this.pulledDate);
             this.isTextDrawing = false;
             this.textRows = 1;
             this.textCol = 20;
+            this.isTextEditing = false;
             return;
         }
         this.textValue = "";
@@ -111,21 +98,20 @@ export default class AppDrawing extends ComponentBase {
         this.isTextDrawing = true;
     }
 
-    private startEditText(x, y, text: string) {
-        this.textValue = text;
-        this.textBoxSetLeft = x;
-        this.textBoxSetTop = y;
+    private async editText(textId): Promise<void> {
+        const obj = await this.drawService.findEditableText(textId);
+        this.drawModel.color = obj.color;
+        this.drawModel.isTextBold = obj.bold;
+        this.drawModel.fontSize = obj.fontSize;
+        this.textValue = obj.text;
+        this.textBoxSetLeft = obj.x;
+        this.textBoxSetTop = obj.y - (this.drawModel.fontSize + 10);
+        this.isTextEditing = true;
         this.isTextDrawing = true;
-        this.textRows = text.split("\n").length;
-        this.textCol = this.maxLength(text.split("\n"));
-        if (this.isTextDrawing && this.textValue !== text) {
-            this.drawService.drawText({ x, y }, this.drawModel, this.textValue);
-            this.isTextDrawing = false;
-            this.textRows = 1;
-            this.textCol = 20;
-            this.isTextEditing = false;
-            return;
-        }
+        this.textRows = obj.text.split("\n").length;
+        this.textCol = this.maxLength(obj.text.split("\n"));
+        this.pulledDate = obj.createdDate;
+        this.drawService.cleanText(obj.index);
     }
 
     protected calculatePoint(): PointModel {

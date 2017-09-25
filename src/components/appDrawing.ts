@@ -133,7 +133,7 @@ export default class AppDrawing extends ComponentBase {
         const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
         const cubics = this.catmullRom2bezier(points);
         let attribute = `M${points[0].x}, ${points[0].y}`;
-        for (let i = 0; i < cubics.length; i++) {
+        for (const i of cubics) {
             // tslint:disable-next-line:max-line-length
             attribute += `C${cubics[i][0]},${cubics[i][1]} ${cubics[i][2]},${cubics[i][3]} ${cubics[i][4]},${cubics[i][5]}`;
         }
