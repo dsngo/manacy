@@ -29,7 +29,7 @@ export default class AppDrawingSetting extends ComponentBase {
     protected showTextToolClass: string = "";
     protected showColorToolClass: string = "";
 
-    protected activeBrushToolClass: string = "";
+    protected activeBrushToolClass: string = "active";
     protected activeTextToolClass: string = "";
     protected brushToolHideClass: string = "";
     protected textToolHideClass: string = "";
