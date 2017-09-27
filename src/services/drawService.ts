@@ -191,7 +191,7 @@ export default class DrawService extends ServiceBase {
 
     // API call
     private timeAtOffset(o?: number): string {
-        return (o ? new Date(o) : new Date()).toISOString();
+        return (o >= 0 ? new Date(o) : new Date()).toISOString();
     }
 
     public svgImage: Models.Dtos.SvgImageDto;
@@ -305,6 +305,7 @@ export default class DrawService extends ServiceBase {
                 this.pathsSubject.next(this.drawingPath);
                 this.svgImage.lastUpdateDatetime = svgImg.lastUpdateDatetime;
             })
+            .catch(() => console.log("Update from Database...")) // tslint:disable-line
             .finally(() => {
                 this.busy(false);
             });

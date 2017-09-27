@@ -52,17 +52,22 @@ export default class AppDrawing extends ComponentBase {
     protected currentPath: PathModel = null;
     protected textValue: string = "";
     protected pulledDate: string = "";
+    protected clickCounts = 0;
+    protected timer: number;
 
     public mouseDown(event): void {
         // Event handler for Left-click
+        ++this.clickCounts;
         if (
-            event.buttons !== 2 &&
-            event.target.nodeName === "tspan" &&
             this.drawModel.currentTool !== "line" &&
-            this.textValue === ""
+            event.target.nodeName === "tspan" &&
+            event.buttons !== 2 &&
+            this.clickCounts === 2
         ) {
+            clearTimeout(this.timer);
             const textId = event.target.getAttribute("text-id") * 1;
             this.editText(textId);
+            this.clickCounts = 0;
             return;
         }
         this.startDraw(event.x, event.y);
@@ -77,10 +82,20 @@ export default class AppDrawing extends ComponentBase {
 
     public startDraw(x, y) {
         if (this.drawModel.currentTool === "line") {
-            this.startDrawLine();
-            return;
+            this.clickCounts = 0;
+            return this.startDrawLine();
         }
-        this.startDrawText(x, y);
+        if (this.timer && this.textValue === "") {
+            clearTimeout(this.timer);
+            this.clickCounts = 1;
+            return this.startDrawText(x, y);
+        }
+        this.timer = setTimeout(() => {
+            if (this.clickCounts === 1) {
+                this.startDrawText(x, y);
+            }
+            return (this.clickCounts = 0);
+        }, 250);
     }
 
     private startDrawLine() {
@@ -100,9 +115,8 @@ export default class AppDrawing extends ComponentBase {
             this.textRows = 1;
             this.textCol = 20;
             this.isTextEditing = false;
-            return (this.textValue = "");
+            return;
         }
-        this.textCol = 20;
         this.textValue = "";
         this.textBoxSetLeft = x;
         this.textBoxSetTop = y;
@@ -111,6 +125,9 @@ export default class AppDrawing extends ComponentBase {
 
     private async editText(textId): Promise<void> {
         const obj = await this.drawService.findEditableText(textId);
+        this.drawModel.color = obj.color;
+        this.drawModel.isTextBold = obj.bold;
+        this.drawModel.fontSize = obj.fontSize;
         this.textValue = obj.text;
         this.textBoxSetLeft = obj.x;
         this.textBoxSetTop = obj.y - (this.drawModel.fontSize + 10);
@@ -119,9 +136,6 @@ export default class AppDrawing extends ComponentBase {
         this.textRows = obj.text.split("\n").length;
         this.textCol = this.maxLength(obj.text.split("\n"));
         this.pulledDate = obj.createdDate;
-        this.drawModel.color = obj.color;
-        this.drawModel.isTextBold = obj.bold;
-        this.drawModel.fontSize = obj.fontSize;
         this.drawService.cleanText(obj.index);
     }
 
@@ -168,7 +182,12 @@ export default class AppDrawing extends ComponentBase {
     }
 
     private maxLength(array: string[]): number {
-        const length = array.sort((a, b) => b.length - a.length)[0].length;
-        return length > 20 ? length + 1 : 20;
+        let maxL = 20;
+        array.forEach(el => {
+            if (el.length > maxL) {
+                maxL = el.length;
+            }
+        });
+        return maxL;
     }
 }
