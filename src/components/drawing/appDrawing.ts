@@ -117,7 +117,7 @@ export default class AppDrawing extends ComponentBase {
         this.isTextEditing = true;
         this.isTextDrawing = true;
         this.textRows = obj.text.split("\n").length;
-        this.textCol = this.maxLength(obj.text.split("\n"));
+        this.textCol = this.colLength(obj.text.split("\n"));
         this.pulledDate = obj.createdDate;
         this.drawModel.color = obj.color;
         this.drawModel.isTextBold = obj.bold;
@@ -163,12 +163,13 @@ export default class AppDrawing extends ComponentBase {
         if (event.key === "Enter") {
             this.textRows += 1;
         } else {
-            this.textCol = this.maxLength(this.textValue.split("\n"));
+            this.textCol = this.colLength(this.textValue.split("\n"));
         }
     }
 
-    private maxLength(array: string[]): number {
+    private colLength(array: string[]): number {
         const length = array.sort((a, b) => b.length - a.length)[0].length;
-        return length > 20 ? length + 1 : 20;
+        console.log(length); // tslint:disable-line
+        return length > 20 ? (length + 1) : 20;
     }
 }
