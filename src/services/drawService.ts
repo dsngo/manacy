@@ -169,13 +169,10 @@ export default class DrawService extends ServiceBase {
 
     private createPathWithBezier(points: PointModel[]): PathModel {
         const cubics = catmullRom2bezier(points);
+        const cLen = cubics.length;
         let attribute = `M${points[0].x}, ${points[0].y}`;
-        for (let i = 0; i < cubics.length; i++) {
-            if (i === cubics.length - 1) {
-                attribute += `M${cubics[i][0]},${cubics[i][1]}, ${cubics[i][2]},${cubics[i][3]} ${cubics[i][4]},${cubics[i][5]} `;
-            } else {
-                attribute += `C${cubics[i][0]},${cubics[i][1]}, ${cubics[i][2]},${cubics[i][3]} ${cubics[i][4]},${cubics[i][5]}`;
-            }
+        for (let i = 0; i < cLen; i++) {
+            attribute += `C${cubics[i][0]},${cubics[i][1]}, ${cubics[i][2]},${cubics[i][3]} ${cubics[i][4]},${cubics[i][5]}`;
         }
         return this.setPath(attribute);
     }

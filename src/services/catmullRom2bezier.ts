@@ -1,37 +1,22 @@
-import { PointModel } from "../Models/pointModel";
+import { PointModel } from "../models/pointModel";
 
 export function catmullRom2bezier(points: PointModel[]) {
     const cubics = [];
-    for (let i = 0, iLen = points.length; i < iLen; i++) {
-        const p = [points[i - 1], points[i], points[i + 1], points[i + 2]];
-        if (i === 0) {
-            p[0] = {
-                x: points[0].x,
-                y: points[0].y,
-            };
+    const iLen = points.length - 1;
+    for (let i = 0; i < iLen; i++) {
+        const p = [];
+        if (0 === i) {
+            p.push(points[i], points[i], points[i + 1], points[i + 2]);
+        } else if (iLen - 1 === i) {
+            p.push(points[i - 1], points[i], points[i + 1], points[i + 1]);
+        } else {
+            p.push(points[i - 1], points[i], points[i + 1], points[i + 2]);
         }
-        if (i === iLen - 2) {
-            p[3] = {
-                x: points[iLen - 2].x,
-                y: points[iLen - 2].y,
-            };
-        }
-        if (i === iLen - 1) {
-            p[2] = {
-                x: points[iLen - 1].x,
-                y: points[iLen - 1].y,
-            };
-            p[3] = {
-                x: points[iLen - 1].x,
-                y: points[iLen - 1].y,
-            };
-        }
-        const val = 6;
         cubics.push([
-            (-p[0].x + val * p[1].x + p[2].x) / val,
-            (-p[0].y + val * p[1].y + p[2].y) / val,
-            (p[1].x + val * p[2].x - p[3].x) / val,
-            (p[1].y + val * p[2].y - p[3].y) / val,
+            (-p[0].x + 6 * p[1].x + p[2].x) / 6,
+            (-p[0].y + 6 * p[1].y + p[2].y) / 6,
+            (p[1].x + 6 * p[2].x - p[3].x) / 6,
+            (p[1].y + 6 * p[2].y - p[3].y) / 6,
             p[2].x,
             p[2].y,
         ]);
