@@ -1,7 +1,8 @@
 import * as angular from "angular";
-import { DrawModel } from "../../models/drawModel";
-import { PathModel } from "../../models/pathModel";
+import { BrushModel, IBrushProps } from "../../models/BrushModel";
 import { PointModel } from "../../models/pointModel";
+// import { DrawModel } from "../../models/drawModel";
+import { ITextProps, TextModel } from "../../models/TextModel";
 import DrawService from "../../services/drawService";
 import ComponentBase from "../componentBase";
 

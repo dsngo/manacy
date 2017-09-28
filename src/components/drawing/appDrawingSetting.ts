@@ -1,7 +1,7 @@
 import * as angular from "angular";
 import * as _ from "lodash";
-import { DrawModel } from "../../Models/drawModel";
-import DrawService from "../../Services/drawService";
+import { DrawModel } from "../../models/drawModel";
+import DrawService from "../../services/drawService";
 import ComponentBase from "../componentBase";
 
 export default class AppDrawingSetting extends ComponentBase {

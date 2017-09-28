@@ -1,20 +1,21 @@
-import { BaseDrawModel, IBaseDrawModel } from "./BaseDrawModel";
-
-export interface ITextModel extends IBaseDrawModel {
-    textId: number;
+export interface ITextProps {
     fontSize: number;
+    color: string;
     textValue: string[];
     isBold: boolean;
-    positionX: number;
-    positionY: number;
+    pX: number;
+    pY: number;
 }
 
-export class TextModel extends BaseDrawModel {
-    constructor(public textSettings: ITextModel) {
-        super();
-    }
-    public constructElement(): string {
-        const textSVGElement: ITextModel = { ...this.baseSettings, ...this.textSettings };
-        return JSON.stringify(textSVGElement);
-    }
+export class TextModel {
+    constructor(
+        public textProps: ITextProps = {
+            fontSize: 20,
+            color: "#000",
+            textValue: [""],
+            isBold: false,
+            pX: 1,
+            pY: 1,
+        },
+    ) {}
 }

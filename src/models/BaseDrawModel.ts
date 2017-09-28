@@ -2,19 +2,16 @@ import { Subject } from "rxjs/Subject";
 
 export interface IBaseDrawModel {
     currentTool: string;
-    color: string;
 }
 
 export class BaseDrawModel {
-    constructor(public baseSettings: IBaseDrawModel = { currentTool: "line", color: "#000000" }) {}
-
-    private pathsSubject: Subject<string> = new Subject<string>();
-
+    private toolsSubject: Subject<string> = new Subject<string>();
+    constructor(public baseSettings: IBaseDrawModel = { currentTool: "line" }) {}
     public getCurrentToolSubject(): Subject<string> {
-        return this.pathsSubject;
+        return this.toolsSubject;
     }
-    public setCurrentTool(value: string) {
-        this.baseSettings.currentTool = value;
-        this.pathsSubject.next(value);
+    public setCurrentTool(tool: string): void {
+        this.baseSettings.currentTool = tool;
+        this.toolsSubject.next(tool);
     }
 }

@@ -1,8 +1,9 @@
-import { PointModel } from "../Models/pointModel";
+import { PointModel } from "../models/pointModel";
 
 export function catmullRom2bezier(points: PointModel[]) {
     const cubics = [];
-    for (let i = 0, iLen = points.length; i < iLen; i++) {
+    const iLen = points.length;
+    for (let i = 0; i < iLen; i++) {
         const p = [points[i - 1], points[i], points[i + 1], points[i + 2]];
         if (i === 0) {
             p[0] = {
