@@ -275,13 +275,10 @@ export default class DrawService extends ServiceBase {
 
     private createBrushWithBezier(points: PointModel[]): BrushModel {
         const cubics = catmullRom2bezier(points);
-        let attribute = `M${points[0].x}, ${points[0].y}`;
-        for (const i of cubics) {
-            if (i === cubics.length - 1) {
-                attribute += `M${cubics[i][0]},${cubics[i][1]}, ${cubics[i][2]},${cubics[i][3]} ${cubics[i][4]},${cubics[i][5]}`;
-            } else {
-                attribute += `C${cubics[i][0]},${cubics[i][1]}, ${cubics[i][2]},${cubics[i][3]} ${cubics[i][4]},${cubics[i][5]}`;
-            }
+        const cLen = cubics.length;
+        let attribute = `M${points[0].x},${points[0].y} `;
+        for (let i = 0; i < cLen; i++) {
+            attribute += `C${cubics[i][0]},${cubics[i][1]}, ${cubics[i][2]},${cubics[i][3]} ${cubics[i][4]},${cubics[i][5]} `;
         }
         const brushSettings: IBrushProps = {
             brushId: Date.now(),
