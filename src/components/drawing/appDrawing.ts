@@ -86,7 +86,7 @@ export default class AppDrawing extends ComponentBase {
 
     private startDrawLine() {
         this.isDrawing = true;
-        this.drawService.startDraw();
+        this.drawService.clearPreviousPoints();
     }
 
     private startDrawText(x, y) {
@@ -112,18 +112,18 @@ export default class AppDrawing extends ComponentBase {
 
     private async editText(textId): Promise<void> {
         const obj = await this.drawService.findEditableText(textId);
-        this.textValue = obj.text;
-        this.textBoxSetLeft = obj.x;
-        this.textBoxSetTop = obj.y - (this.drawModel.fontSize + 10);
+        this.textValue = obj.textValue.join("\n");
+        this.textBoxSetLeft = obj.pX;
+        this.textBoxSetTop = obj.pY - (this.drawModel.fontSize + 10);
         this.isTextEditing = true;
         this.isTextDrawing = true;
-        this.textRows = obj.text.split("\n").length;
-        this.textCol = this.colLength(obj.text.split("\n"));
+        this.textRows = obj.textValue.length;
+        this.textCol = this.colLength(obj.textValue);
         this.pulledDate = obj.createdDate;
         this.drawModel.color = obj.color;
-        this.drawModel.isTextBold = obj.bold;
+        this.drawModel.isTextBold = obj.isBold;
         this.drawModel.fontSize = obj.fontSize;
-        this.drawService.cleanText(obj.index);
+        this.drawService.cleanFontEndElm(obj.index);
     }
 
     protected calculatePoint(): PointModel {
@@ -132,7 +132,7 @@ export default class AppDrawing extends ComponentBase {
 
     public drawing(x, y) {
         if (this.isDrawing) {
-            this.drawService.drawing(x, y, this.controlType, this.drawModel);
+            this.drawService.drawBrush({x, y}, this.controlType, this.drawModel);
         }
     }
 

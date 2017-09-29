@@ -1,16 +1,16 @@
 import { PointModel } from "../models/pointModel";
 
-export function catmullRom2bezier(points: PointModel[]) {
+export function catmullRom2Bezier(pArr: PointModel[]) {
     const cubics = [];
-    const iLen = points.length - 1;
+    const iLen = pArr.length - 1;
     for (let i = 0; i < iLen; i++) {
         const p = [];
         if (0 === i) {
-            p.push(points[i], points[i], points[i + 1], points[i + 2]);
+            p.push(pArr[i], pArr[i], pArr[i + 1], pArr[i + 2]);
         } else if (iLen - 1 === i) {
-            p.push(points[i - 1], points[i], points[i + 1], points[i + 1]);
+            p.push(pArr[i - 1], pArr[i], pArr[i + 1], pArr[i + 1]);
         } else {
-            p.push(points[i - 1], points[i], points[i + 1], points[i + 2]);
+            p.push(pArr[i - 1], pArr[i], pArr[i + 1], pArr[i + 2]);
         }
         cubics.push([
             (-p[0].x + 6 * p[1].x + p[2].x) / 6,

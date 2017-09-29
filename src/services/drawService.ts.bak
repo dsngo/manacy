@@ -5,7 +5,7 @@ import { DrawModel } from "../models/drawModel";
 import Models from "../models/models";
 import { PathModel } from "../models/pathModel";
 import { PointModel } from "../models/pointModel";
-import { catmullRom2bezier } from "./catmullRom2bezier";
+import { catmullRom2Bezier } from "./catmullRom2Bezier";
 import { simplify } from "./drawSimplify";
 import IdentityService from "./IdentityService";
 import ServiceBase from "./serviceBase";
@@ -119,7 +119,7 @@ export default class DrawService extends ServiceBase {
             createdDate: foundText.svgElementDto.createDate,
         };
         return params;
-    }
+    } 
 
     public cleanText(index) {
         this.updateSvgElement(this.drawingPath[index].svgElementDto);

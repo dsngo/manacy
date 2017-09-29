@@ -1,13 +1,11 @@
-/* tslint:disable:no-console */
 import * as restangular from "restangular";
 import { Subject } from "rxjs/Subject";
-import uuidv4 from "../common/uuid";
-import { BrushModel, IBrushProps } from "../models/BrushModel";
+import { IBrushProps, ITextProps } from "../models/DrawingTypes";
 import { DrawModel } from "../models/drawModel";
-import Models from "../models/models";
 import { PointModel } from "../models/PointModel";
-import { ITextProps, TextModel } from "../models/TextModel";
-import { catmullRom2bezier } from "./catmullRom2bezier";
+import WsSVGElementModel from "../models/WsSVGElementModel";
+import WsSVGImageModel from "../models/WsSVGImageModel";
+import { catmullRom2Bezier } from "./catmullRom2Bezier";
 import { simplify } from "./drawSimplify";
 import IdentityService from "./IdentityService";
 import ServiceBase from "./serviceBase";
@@ -24,34 +22,39 @@ export default class DrawService extends ServiceBase {
     }
     // Props
     private toolSubject: Subject<string> = new Subject();
-    private currentPath: TextModel | BrushModel;
-    private drawingPaths: Array<TextModel | BrushModel>;
+    private currentPath: WsSVGElementModel;
+    private drawingPaths: WsSVGElementModel[];
     private drawingPoints: PointModel[];
-    private pathSubjects: Subject<Array<TextModel | BrushModel>> = new Subject();
-    private currentPathSubject: Subject<TextModel | BrushModel> = new Subject();
+    private pathSubjects: Subject<WsSVGElementModel[]> = new Subject();
+    private currentPathSubject: Subject<WsSVGElementModel> = new Subject();
+    private svgImg: WsSVGImageModel;
+
     // Getters
+    private getUserId(): number {
+        return this.identityService.currentUser.id;
+    }
     public getCurrentToolSubject(): Subject<string> {
         return this.toolSubject;
     }
-    public getpathSubjects(): Subject<Array<TextModel | BrushModel>> {
+    public getpathSubjects(): Subject<WsSVGElementModel[]> {
         return this.pathSubjects;
     }
-    public getCurrentPathSubject(): Subject<TextModel | BrushModel> {
+    public getCurrentPathSubject(): Subject<WsSVGElementModel> {
         return this.currentPathSubject;
     }
-    public getPaths(): Array<TextModel | BrushModel> {
+    public getPaths(): WsSVGElementModel[] {
         return this.drawingPaths;
     }
     // Setters
     public setCurrentTool(tool: string): void {
         this.toolSubject.next(tool);
     }
-    public setCurrentPath(path: TextModel | BrushModel) {
+    public setCurrentPath(path: WsSVGElementModel) {
         this.currentPath = path;
         this.currentPathSubject.next(this.currentPath);
     }
     // Methods
-    public addPath(path: TextModel | BrushModel) {
+    public addPath(path: WsSVGElementModel) {
         this.drawingPaths.push(path);
         this.pathSubjects.next(this.drawingPaths);
     }
@@ -59,124 +62,98 @@ export default class DrawService extends ServiceBase {
         this.drawingPaths = [];
         this.pathSubjects.next([]);
     }
-    public undoRedoDraw(action: "undo" | "redo") {
-        this.svgImage.elements.sort(
-            (el: Models.Dtos.SvgElementDto, nextEl: Models.Dtos.SvgElementDto) =>
-                Date.parse(el.createDate) - Date.parse(nextEl.createDate),
-        );
-        let elements;
-        if (action === "undo") {
-            elements = this.svgImage.elements.filter(
-                (el: Models.Dtos.SvgElementDto) => el.createUserId === this.identityService.currentUser.id && !el.isDeleted,
-            );
-        }
-        if (action === "redo") {
-            elements = this.svgImage.elements.filter(
-                (el: Models.Dtos.SvgElementDto) => el.createUserId === this.identityService.currentUser.id && el.isDeleted,
-            );
-        }
-        if (elements.length > 0) {
-            const undoPath = "redo" ? elements[0] : elements[elements.length - 1];
-            this.updateSvgElement(undoPath);
+
+    public undoPath() {
+        this.undoRedoAction(false);
+    }
+
+    public redoPath() {
+        this.undoRedoAction(true);
+    }
+
+    private undoRedoAction(bool: boolean) {
+        this.drawingPaths.sort((el, nextEl) => Date.parse(el.createDate) - Date.parse(nextEl.createDate));
+        const undoPaths = this.drawingPaths.filter(el => el.createUserId === this.getUserId() && el.isDeleted === bool);
+        if (undoPaths.length > 0) {
+            const undoPath = undoPaths[bool ? 0 : undoPaths.length - 1];
+            undoPath.isDeleted = !undoPath.isDeleted;
+            this.updateSVGEl(undoPath);
         }
     }
-    // public undoPath() {
-    //     this.undoRedoDraw("undo");
-    // }
 
-    // public redoPath() {
-    //     this.undoRedoDraw("redo");
-    // }
+    public drawBrush(points: PointModel, controlType, brushProps: IBrushProps) {
+        this.drawingPoints.push(points);
+        const brush =
+            controlType === "bezier" ? this.createBrushWithBezier(this.drawingPoints) : this.createBrush(this.drawingPoints);
+        this.setCurrentPath(brush);
+    }
 
-    // private undoRedoAction(isUndo: boolean) {
-    //     this.drawingPath = this.drawingPath.sort((el, nextEl) => {
-    //         if (new Date(el.svgElementDto.createDate) > new Date(nextEl.svgElementDto.createDate)) {
-    //             return 1;
-    //         }
-    //         return -1;
-    //     });
-    //     const undoPaths = this.drawingPath.filter((el: PathModel) => {
-    //         return el.svgElementDto.createUserId === this.identityService.currentUser.id && el.svgElementDto.isDeleted === isUndo;
-    //     });
-    //     if (undoPaths.length > 0) {
-    //         const undoPath = isUndo ? undoPaths[0] : undoPaths[undoPaths.length - 1];
-    //         this.updateSvgElement(undoPath.svgElementDto);
-    //     }
-    // }
+    private createBrushWithBezier(pointsArr: PointModel[]): WsSVGElementModel {
+        const cubics = catmullRom2Bezier(pointsArr);
+        let points = `M${pointsArr[0].x},${pointsArr[0].y} `;
+        cubics.forEach(e => (points += `C${e[0]},${e[1]},${e[2]},${e[3]},${e[4]},${e[5]} `));
+        return this.createBrushSVGEl(this.currentPath.element, points);
+    }
 
-    // public clearDrawingPaths() {
-    //     this.drawingPath = [];
-    //     this.pathSubjects.next(this.drawingPath);
-    // }
+    private createBrush(pointsArr: PointModel[]): WsSVGElementModel {
+        let points = "";
+        pointsArr.forEach((p, i) => (points += i === 0 ? `M${p.x},${p.y} ` : `L${p.x},${p.y} `));
+        return this.createBrushSVGEl(this.currentPath.element, points);
+    }
 
-    // private cleanUndoPath() {
-    //     this.drawingPath = this.drawingPath.filter(el => {
-    //         return !el.svgElementDto.isDeleted;
-    //     });
-    // }
+    private createBrushSVGEl(elm: IBrushProps, points: string) {
+        const { fill, stroke, strokeWidth } = elm as IBrushProps;
+        return this.createWsSVGEl({ points, fill, stroke, strokeWidth });
+    }
 
-    public startDraw() {
+    private createWsSVGEl(elm: IBrushProps | ITextProps): WsSVGElementModel {
+        return new WsSVGElementModel(elm, this.getUserId(), this.getUserId());
+    }
+
+    public clearPreviousPoints() {
         this.drawingPoints = [];
     }
 
-    public getCurrentSVG() {
-        return this.svgImage;
-    }
-
     public drawText(textProps: ITextProps) {
-        const newText: TextModel = new TextModel(textProps);
-        this.addPath(newText);
-        const newElements = this.constructElementVal(newText);
-        this.createSVGElement(newElements);
+        const textElm = this.createWsSVGEl(textProps);
+        this.addPath(textElm);
+        this.saveSVGElToDb(textElm);
+    }
+    // API SEND/REQUEST
+    private saveSVGElToDb(elm: WsSVGElementModel) {
+        this.busy(true);
+        this.Restangular
+            .one("svg", this.svgImg.id.toString())
+            .customPOST(elm, elm.id.toString())
+            .finally(() => {
+                this.busy(false);
+            });
     }
 
-    public findEditableText(textId: number) {
-        const index = this.drawingText.findIndex(e => e.textSettings.textId === textId);
-        const foundText = this.drawingText[index];
-        const params = {
-            text: foundText.textSettings.textValue.join("\n"),
-            x: foundText.textSettings.positionX,
-            y: foundText.textSettings.positionY,
-            index,
-            color: foundText.textSettings.color,
-            bold: foundText.textSettings.isBold,
-            fontSize: foundText.textSettings.fontSize,
-        };
-        return params;
+    public findEditableText(pathId: number) {
+        const index = this.drawingPaths.findIndex(e => e.id === pathId);
+        const { element, createDate } = this.drawingPaths[index];
+        return { ...element, index, createDate };
     }
 
-    public cleanText(index) {
-        console.log("clean text");
-
-        const element = this.drawingText[index].constructElement();
-        // @son: find the element in svg image to update
-        this.svgImage.elements.map((elm: Models.Dtos.SvgElementDto) => {
-            if (element === elm.element) {
-                this.updateSvgElement(elm);
-                console.log(elm);
-
-                // @son: remove the element in local texts
-                this.drawingText.splice(index, 1);
-            }
-        });
-        // this.updateSvgElement(this.drawingText[index].svgElementDto);
+    public cleanFontEndElm(index: number) {
+        const elm = this.drawingPaths[index];
+        elm.isDeleted = true;
+        this.updateSVGEl(elm);
     }
 
-    public drawing(x, y, controlType, drawModel) {
-        this.drawModel = drawModel;
-        this.drawingPoints.push(new PointModel(x, y));
-        let brush: BrushModel;
-        // let path: PathModel;
-        if (controlType === "bezier") {
-            // path = this.createPathWithBezier(this.drawingPoints);
-            brush = this.createBrushWithBezier(this.drawingPoints);
-        } else {
-            // path = this.createPath(this.drawingPoints);
-            brush = this.createBrush(this.drawingPoints);
-        }
-        // this.setCurrentPath(path);
-        this.setCurrentBrush(brush);
+    private updateSVGEl(updatedElm: WsSVGElementModel) {
+        this.busy(true);
+        this.Restangular
+            .one("svg", this.svgImg.id.toString())
+            .customPUT(updatedElm, updatedElm.id.toString())
+            .finally(() => {
+                this.pathSubjects.next(this.drawingPaths);
+                this.busy(false);
+            });
     }
+    // ===========================================================
+
 
     public stopDraw(omitValue, controlType) {
         if (this.drawingPoints.length === 0) {
@@ -200,7 +177,7 @@ export default class DrawService extends ServiceBase {
         const element = this.constructElementVal(brush);
         // this.cleanUndoPath();
         this.addBrush(brush);
-        this.createSVGElement(element);
+        this.saveSVGElToDb(element);
         // return this.setCurrentPath(null);
         return this.setCurrentBrush(null);
     }
@@ -216,28 +193,6 @@ export default class DrawService extends ServiceBase {
     //     });
     //     return this.setPath(attribute);
     // }
-
-    private createBrush(points: PointModel[]): BrushModel {
-        let attribute: string = "";
-        points.forEach((point, index) => {
-            if (index === 0) {
-                attribute += `M${point.x}, ${point.y}`;
-            } else {
-                attribute += `L${point.x}, ${point.y}`;
-            }
-        });
-        const settings: IBrushProps = {
-            brushId: Date.now(),
-            points: attribute,
-            stroke: this.drawModel.color,
-            strokeWidth: this.drawModel.stroke + "px",
-            fill: this.drawModel.color,
-            currentTool: "line",
-            color: this.drawModel.color,
-        };
-        const brush: BrushModel = new BrushModel(settings);
-        return brush;
-    }
 
     private getAttribute(points: PointModel[]) {
         let attribute: string = "";
@@ -273,52 +228,31 @@ export default class DrawService extends ServiceBase {
     //     return path;
     // }
 
-    private createBrushWithBezier(points: PointModel[]): BrushModel {
-        const cubics = catmullRom2bezier(points);
-        const cLen = cubics.length;
-        let attribute = `M${points[0].x},${points[0].y} `;
-        for (let i = 0; i < cLen; i++) {
-            attribute += `C${cubics[i][0]},${cubics[i][1]}, ${cubics[i][2]},${cubics[i][3]} ${cubics[i][4]},${cubics[i][5]} `;
-        }
-        const brushSettings: IBrushProps = {
-            brushId: Date.now(),
-            points: attribute,
-            stroke: this.drawModel.color,
-            strokeWidth: this.drawModel.stroke + "px",
-            fill: this.drawModel.color,
-            currentTool: "line",
-            color: this.drawModel.color,
-        };
-        const brush: BrushModel = new BrushModel(brushSettings);
-        return brush;
-    }
-
     // API call
     private timeAtOffset(o?: number): string {
         return (o !== undefined ? new Date(o) : new Date()).toISOString();
     }
 
-    public svgImage: Models.Dtos.SvgImageDto;
-
     public createSVGImage(svgWidth, svgHeight) {
         this.cleanDrawingPaths();
         this.busy(true);
+        this.svgImg = new WsSVGImageModel(svgHeight, svgWidth, this.getUserId(), this.getUserId());
 
-        this.svgImage = {
-            id: uuidv4(),
-            viewHeight: svgHeight,
-            viewWidth: svgWidth,
-            elements: [],
-            lastUpdateDatetime: this.timeAtOffset(),
-            isDeleted: false,
-            updateDate: this.timeAtOffset(),
-            createDate: this.timeAtOffset(),
-            updateUserId: this.identityService.currentUser.id,
-            createUserId: this.identityService.currentUser.id,
-        };
+        // this.svgImage = {
+        //     id: uuidv4(),
+        //     viewHeight: svgHeight,
+        //     viewWidth: svgWidth,
+        //     elements: [],
+        //     lastUpdateDatetime: this.timeAtOffset(),
+        //     isDeleted: false,
+        //     updateDate: this.timeAtOffset(),
+        //     createDate: this.timeAtOffset(),
+        //     updateUserId: this.identityService.currentUser.id,
+        //     createUserId: this.identityService.currentUser.id,
+        // };
         this.Restangular
-            .one("svg", this.svgImage.id.toString())
-            .customPOST(this.svgImage)
+            .one("svg", this.svgImg.id.toString())
+            .customPOST(this.svgImg)
             .then(() => {
                 this.autoLoadSVGElement();
                 // [Confirmation:OK] Return value is not returned from server side.
@@ -336,8 +270,8 @@ export default class DrawService extends ServiceBase {
             isDeleted: false,
             updateDate: this.timeAtOffset(),
             createDate: this.timeAtOffset(),
-            updateUserId: this.identityService.currentUser.id,
-            createUserId: this.identityService.currentUser.id,
+            updateUserId: this.getUserId(),
+            createUserId: this.getUserId(),
         };
     }
 
@@ -353,28 +287,13 @@ export default class DrawService extends ServiceBase {
     //     };
     // }
 
-    private createSVGElement(svgElement: Models.Dtos.SvgElementDto) {
-        this.busy(true);
-        this.Restangular
-            .one("svg", this.svgImage.id.toString())
-            .customPOST(svgElement, svgElement.id.toString())
-            .then(() => {
-                // [Confirmation:OK] Return value is not returned from server side.
-                // this.reloadSVGElement();
-                return;
-            })
-            .finally(() => {
-                this.busy(false);
-            });
-    }
-
     public reloadSVGElement() {
         console.log("reload");
         this.loadSVGElement(false);
     }
 
     public loadSVGImage(svgImageId: string) {
-        this.svgImage = {
+        this.svgImg = {
             id: svgImageId,
             lastUpdateDatetime: this.timeAtOffset(0),
             viewWidth: 0,
@@ -383,8 +302,8 @@ export default class DrawService extends ServiceBase {
             elements: [],
             updateDate: this.timeAtOffset(0),
             createDate: this.timeAtOffset(0),
-            updateUserId: this.identityService.currentUser.id,
-            createUserId: this.identityService.currentUser.id,
+            updateUserId: this.getUserId(),
+            createUserId: this.getUserId(),
         };
         this.loadSVGElement(true).then(() => {
             this.autoLoadSVGElement();
@@ -400,18 +319,18 @@ export default class DrawService extends ServiceBase {
 
     private loadSVGElement(firstTimeLoad: boolean) {
         this.busy(true);
-        console.log(this.svgImage);
+        console.log(this.svgImg);
         return this.Restangular
-            .one("svg", this.svgImage.id.toString())
+            .one("svg", this.svgImg.id.toString())
             .get({
-                since: this.svgImage.lastUpdateDatetime,
+                since: this.svgImg.lastUpdateDatetime,
             })
             .then((svgImg: Models.Dtos.SvgImageDto) => {
                 // const tempPath: PathModel[] = [];
                 const tempText: TextModel[] = [];
                 const tempBrush: BrushModel[] = [];
                 // this.svgImage.elements = [];
-                svgImg.elements.forEach((svgElement: Models.Dtos.SvgElementDto) => {
+                svgImg.elements.forEach((svgElement: WsSVGElementModel) => {
                     const elm = JSON.parse(svgElement.element);
                     const elementModel = this.getElement(elm, tempBrush, tempText);
                     // const path = PathModel.parseString(svgElement);
@@ -431,7 +350,7 @@ export default class DrawService extends ServiceBase {
                 if (firstTimeLoad) {
                     // this.cleanUndoPath();
                 }
-                this.svgImage = svgImg;
+                this.svgImg = svgImg;
                 this.textsSubject.next(this.drawingText);
                 this.brushesSubject.next(this.drawingBrush);
             })
@@ -466,23 +385,7 @@ export default class DrawService extends ServiceBase {
         }
     }
 
-    private updateSvgElement(updateSvg: Models.Dtos.SvgElementDto) {
-        this.busy(true);
-        updateSvg.isDeleted = !updateSvg.isDeleted;
-        this.Restangular
-            .one("svg", this.svgImage.id.toString())
-            .customPUT(updateSvg, updateSvg.id.toString())
-            .then(() => {
-                // this.pathSubjects.next(this.drawingPath);
 
-                return;
-            })
-            .finally(() => {
-                // @son: reload SVG from server when finish the update
-                this.reloadSVGElement();
-                this.busy(false);
-            });
-    }
 
     public stringifyPath(jsonObjToDatabase: TextModel | BrushModel): string {
         return JSON.stringify(jsonObjToDatabase);
