@@ -12,4 +12,10 @@ export interface IBrushProps {
     stroke: string;
     strokeWidth: string;
     points: string;
+    controlType: string;
+}
+
+export interface IEditableTextProps extends ITextProps {
+    index: number;
+    createDate: string;
 }

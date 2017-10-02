@@ -1,6 +1,6 @@
 import * as restangular from "restangular";
 import { Subject } from "rxjs/Subject";
-import { IBrushProps, ITextProps } from "../models/DrawingTypes";
+import { IBrushProps, IEditableTextProps, ITextProps } from "../models/DrawingTypes";
 import { DrawModel } from "../models/drawModel";
 import { PointModel } from "../models/PointModel";
 import WsSVGElementModel from "../models/WsSVGElementModel";
@@ -36,7 +36,7 @@ export default class DrawService extends ServiceBase {
     public getCurrentToolSubject(): Subject<string> {
         return this.toolSubject;
     }
-    public getpathSubjects(): Subject<WsSVGElementModel[]> {
+    public getPathSubjects(): Subject<WsSVGElementModel[]> {
         return this.pathSubjects;
     }
     public getCurrentPathSubject(): Subject<WsSVGElementModel> {
@@ -130,13 +130,13 @@ export default class DrawService extends ServiceBase {
             });
     }
 
-    public findEditableText(pathId: number) {
+    public findTargetText(pathId: number): IEditableTextProps {
         const index = this.drawingPaths.findIndex(e => e.id === pathId);
         const { element, createDate } = this.drawingPaths[index];
         return { ...element, index, createDate };
     }
 
-    public cleanFontEndElm(index: number) {
+    public cleanFrontEndElm(index: number) {
         const elm = this.drawingPaths[index];
         elm.isDeleted = true;
         this.updateSVGEl(elm);

@@ -4,34 +4,31 @@
     </div>
     <div class="tolerance-content">
         <button class="btn-clear" ng-click="drawCtrl.clear()">clear</button>
-        <select ng-model="drawCtrl.controlType">
-      <option value="bezier">bezier</option>
-      <option value="line">simple line</option>
-    </select>
+        <select ng-model="drawCtrl.brushInitializer.controlType">
+            <option value="bezier">bezier</option>
+            <option value="line">simple line</option>
+        </select>
         <div>tolerance</div>
-        <input type="range" min="0" max="7" ng-model="drawCtrl.omitValue" step="0.1" />
+        <input type="range" min="0" max="7" ng-model="drawCtrl.brushInitializer.omitValue" step="0.1" />
     </div>
 </div>
 <svg class="svg-container" ng-mousemove="drawCtrl.mouseMove($event)" ng-mousedown="drawCtrl.mouseDown($event)" ng-mouseleave="drawCtrl.stopDraw()"
     ng-mouseup="drawCtrl.stopDraw()" dr-touchstart="drawCtrl.touchstart($event)" dr-touchmove="drawCtrl.touchMove($event)" dr-touchend="drawCtrl.touchEnd($event)">
 
-    <g ng-repeat="path in drawCtrl.drawingBranch" ng-cloak ng-if="!path.svgElementDto.isDeleted">
-        <path stroke-linecap="round" ng-attr-d="{{path.points}}" fill="none" stroke="{{path.stroke}}" stroke-width="{{path.strokeWidth}}"
-            ng-if="!path.isText"></path>
-        <text ng-if="path.isText">
-            <tspan text-id="{{path.pathId}}" ng-attr-x="{{path.textPoint.x}}" ng-attr-y="{{path.textPoint.y + $index*path.fontSize}}"
-                stroke-width="1px" fill="{{path.stroke}}" font-size="{{path.fontSize}}" stroke="{{path.textBold}}" ng-repeat="textVel in path.textValue track by $index">{{textVel}}</tspan>
+    <g ng-repeat="path in drawCtrl.drawingBranch" ng-cloak ng-if="!path.isDeleted">
+        <path ng-if="!path.fontSize" stroke-linecap="round" ng-attr-d="{{path.points}}" fill="{{drawCtrl.brushProps.fill || 'none'}}" stroke="{{path.stroke}}" stroke-width="{{path.strokeWidth}}"></path>
+        <text ng-if="path.fontSize">
+            <tspan id="{{path.id}}" ng-attr-x="{{path.pX}}" ng-attr-y="{{path.pY + $index*path.fontSize}}" stroke-width="1px" fill="{{path.color}}"
+                font-size="{{path.fontSize}}" stroke="{{path.textBold}}" ng-repeat="textEl in path.textValue track by $index">{{textEl}}</tspan>
         </text>
     </g>
-    <path stroke-linecap="round" ng-attr-d="{{drawCtrl.currentPath.points}}" fill="none" stroke="{{drawCtrl.currentPath.stroke}}"
-        stroke-width="{{drawCtrl.currentPath.strokeWidth}}" ng-if="drawCtrl.currentPath"></path>
+    <path ng-if="drawCtrl.brushProps" stroke-linecap="round" ng-attr-d="{{drawCtrl.brushProps.points}}" fill="{{drawCtrl.brushProps.fill || 'none'}}"
+        stroke="{{drawCtrl.brushProps.stroke}}" stroke-width="{{drawCtrl.brushProps.strokeWidth}}"></path>
 </svg>
-<div class="text-box-wrapper" ng-if="drawCtrl.isTextDrawing" id="text-box-parent" ng-style="{top: drawCtrl.textBoxSetTop + 'px', left: drawCtrl.textBoxSetLeft + 'px'}">
-    <div class="drag-thumb" el-draggable pos-x="drawCtrl.textBoxSetLeft" pos-y="drawCtrl.textBoxSetTop" parent-id="text-box-parent"
-        off-style="true">
-    </div>
-    <textarea class="text-box {{drawCtrl.drawModel.isTextBold?'textBoxBold':''}}" rows="{{drawCtrl.textRows}}" cols="{{drawCtrl.textCol}}"
-        ng-model="drawCtrl.textValue" ng-style="{'font-size': drawCtrl.getFontSize(), 'color': drawCtrl.drawModel.color, 'background-color': drawCtrl.isTextDrawing ? 'white': 'transparent' }"
-        ng-keypress="drawCtrl.keyPressOntextArea($event)">
-  </textarea>
+<div class="text-box-wrapper" ng-if="drawCtrl.isTextDrawing" id="text-box-parent" ng-style="{top: drawCtrl.textInitializer.setTop + 'px', left: drawCtrl.textInitializer.setLeft + 'px'}">
+    <div class="drag-thumb" el-draggable pos-x="drawCtrl.textInitializer.setLeft" pos-y="drawCtrl.textInitializer.setTop" parent-id="text-box-parent"
+        off-style="true"></div>
+    <textarea class="text-box {{drawCtrl.getTextBold()}}" rows="{{drawCtrl.textRows}}" cols="{{drawCtrl.textCol}}"
+        ng-model="drawCtrl.getTextString()" ng-style="{'font-size':drawCtrl.getTextFontSize(),'color':drawCtrl.getTextColor(),'background-color':drawCtrl.getTextBGColor()}"
+        ng-keypress="drawCtrl.keyPressOntextArea($event)"></textarea>
 </div>

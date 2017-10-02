@@ -1,8 +1,7 @@
 import * as angular from "angular";
-import { BrushModel, IBrushProps } from "../../models/BrushModel";
+import { IBrushProps, IEditableTextProps, ITextProps } from "../../models/DrawingTypes";
 import { PointModel } from "../../models/pointModel";
-// import { DrawModel } from "../../models/drawModel";
-import { ITextProps, TextModel } from "../../models/TextModel";
+import WsSVGElementModel from "../../models/WsSVGElementModel";
 import DrawService from "../../services/drawService";
 import ComponentBase from "../componentBase";
 
@@ -20,49 +19,46 @@ export default class AppDrawing extends ComponentBase {
 
     public constructor(public drawService: DrawService, public window: ng.IWindowService) {
         super();
-
-        this.drawService.getPathsSubject().subscribe((newPaths: PathModel[]) => {
-            this.drawingBranch = newPaths;
-        });
-        this.drawService.getCurrentPathSubject().subscribe((newPath: PathModel) => {
-            this.currentPath = newPath;
-        });
-        this.drawModel.getCurrentToolSubject().subscribe((newValue: string) => {
-            if (newValue === "line") {
-                if (this.isTextDrawing && this.textValue !== "") {
-                    this.drawService.drawText(this.calculatePoint(), this.drawModel, this.textValue);
-                }
-                this.isTextDrawing = false;
-            }
-        });
+        this.drawService.getPathSubjects().subscribe((newPaths: WsSVGElementModel[]) => (this.drawingBranch = newPaths));
+        this.drawService
+            .getCurrentToolSubject()
+            .subscribe(
+                (drawingTool: string) =>
+                    drawingTool === "line" &&
+                    (this.isTextDrawing && this.getTextString() !== "" && this.drawService.drawText(this.textProps),
+                    (this.isTextDrawing = false)),
+            );
     }
-    private drawModel: DrawModel;
-    private isDrawing = false;
-    private textBoxSetLeft = 20;
-    private textBoxSetTop = 300;
-    private isTextBoxDraggable: boolean = false;
-    private textRows: number = 1;
-    private textCol: number = 20;
+    private isDrawing: boolean;
+    private isTextDrawing: boolean;
+    private isTextEditing: boolean;
+    private drawingBranch: WsSVGElementModel[];
+    private textProps: ITextProps;
+    private textInitializer = { setLeft: 20, setTop: 300, rows: 1, cols: 20 };
+    private brushProps: IBrushProps;
+    private brushInitializer = { controlType: "bezier", omitValue: 4 };
+    // private textBoxSetLeft = 20;
+    // private textBoxSetTop = 300;
+    // private textRows: number = 1;
+    // private textCol: number = 20;
+    // private isTextBoxDraggable: boolean = false;
 
     protected controlType: string = "bezier";
     protected omitValue: number = 4;
-    protected textBoxHideClass = "";
-    protected isTextDrawing: boolean = false;
-    protected isTextEditing: boolean = false;
-    protected drawingBranch: PathModel[] = [];
-    protected currentPath: PathModel = null;
-    protected textValue: string = "";
-    protected pulledDate: string = "";
+    // protected textBoxHideClass = "";
+    // protected currentPath: WsSVGElementModel
+    // protected textValue = "";
+    // protected targetDate: string = "";
 
     public mouseDown(event): void {
         // Event handler for Left-click
         if (
+            this.isTextDrawing &&
             event.buttons !== 2 &&
             event.target.nodeName === "tspan" &&
-            this.drawModel.currentTool !== "line" &&
-            this.textValue === ""
+            this.getTextString() === ""
         ) {
-            const textId = event.target.getAttribute("text-id") * 1;
+            const textId = event.target.id * 1;
             this.editText(textId);
             return;
         }
@@ -95,44 +91,48 @@ export default class AppDrawing extends ComponentBase {
                 this.calculatePoint(),
                 this.drawModel,
                 this.textValue,
-                this.isTextEditing && this.pulledDate,
+                this.isTextEditing && this.targetDate,
             );
             this.isTextDrawing = false;
-            this.textRows = 1;
-            this.textCol = 20;
+            this.textInitializer.rows = 1;
+            this.textInitializer.cols = 20;
             this.isTextEditing = false;
             return (this.textValue = "");
         }
-        this.textCol = 20;
+        this.textInitializer.cols = 20;
         this.textValue = "";
-        this.textBoxSetLeft = x;
-        this.textBoxSetTop = y;
+        this.textInitializer.setLeft = x;
+        this.textInitializer.setTop = y;
         this.isTextDrawing = true;
     }
 
-    private async editText(textId): Promise<void> {
-        const obj = await this.drawService.findEditableText(textId);
-        this.textValue = obj.textValue.join("\n");
-        this.textBoxSetLeft = obj.pX;
-        this.textBoxSetTop = obj.pY - (this.drawModel.fontSize + 10);
+    private async editText(textId: number): Promise<void> {
+        const { index, createDate, textValue, pX, pY, color, fontSize, isBold } = await this.drawService.findTargetText(textId);
         this.isTextEditing = true;
         this.isTextDrawing = true;
-        this.textRows = obj.textValue.length;
-        this.textCol = this.colLength(obj.textValue);
-        this.pulledDate = obj.createdDate;
-        this.drawModel.color = obj.color;
-        this.drawModel.isTextBold = obj.isBold;
-        this.drawModel.fontSize = obj.fontSize;
-        this.drawService.cleanFontEndElm(obj.index);
+        this.textValue = textValue.join("\n");
+        this.textInitializer.rows = textValue.length;
+        this.textInitializer.cols = this.colLength(textValue);
+        this.textInitializer.setLeft = pX;
+        this.textInitializer.setTop = pY - (fontSize + 10);
+        this.targetDate = createDate;
+        this.drawModel = { ...this.drawModel, color, isBold, fontSize };
+        // (this.drawModel as ITextProps).color = color;
+        // (this.drawModel as ITextProps).isBold = isBold;
+        // (this.drawModel as ITextProps).fontSize = fontSize;
+        this.drawService.cleanFrontEndElm(index);
     }
 
     protected calculatePoint(): PointModel {
-        return new PointModel(this.textBoxSetLeft, this.textBoxSetTop + this.drawModel.fontSize + 10);
+        return new PointModel(
+            this.textInitializer.setLeft,
+            this.textInitializer.setTop + (this.drawModel as ITextProps).fontSize + 10,
+        );
     }
 
     public drawing(x, y) {
         if (this.isDrawing) {
-            this.drawService.drawBrush({x, y}, this.controlType, this.drawModel);
+            this.drawService.drawBrush({ x, y }, this.controlType, this.drawModel);
         }
     }
 
@@ -145,32 +145,45 @@ export default class AppDrawing extends ComponentBase {
     }
 
     public clear() {
-        this.drawService.clearDrawingPaths();
+        this.drawService.cleanDrawingPaths();
     }
-
-    protected getFontSize(): string {
-        return this.drawModel.fontSize + "px";
+    // GETTERS
+    //  === Get text properties ===
+    protected getTextFontSize(): string {
+        return `${this.textProps.fontSize}px`;
     }
-
+    protected getTextColor(): string {
+        return this.textProps.color || "#000";
+    }
+    protected getTextBGColor(): string {
+        return this.isTextDrawing ? "#fff" : "none";
+    }
+    protected getTextString(): string {
+        return this.textProps.textValue.join("\n");
+    }
+    protected getTextBold(): string {
+        return this.textProps.isBold ? "textBoxBold" : "";
+    }
     public touchstart(event: TouchEvent) {
         this.startDraw(event.touches[0].pageX, event.touches[0].pageY);
     }
     public touchMove(event: TouchEvent) {
         this.drawing(event.touches[0].pageX, event.touches[0].pageY);
     }
+
     // public touchEnd(event) {}
 
     public keyPressOntextArea(event: KeyboardEvent) {
         if (event.key === "Enter") {
-            this.textRows += 1;
+            this.textInitializer.rows += 1;
         } else {
-            this.textCol = this.colLength(this.textValue.split("\n"));
+            this.textInitializer.cols = this.colLength(this.textValue.split("\n"));
         }
     }
 
     private colLength(array: string[]): number {
         const length = array.sort((a, b) => b.length - a.length)[0].length;
         console.log(length); // tslint:disable-line
-        return length > 20 ? (length + 1) : 20;
+        return length > 20 ? length : 20;
     }
 }
