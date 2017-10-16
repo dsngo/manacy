@@ -103,7 +103,7 @@ export default class DrawService extends ServiceBase {
 
     private createBrushSVGEl(elm: IBrushProps, points: string) {
         const { fill, stroke, strokeWidth } = elm as IBrushProps;
-        return this.createWsSVGEl({ points, fill, stroke, strokeWidth });
+        return this.createWsSVGEl(elm);
     }
 
     private createWsSVGEl(elm: IBrushProps | ITextProps): WsSVGElementModel {
@@ -154,7 +154,6 @@ export default class DrawService extends ServiceBase {
     }
     // ===========================================================
 
-
     public stopDraw(omitValue, controlType) {
         if (this.drawingPoints.length === 0) {
             return;
@@ -176,7 +175,7 @@ export default class DrawService extends ServiceBase {
         const brush: BrushModel = new BrushModel(brushSettings);
         const element = this.constructElementVal(brush);
         // this.cleanUndoPath();
-        this.addBrush(brush);
+        this.addPath(brush);
         this.saveSVGElToDb(element);
         // return this.setCurrentPath(null);
         return this.setCurrentBrush(null);
