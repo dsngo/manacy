@@ -152,27 +152,29 @@ export default class DrawService extends ServiceBase {
                 this.busy(false);
             });
     }
+
+    private getPointAttributes(points: PointModel[]) {
+        let attribute = "";
+        points.forEach((point, index) => (attribute += index === 0 ? `M${point.x},${point.y} ` : `L${point.x},${point.y} `));
+        return attribute;
+    }
     // ===========================================================
 
-    public stopDraw(omitValue, controlType) {
+    public stopDrawingBrush(omitValue, controlType) {
         if (this.drawingPoints.length === 0) {
             return;
         }
         this.drawingPoints = simplify(this.drawingPoints, omitValue, true);
-        // let path: PathModel;
-        // if (controlType === "bezier") {
-        //     path = this.createPathWithBezier(this.drawingPoints);
-        // } else {
-        //     path = this.createPath(this.drawingPoints);
-        // }
-        // path.svgElementDto = this.makeSVGElement(path);
-        const brushSettings: IBrushProps = {
-            stroke: this.drawModel.color,
-            strokeWidth: this.drawModel.stroke + "px",
-            points: this.getAttribute(this.drawingPoints),
-            fill: this.drawModel.color,
+
+        const brushProps: IBrushProps = {
+            controlType,
+            stroke: this.currentPath.element.color,
+            strokeWidth: this.currentPath.stroke + "px",
+            points: this.getPointAttributes(this.drawingPoints),
+            fill: this.currentPath.color,
         };
-        const brush: BrushModel = new BrushModel(brushSettings);
+        const elm = this.createWsSVGEl(brushProps);
+        const brush: BrushModel = new BrushModel(brushProps);
         const element = this.constructElementVal(brush);
         // this.cleanUndoPath();
         this.addPath(brush);
@@ -192,18 +194,6 @@ export default class DrawService extends ServiceBase {
     //     });
     //     return this.setPath(attribute);
     // }
-
-    private getAttribute(points: PointModel[]) {
-        let attribute: string = "";
-        points.forEach((point, index) => {
-            if (index === 0) {
-                attribute += `M${point.x}, ${point.y}`;
-            } else {
-                attribute += `L${point.x}, ${point.y}`;
-            }
-        });
-        return attribute;
-    }
 
     // private createPathWithBezier(points: PointModel[]): PathModel {
     //     const cubics = catmullRom2bezier(points);
@@ -383,8 +373,6 @@ export default class DrawService extends ServiceBase {
             return text;
         }
     }
-
-
 
     public stringifyPath(jsonObjToDatabase: TextModel | BrushModel): string {
         return JSON.stringify(jsonObjToDatabase);

@@ -141,7 +141,7 @@ export default class AppDrawing extends ComponentBase {
             return;
         }
         this.isDrawing = false;
-        this.drawService.stopDraw(this.omitValue, this.controlType);
+        this.drawService.stopDrawingBrush(this.omitValue, this.controlType);
     }
 
     public clear() {
