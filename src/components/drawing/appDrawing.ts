@@ -37,27 +37,13 @@ export default class AppDrawing extends ComponentBase {
     private textInitializer = { setLeft: 20, setTop: 300, rows: 1, cols: 20 };
     private brushProps: IBrushProps;
     private brushInitializer = { controlType: "bezier", omitValue: 4 };
-    // private textBoxSetLeft = 20;
-    // private textBoxSetTop = 300;
-    // private textRows: number = 1;
-    // private textCol: number = 20;
-    // private isTextBoxDraggable: boolean = false;
-
     protected controlType: string = "bezier";
     protected omitValue: number = 4;
-    // protected textBoxHideClass = "";
-    // protected currentPath: WsSVGElementModel
-    // protected textValue = "";
-    // protected targetDate: string = "";
+    protected targetDate: string = "";
 
     public mouseDown(event): void {
         // Event handler for Left-click
-        if (
-            this.isTextDrawing &&
-            event.buttons !== 2 &&
-            event.target.nodeName === "tspan" &&
-            this.getTextString() === ""
-        ) {
+        if (this.isTextDrawing && event.buttons !== 2 && event.target.nodeName === "tspan" && this.getTextString() === "") {
             const textId = event.target.id * 1;
             this.editText(textId);
             return;
@@ -73,7 +59,7 @@ export default class AppDrawing extends ComponentBase {
     }
 
     public startDraw(x, y) {
-        if (this.drawModel.currentTool === "line") {
+        if (this.drawService.currentTool === "line") {
             this.startDrawLine();
             return;
         }
@@ -86,23 +72,18 @@ export default class AppDrawing extends ComponentBase {
     }
 
     private startDrawText(x, y) {
-        if (this.isTextDrawing && this.textValue !== "") {
-            this.drawService.drawText(
-                this.calculatePoint(),
-                this.drawModel,
-                this.textValue,
-                this.isTextEditing && this.targetDate,
-            );
+        if (this.isTextDrawing && this.getTextString() !== "") {
+            this.drawService.drawText(this.textProps);
             this.isTextDrawing = false;
             this.textInitializer.rows = 1;
             this.textInitializer.cols = 20;
             this.isTextEditing = false;
-            return (this.textValue = "");
+            return (this.textProps.textValue = [""]);
         }
-        this.textInitializer.cols = 20;
-        this.textValue = "";
         this.textInitializer.setLeft = x;
         this.textInitializer.setTop = y;
+        this.textInitializer.cols = 20;
+        this.textProps.textValue = [""];
         this.isTextDrawing = true;
     }
 
@@ -110,29 +91,20 @@ export default class AppDrawing extends ComponentBase {
         const { index, createDate, textValue, pX, pY, color, fontSize, isBold } = await this.drawService.findTargetText(textId);
         this.isTextEditing = true;
         this.isTextDrawing = true;
-        this.textValue = textValue.join("\n");
-        this.textInitializer.rows = textValue.length;
-        this.textInitializer.cols = this.colLength(textValue);
-        this.textInitializer.setLeft = pX;
-        this.textInitializer.setTop = pY - (fontSize + 10);
+        this.textProps = {...this.textProps, fontSize, color, textValue, isBold };
+        this.textInitializer = {
+            rows: textValue.length,
+            cols: this.colLength(textValue),
+            setLeft: pX,
+            setTop: pY - (fontSize + 10),
+        };
         this.targetDate = createDate;
-        this.drawModel = { ...this.drawModel, color, isBold, fontSize };
-        // (this.drawModel as ITextProps).color = color;
-        // (this.drawModel as ITextProps).isBold = isBold;
-        // (this.drawModel as ITextProps).fontSize = fontSize;
         this.drawService.cleanFrontEndElm(index);
-    }
-
-    protected calculatePoint(): PointModel {
-        return new PointModel(
-            this.textInitializer.setLeft,
-            this.textInitializer.setTop + (this.drawModel as ITextProps).fontSize + 10,
-        );
     }
 
     public drawing(x, y) {
         if (this.isDrawing) {
-            this.drawService.drawBrush({ x, y }, this.controlType, this.drawModel);
+            this.drawService.drawBrush({ x, y }, this.controlType, this.brushProps);
         }
     }
 
@@ -177,13 +149,12 @@ export default class AppDrawing extends ComponentBase {
         if (event.key === "Enter") {
             this.textInitializer.rows += 1;
         } else {
-            this.textInitializer.cols = this.colLength(this.textValue.split("\n"));
+            this.textInitializer.cols = this.colLength(this.textProps.textValue);
         }
     }
 
     private colLength(array: string[]): number {
         const length = array.sort((a, b) => b.length - a.length)[0].length;
-        console.log(length); // tslint:disable-line
         return length > 20 ? length : 20;
     }
 }

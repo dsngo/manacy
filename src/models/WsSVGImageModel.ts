@@ -2,7 +2,7 @@ import uuidv4 from "../common/uuid";
 import Models from "../models/models";
 
 export default class WsSVGImage implements Models.Dtos.SvgImageDto {
-    public elements: Array<Anzas.Manacy.Models.Dtos.SvgElementDto | string>;
+    public elements: Anzas.Manacy.Models.Dtos.SvgElementDto[];
     public id = uuidv4();
     public isDeleted: boolean;
     public createDate = new Date().toISOString();
