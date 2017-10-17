@@ -16,10 +16,10 @@
     ng-mouseup="drawCtrl.stopDraw()" dr-touchstart="drawCtrl.touchstart($event)" dr-touchmove="drawCtrl.touchMove($event)" dr-touchend="drawCtrl.touchEnd($event)">
 
     <g ng-repeat="path in drawCtrl.drawingBranch" ng-cloak ng-if="!path.isDeleted">
-        <path ng-if="!path.fontSize" stroke-linecap="round" ng-attr-d="{{path.points}}" fill="{{drawCtrl.brushProps.fill || 'none'}}" stroke="{{path.stroke}}" stroke-width="{{path.strokeWidth}}"></path>
+        <path ng-if="!path.element.fontSize" stroke-linecap="round" ng-attr-d="{{path.element.points}}" fill="{{drawCtrl.brushProps.fill || 'none'}}" stroke="{{path.element.stroke}}" stroke-width="{{path.element.strokeWidth}}"></path>
         <text ng-if="path.fontSize">
-            <tspan id="{{path.id}}" ng-attr-x="{{path.pX}}" ng-attr-y="{{path.pY + $index*path.fontSize}}" stroke-width="1px" fill="{{path.color}}"
-                font-size="{{path.fontSize}}" stroke="{{path.textBold}}" ng-repeat="textEl in path.textValue track by $index">{{textEl}}</tspan>
+            <tspan id="{{path.element.id}}" ng-attr-x="{{path.element.pX}}" ng-attr-y="{{path.element.pY + $index*path.element.fontSize}}" stroke-width="1px" fill="{{path.element.color}}"
+                font-size="{{path.element.fontSize}}" stroke="{{path.element.textBold}}" ng-repeat="textEl in path.element.textValue track by $index">{{textEl}}</tspan>
         </text>
     </g>
     <path ng-if="drawCtrl.brushProps" stroke-linecap="round" ng-attr-d="{{drawCtrl.brushProps.points}}" fill="{{drawCtrl.brushProps.fill || 'none'}}"
@@ -28,7 +28,7 @@
 <div class="text-box-wrapper" ng-if="drawCtrl.isTextDrawing" id="text-box-parent" ng-style="{top: drawCtrl.textInitializer.setTop + 'px', left: drawCtrl.textInitializer.setLeft + 'px'}">
     <div class="drag-thumb" el-draggable pos-x="drawCtrl.textInitializer.setLeft" pos-y="drawCtrl.textInitializer.setTop" parent-id="text-box-parent"
         off-style="true"></div>
-    <textarea class="text-box {{drawCtrl.getTextBold()}}" rows="{{drawCtrl.textRows}}" cols="{{drawCtrl.textCol}}"
+    <textarea class="text-box {{drawCtrl.getTextBold()}}" rows="{{drawCtrl.textInitializer.rows}}" cols="{{drawCtrl.textInitializer.col}}"
         ng-model="drawCtrl.getTextString()" ng-style="{'font-size':drawCtrl.getTextFontSize(),'color':drawCtrl.getTextColor(),'background-color':drawCtrl.getTextBGColor()}"
         ng-keypress="drawCtrl.keyPressOntextArea($event)"></textarea>
 </div>

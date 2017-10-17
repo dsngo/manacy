@@ -157,7 +157,7 @@ export default class AppDrawingSetting extends ComponentBase {
     }
 
     protected clear() {
-        this.drawService.clearDrawingPaths();
+        this.drawService.cleanDrawingPaths();
     }
     protected showTool(tool): void {
         // this.showBrushToolClass = "";
