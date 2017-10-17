@@ -23,7 +23,17 @@ export default class DrawService extends ServiceBase {
     // Props
     public currentTool = "line";
     private toolSubject: Subject<string> = new Subject();
-    private currentPath: WsSVGElementModel;
+    private currentPath: WsSVGElementModel = new WsSVGElementModel(
+        {
+            fill: "#000",
+            stroke: "#000",
+            strokeWidth: "1px",
+            points: "",
+            controlType: "bezier",
+        },
+        this.getUserId(),
+        this.getUserId(),
+    );
     private drawingPaths: WsSVGElementModel[];
     private drawingPoints: PointModel[];
     private pathSubjects: Subject<WsSVGElementModel[]> = new Subject();
@@ -118,6 +128,7 @@ export default class DrawService extends ServiceBase {
     private createWsElmBrush(pointsArr: PointModel[]): WsSVGElementModel {
         let points = "";
         pointsArr.forEach((p, i) => (points += i === 0 ? `M${p.x},${p.y} ` : `L${p.x},${p.y} `));
+        console.log(points); // tslint:disable-line
         return this.createWsSVGEl({ ...this.currentPath.element, points });
     }
 
