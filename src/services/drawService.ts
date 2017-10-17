@@ -93,7 +93,7 @@ export default class DrawService extends ServiceBase {
     }
 
     public drawBrush(points: PointModel, controlType, brushProps: IBrushProps) {
-        this.currentPath.element = brushProps;
+        // this.currentPath.element = brushProps;
         this.drawingPoints.push(points);
         const brush =
             controlType === "bezier"
