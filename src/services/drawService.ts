@@ -6,7 +6,7 @@ import { PointModel } from "../models/PointModel";
 import WsSVGElementModel from "../models/WsSVGElementModel";
 import WsSVGImageModel from "../models/WsSVGImageModel";
 import { catmullRom2Bezier } from "./catmullRom2Bezier";
-// import { simplify } from "./drawSimplify";
+import { simplify } from "./drawSimplify";
 import IdentityService from "./IdentityService";
 import ServiceBase from "./serviceBase";
 
@@ -93,6 +93,7 @@ export default class DrawService extends ServiceBase {
     }
 
     public drawBrush(points: PointModel, controlType, brushProps: IBrushProps) {
+        this.currentPath.element = brushProps;
         this.drawingPoints.push(points);
         const brush =
             controlType === "bezier"
@@ -105,13 +106,26 @@ export default class DrawService extends ServiceBase {
         if (this.drawingPoints.length === 0) {
             return;
         }
+        this.drawingPoints = simplify(this.drawingPoints, omitValue, true);
         const brush =
             controlType === "bezier"
                 ? this.createBezierWsElmBrush(this.drawingPoints)
                 : this.createWsElmBrush(this.drawingPoints);
         this.cleanUndoPath();
         this.addPath(brush);
-        this.setCurrentPath(null);
+        this.setCurrentPath(
+            new WsSVGElementModel(
+                {
+                    fill: "#000",
+                    stroke: "#000",
+                    strokeWidth: "1px",
+                    points: "",
+                    controlType: "bezier",
+                },
+                this.getUserId(),
+                this.getUserId(),
+            ),
+        );
     }
 
     private cleanUndoPath() {

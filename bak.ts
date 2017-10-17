@@ -27,7 +27,14 @@ export function catmullRom2Bezier(points: PointModel[]) {
 const pointsA = [
     { x: 1, y: 5 },
     { x: 6, y: 3 },
-
+    { x: 2, y: 9 },
+    { x: 1, y: 4 },
+    { x: 4, y: 123 },
+    { x: 561, y: 153 },
+    { x: 44, y: 123 },
+    { x: 445, y: 223 },
+    { x: 245, y: 283 },
+    { x: 545, y: 483 },
 ];
 console.log(pointsA.length); // tslint:disable-line
 

@@ -119,7 +119,7 @@ export default class DrawService extends ServiceBase {
             createdDate: foundText.svgElementDto.createDate,
         };
         return params;
-    } 
+    }
 
     public cleanText(index) {
         this.updateSvgElement(this.drawingPath[index].svgElementDto);
