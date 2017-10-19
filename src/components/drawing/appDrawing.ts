@@ -28,8 +28,12 @@ export default class AppDrawing extends ComponentBase {
                     (this.isTextDrawing && this.getTextString() !== "" && this.drawService.drawText(this.textProps),
                     (this.isTextDrawing = false)),
             );
+        this.drawService.getCurrentPathSubject().subscribe((newPath: WsSVGElementModel) => {
+            const { element } = newPath;
+            return element.fill ? (this.brushProps = element) : (this.textProps = element);
+        });
     }
-    private isDrawing: boolean;
+    private isBrushDrawing: boolean;
     private isTextDrawing: boolean;
     private isTextEditing: boolean;
     private drawingBranch: WsSVGElementModel[];
@@ -37,8 +41,6 @@ export default class AppDrawing extends ComponentBase {
     private textInitializer = { setLeft: 20, setTop: 300, rows: 1, cols: 20 };
     private brushProps: IBrushProps;
     private brushInitializer = { controlType: "bezier", omitValue: 4 };
-    protected controlType: string = "bezier";
-    protected omitValue: number = 4;
     protected targetDate: string = "";
 
     public mouseDown(event): void {
@@ -67,7 +69,7 @@ export default class AppDrawing extends ComponentBase {
     }
 
     private startDrawLine() {
-        this.isDrawing = true;
+        this.isBrushDrawing = true;
         this.drawService.clearPreviousPoints();
     }
 
@@ -91,7 +93,7 @@ export default class AppDrawing extends ComponentBase {
         const { index, createDate, textValue, pX, pY, color, fontSize, isBold } = await this.drawService.findTargetText(textId);
         this.isTextEditing = true;
         this.isTextDrawing = true;
-        this.textProps = {...this.textProps, fontSize, color, textValue, isBold };
+        this.textProps = { ...this.textProps, fontSize, color, textValue, isBold };
         this.textInitializer = {
             rows: textValue.length,
             cols: this.colLength(textValue),
@@ -103,17 +105,17 @@ export default class AppDrawing extends ComponentBase {
     }
 
     public drawing(x, y) {
-        if (this.isDrawing) {
-            this.drawService.drawBrush({ x, y }, this.controlType, this.brushProps);
+        if (this.isBrushDrawing) {
+            this.drawService.drawBrush({ x, y }, this.brushInitializer.controlType, this.brushProps);
         }
     }
 
     public stopDraw() {
-        if (!this.isDrawing) {
+        if (!this.isBrushDrawing) {
             return;
         }
-        this.isDrawing = false;
-        this.drawService.stopDrawingBrush(this.omitValue, this.controlType);
+        this.isBrushDrawing = false;
+        this.drawService.stopDrawingBrush(this.brushInitializer.omitValue, this.brushInitializer.controlType);
     }
 
     public clear() {
@@ -136,6 +138,19 @@ export default class AppDrawing extends ComponentBase {
     protected getTextBold(): string {
         return this.textProps.isBold ? "textBoxBold" : "";
     }
+    //  === Get brush properties ===
+    protected getBrushPoints(): string {
+        return this.brushProps.points;
+    }
+
+    protected getBrushFill() {
+        return this.brushProps.fill || "none";
+    }
+
+    protected getBrushStroke(w: string): string {
+        return !w ? this.brushProps.stroke || "#000" : this.brushProps.strokeWidth || "1px";
+    }
+
     public touchstart(event: TouchEvent) {
         this.startDraw(event.touches[0].pageX, event.touches[0].pageY);
     }

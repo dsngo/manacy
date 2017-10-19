@@ -93,7 +93,7 @@ export default class DrawService extends ServiceBase {
     }
 
     public drawBrush(points: PointModel, controlType, brushProps: IBrushProps) {
-        // this.currentPath.element = brushProps;
+        this.currentPath.element = brushProps;
         this.drawingPoints.push(points);
         const brush =
             controlType === "bezier"
@@ -134,15 +134,14 @@ export default class DrawService extends ServiceBase {
 
     private createBezierWsElmBrush(pointsArr: PointModel[]): WsSVGElementModel {
         const cubics = catmullRom2Bezier(pointsArr);
-        let points = `M${pointsArr[0].x},${pointsArr[0].y} `;
-        cubics.forEach(e => (points += `C${e[0]},${e[1]},${e[2]},${e[3]},${e[4]},${e[5]} `));
+        let points = `M${pointsArr[0].x},${pointsArr[0].y}`;
+        cubics.forEach(e => (points += `C${e[0]},${e[1]},${e[2]},${e[3]},${e[4]},${e[5]}`));
         return this.createWsSVGEl({ ...this.currentPath.element, points });
     }
 
     private createWsElmBrush(pointsArr: PointModel[]): WsSVGElementModel {
         let points = "";
-        pointsArr.forEach((p, i) => (points += i === 0 ? `M${p.x},${p.y} ` : `L${p.x},${p.y} `));
-        console.log(points); // tslint:disable-line
+        pointsArr.forEach((p, i) => (points += i === 0 ? `M${p.x},${p.y}` : `L${p.x},${p.y}`));
         return this.createWsSVGEl({ ...this.currentPath.element, points });
     }
 
@@ -196,7 +195,7 @@ export default class DrawService extends ServiceBase {
 
     private getPointAttributes(points: PointModel[]) {
         let attribute = "";
-        points.forEach((point, index) => (attribute += index === 0 ? `M${point.x},${point.y} ` : `L${point.x},${point.y} `));
+        points.forEach((point, index) => (attribute += index === 0 ? `M${point.x},${point.y}` : `L${point.x},${point.y}`));
         return attribute;
     }
     // ===========================================================

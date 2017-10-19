@@ -2,15 +2,18 @@ import { PointModel } from "./src/models/pointModel";
 
 export function catmullRom2Bezier(points: PointModel[]) {
     const cubics = [];
-    const iLen = points.length - 1;
+    const iLen = points.length;
     for (let i = 0; i < iLen; i++) {
-        const p = [];
-        if (0 === i) {
-            p.push(points[i], points[i], points[i + 1], points[i + 2]);
-        } else if (iLen - 1 === i) {
-            p.push(points[i - 1], points[i], points[i + 1], points[i + 1]);
-        } else {
-            p.push(points[i - 1], points[i], points[i + 1], points[i + 2]);
+        const p = [points[i - 1], points[i], points[i + 1], points[i + 2]];
+        if (i === 0) {
+            p[0] = { x: points[0].x, y: points[0].y };
+        }
+        if (i === iLen - 2) {
+            p[3] = { x: points[iLen - 2].x, y: points[iLen - 2].y };
+        }
+        if (i === iLen - 1) {
+            p[2] = { x: points[iLen - 1].x, y: points[iLen - 1].y };
+            p[3] = { x: points[iLen - 1].x, y: points[iLen - 1].y };
         }
         cubics.push([
             (-p[0].x + 6 * p[1].x + p[2].x) / 6,
@@ -24,18 +27,7 @@ export function catmullRom2Bezier(points: PointModel[]) {
     return cubics;
 }
 
-const pointsA = [
-    { x: 1, y: 5 },
-    { x: 6, y: 3 },
-    { x: 2, y: 9 },
-    { x: 1, y: 4 },
-    { x: 4, y: 123 },
-    { x: 561, y: 153 },
-    { x: 44, y: 123 },
-    { x: 445, y: 223 },
-    { x: 245, y: 283 },
-    { x: 545, y: 483 },
-];
+const pointsA = [{ x: 1, y: 5 }, { x: 6, y: 3 }];
 console.log(pointsA.length); // tslint:disable-line
 
 const cubics1 = catmullRom2Bezier(pointsA);
