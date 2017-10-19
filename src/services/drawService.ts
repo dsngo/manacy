@@ -25,7 +25,7 @@ export default class DrawService extends ServiceBase {
     private toolSubject: Subject<string> = new Subject();
     private currentPath: WsSVGElementModel = new WsSVGElementModel(
         {
-            fill: "#000",
+            fill: "none",
             stroke: "#000",
             strokeWidth: "1px",
             points: "",
@@ -58,11 +58,12 @@ export default class DrawService extends ServiceBase {
     }
     // Setters
     public setCurrentTool(tool: string): void {
+        this.currentTool = tool;
         this.toolSubject.next(tool);
     }
     public setCurrentPath(path: WsSVGElementModel) {
         this.currentPath = path;
-        this.currentPathSubject.next(this.currentPath);
+        this.currentPathSubject.next(path);
     }
     // Methods
     public addPath(path: WsSVGElementModel) {
@@ -106,7 +107,9 @@ export default class DrawService extends ServiceBase {
         if (this.drawingPoints.length === 0) {
             return;
         }
-        this.drawingPoints = simplify(this.drawingPoints, omitValue, true);
+        if (this.drawingPoints.length > 2) {
+            this.drawingPoints = simplify(this.drawingPoints, omitValue, true);
+        }
         const brush =
             controlType === "bezier"
                 ? this.createBezierWsElmBrush(this.drawingPoints)
@@ -133,9 +136,13 @@ export default class DrawService extends ServiceBase {
     }
 
     private createBezierWsElmBrush(pointsArr: PointModel[]): WsSVGElementModel {
-        const cubics = catmullRom2Bezier(pointsArr);
         let points = `M${pointsArr[0].x},${pointsArr[0].y}`;
-        cubics.forEach(e => (points += `C${e[0]},${e[1]},${e[2]},${e[3]},${e[4]},${e[5]}`));
+        if (pointsArr.length > 2) {
+            const cubics = catmullRom2Bezier(pointsArr);
+            cubics.forEach(e => (points += `C${e[0]},${e[1]},${e[2]},${e[3]},${e[4]},${e[5]}`));
+        } else {
+            points += `L${pointsArr[1].x},${pointsArr[1].y}`;
+        }
         return this.createWsSVGEl({ ...this.currentPath.element, points });
     }
 

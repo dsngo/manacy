@@ -37,9 +37,22 @@ export default class AppDrawing extends ComponentBase {
     private isTextDrawing: boolean;
     private isTextEditing: boolean;
     private drawingBranch: WsSVGElementModel[];
-    private textProps: ITextProps;
+    private textProps: ITextProps = {
+        fontSize: 10,
+        color: "#000",
+        textValue: [""],
+        isBold: false,
+        pX: 1,
+        pY: 1,
+    };
     private textInitializer = { setLeft: 20, setTop: 300, rows: 1, cols: 20 };
-    private brushProps: IBrushProps;
+    private brushProps: IBrushProps = {
+        fill: "none",
+        stroke: "#000",
+        strokeWidth: "1px",
+        points: "",
+        controlType: "bezier",
+    };
     private brushInitializer = { controlType: "bezier", omitValue: 4 };
     protected targetDate: string = "";
 
