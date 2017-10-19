@@ -53,7 +53,7 @@ export default class AppDrawing extends ComponentBase {
         points: "",
         controlType: "bezier",
     };
-    private brushInitializer = { controlType: "bezier", omitValue: 4 };
+    private brushInitializer = { controlType: "bezier", omitValue: 2 };
     protected targetDate: string = "";
 
     public mouseDown(event): void {

@@ -136,12 +136,13 @@ export default class DrawService extends ServiceBase {
     }
 
     private createBezierWsElmBrush(pointsArr: PointModel[]): WsSVGElementModel {
+        const pLen = pointsArr.length;
         let points = `M${pointsArr[0].x},${pointsArr[0].y}`;
-        if (pointsArr.length > 2) {
+        if (pLen === 2) {
+            points += `L${pointsArr[1].x},${pointsArr[1].y}`;
+        } else {
             const cubics = catmullRom2Bezier(pointsArr);
             cubics.forEach(e => (points += `C${e[0]},${e[1]},${e[2]},${e[3]},${e[4]},${e[5]}`));
-        } else {
-            points += `L${pointsArr[1].x},${pointsArr[1].y}`;
         }
         return this.createWsSVGEl({ ...this.currentPath.element, points });
     }
